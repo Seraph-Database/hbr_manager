@@ -5,7 +5,7 @@
             {{ `Toggle all visible styles` }}
         </v-tooltip>
     </v-btn>
-    <v-btn @click="showSearch" icon class="text-white" aria-label="Show filters">
+    <v-btn @click="showSearch" :loading="dataStore.loading" icon class="text-white" aria-label="Show filters">
         <v-icon icon="mdi-dots-vertical"></v-icon>
         <v-tooltip v-if="!$vuetify.display.smAndDown" activator="parent" location="bottom">
             {{ `Display filters` }}
@@ -229,6 +229,7 @@
         </v-card>
     </v-dialog>
     <v-dialog :close-on-back="true" :persistent="true" scrollable v-model:model-value="toggleAll" :max-width="`36rem`"
+        :height="$vuetify.display.smAndDown ? undefined : $vuetify.display.height - 192"
         transition="scale-transition" :scrim="`#212121`" :close-on-content-click="false">
         <div class="v-card__white-frame--top-left"></div>
         <div class="v-card__white-frame--bottom-right"></div>

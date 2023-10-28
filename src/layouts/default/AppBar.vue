@@ -54,12 +54,12 @@
 
 <script lang="ts" setup>
 import Search from '@/components/default/Search.vue';
-import { useRouter, useRoute } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { useLotteryStore } from '@/store/app';
 
 const lotteryStore = useLotteryStore()
 const route = useRoute()
-const router = useRouter()
+// const router = useRouter()
 
 </script>
 
