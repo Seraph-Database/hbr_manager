@@ -66,8 +66,11 @@ export const useStyleStore = defineStore('styles', {
         : [...this.owned, [styleId, 0]]
       localStorage.setItem("userData", JSON.stringify(this.owned))
     },
+    isAllVisibleOwned(styleList: number[][]): boolean {
+      return styleList.every(s => this.owned.findIndex(x => x[0] === s[0]) > -1)
+    },
     toggleAllVisibleMax(styleList: number[][]): void {
-      this.owned = styleList.every(s => this.owned.findIndex(x => x[0] === s[0]) > -1)
+      this.owned = this.isAllVisibleOwned(styleList)
       ? this.owned.filter(s => styleList.findIndex(x => x[0] === s[0]) < 0)
       : [...this.owned.filter(s => styleList.findIndex(x => x[0] === s[0]) < 0), ...styleList]
       localStorage.setItem("userData", JSON.stringify(this.owned))

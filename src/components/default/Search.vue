@@ -1,22 +1,23 @@
 <template>
-    <v-btn v-if="dataStore.getStyles" aria-label="Toggle all" @click.stop="showToggleAll" icon class="text-white">
-        <v-icon icon="mdi-check-all"></v-icon>
-        <v-tooltip v-if="!$vuetify.display.smAndDown" activator="parent" location="bottom">
-            {{ `Toggle all visible styles` }}
-        </v-tooltip>
-    </v-btn>
+    <v-slide-y-transition appear>
+        <v-btn v-if="dataStore.getStyles" aria-label="Toggle all" @click.stop="showToggleAll" icon class="text-white">
+            <v-icon icon="mdi-check-all"></v-icon>
+            <v-tooltip v-if="!$vuetify.display.smAndDown" activator="parent" location="bottom">
+                {{ `Toggle all visible styles` }}
+            </v-tooltip>
+        </v-btn>
+    </v-slide-y-transition>
     <v-btn @click="showSearch" :loading="dataStore.loading" icon class="text-white" aria-label="Show filters">
         <v-icon icon="mdi-dots-vertical"></v-icon>
         <v-tooltip v-if="!$vuetify.display.smAndDown" activator="parent" location="bottom">
             {{ `Display filters` }}
         </v-tooltip>
     </v-btn>
-    <v-dialog :close-on-back="true" :persistent="true" scrollable
-        v-model:model-value="search" transition="scale-transition"
+    <v-dialog :close-on-back="true" :persistent="true" scrollable v-model:model-value="search" transition="scale-transition"
         :max-width="$vuetify.display.smAndDown ? undefined : `48rem`"
         :height="$vuetify.display.smAndDown ? undefined : $vuetify.display.height - 192" :scrim="`#212121`"
         :close-on-content-click="false">
-        <div  class="v-card__white-frame--top-left"></div>
+        <div class="v-card__white-frame--top-left"></div>
         <div class="v-card__white-frame--bottom-right"></div>
         <v-card color="#312942aa" class="v-card--shadowless search elevation-0 rounded-0"
             :class="{ mobile: $vuetify.display.smAndDown }" v-click-outside="hideSearch">
@@ -34,7 +35,8 @@
                 </template>
             </v-toolbar>
 
-            <v-card-text :class="`${$vuetify.display.smAndDown ? `ma-0 pa-0 mx-3` : `ma-0 pa-0 mx-4 ml-3 pr-3`} filter-list text-HBR`">
+            <v-card-text
+                :class="`${$vuetify.display.smAndDown ? `ma-0 pa-0 mx-3` : `ma-0 pa-0 mx-4 ml-3 pr-3`} filter-list text-HBR`">
                 <v-expansion-panels readonly v-model="activeFilters" multiple variant="accordion">
                     <v-expansion-panel class="filter-category mb-2">
                         <v-expansion-panel-title hide-actions>
@@ -229,8 +231,8 @@
         </v-card>
     </v-dialog>
     <v-dialog :close-on-back="true" :persistent="true" scrollable v-model:model-value="toggleAll" :max-width="`36rem`"
-        :height="$vuetify.display.smAndDown ? undefined : $vuetify.display.height - 192"
-        transition="scale-transition" :scrim="`#212121`" :close-on-content-click="false">
+        :height="$vuetify.display.smAndDown ? undefined : $vuetify.display.height - 192" transition="scale-transition"
+        :scrim="`#212121`" :close-on-content-click="false">
         <div class="v-card__white-frame--top-left"></div>
         <div class="v-card__white-frame--bottom-right"></div>
         <v-card color="#312942aa" class="v-card--shadowless search elevation-0 rounded-0"
@@ -251,7 +253,8 @@
                     <v-list-item class="px-2" v-for="style in dataStore.getStyles?.filter(searchFilter)" :key="style.id"
                         :title="`${style.name}`">
                         <template v-slot:prepend>
-                            <img width="32" height="32" class="mr-1" :src="`https://hbr.quest/ui/IconRarity${style.tier}.webp`" />
+                            <img width="32" height="32" class="mr-1"
+                                :src="`https://hbr.quest/ui/IconRarity${style.tier}.webp`" />
                         </template>
                         <template v-slot:append>
                             <img width="32" height="32" :src="`https://hbr.quest/hbr/${style.image}`" />
@@ -260,8 +263,13 @@
                 </v-list>
             </v-card-text>
 
-            <div class="text-normal text-center text-HBR mx-3 mt-2">
-                {{ `Would you like to set all displayed styles to MAX LB ?` }}
+            <div v-if="dataStore.getStyles" class="text-normal text-center text-HBR mx-3 mt-2">
+                {{ dataStore.isAllVisibleOwned(dataStore.getStyles
+                    .filter(searchFilter)
+                    .map(s => [s.id, s.limit_break.bonus_per_level.length - 1]))
+                    ? `Reset the status of all displayed styles ?`
+                    : `Set the status of all displayed styles to MAX LB ?`
+                }}
             </div>
 
             <v-toolbar color="#ffffff00" class="btn-toolbar pa-0 py-3 pt-1">
@@ -315,6 +323,7 @@ const dataStore = useStyleStore()
 const searchStore = useSearchStore()
 const search = ref(route.query.v === `search`)
 const toggleAll = ref(false)
+// const btnFocused = ref(false)
 const activeFilters = ref([] as number[])
 
 const initialize = async () => {
@@ -422,6 +431,8 @@ const showSearch = () => {
 }
 
 const hideSearch = () => {
+    // btnFocused.value = true
+    // setTimeout(() => btnFocused.value = false, 150)
     router.push({
         name: String(route.name),
         params: { ...route.params },
@@ -440,6 +451,8 @@ const cancelToggleAll = () => {
 
 const confirmToggleAll = () => {
     toggleAll.value = false
+    // btnFocused.value = true
+    // setTimeout(() => btnFocused.value = false, 150)
     if (dataStore.getStyles) {
         dataStore.toggleAllVisibleMax(dataStore.getStyles.filter(searchFilter).map(s => [s.id, s.limit_break.bonus_per_level.length - 1]))
     }
