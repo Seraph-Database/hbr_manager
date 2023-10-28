@@ -26,7 +26,7 @@ import { useStyleStore, useSearchStore } from '@/store/app';
 // import { useRoute/*, useRouter */ } from 'vue-router';
 import { ref/*, watch */ } from 'vue';
 import { Style } from '@/types';
-import { CardRarity, CharacterRole, CharacterTeam, SkillType } from '@/enums';
+import { CardRarity, CharacterRole, CharacterTeam } from '@/enums';
 import { ElementType } from '@/enums';
 import { WeaponType } from '@/enums';
 
@@ -85,23 +85,23 @@ const searchFilter = (s: Style): boolean => {
   if (searchStore.weaponTypes.length > 0) {
     result = result && searchStore.weaponTypes.includes(Number(WeaponType[s.weapon.type]) - 1)
   }
-  if (searchStore.skillTypes.length > 0) {
-    result = result && s.skills.length > 0
-      && s.skills
-        .some(sk => sk.parts
-          .some(p => searchStore.skillTypes
-            .includes(Number(SkillType[p.skill_type as keyof typeof SkillType]) - 1)
-            || p.strval
-              .some(subsk => {
-                return typeof subsk !== `number` && subsk.parts
-                  .some(subp => searchStore.skillTypes
-                    .includes(Number(SkillType[subp.skill_type as keyof typeof SkillType]) - 1)
-                  )
-              }
-              )
-          )
-        )
-  }
+  // if (searchStore.skillTypes.length > 0) {
+  //   result = result && s.skills.length > 0
+  //     && s.skills
+  //       .some(sk => sk.parts
+  //         .some(p => searchStore.skillTypes
+  //           .includes(Number(SkillType[p.skill_type as keyof typeof SkillType]) - 1)
+  //           || p.strval
+  //             .some(subsk => {
+  //               return typeof subsk !== `number` && subsk.parts
+  //                 .some(subp => searchStore.skillTypes
+  //                   .includes(Number(SkillType[subp.skill_type as keyof typeof SkillType]) - 1)
+  //                 )
+  //             }
+  //             )
+  //         )
+  //       )
+  // }
 
   return result
 }

@@ -72,6 +72,7 @@ import DefaultView from './View.vue'
 
 .text-normal {
   color: #f6e5e5;
+  font-size: 1rem;
 }
 
 .text-LB {
@@ -100,7 +101,7 @@ import DefaultView from './View.vue'
     line-height: 1rem;
     border-radius: 0.25rem;
     padding: 0.375rem 0.5rem;
-    font-size: 1.125rem;
+    font-size: 1rem;
     background: linear-gradient(15deg, rgba(49, 42, 71, 1) 0%, rgba(168, 89, 141, 1) 100%);
   }
 }
