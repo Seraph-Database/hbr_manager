@@ -189,3 +189,9 @@ export type Weapon = {
     type: WeaponType,
     name: string
 }
+
+
+export type UserData = {
+    charaId: number,
+    styleList: number[]
+}

@@ -18,7 +18,7 @@
                       width="3.375rem" height="3.375rem" />
 
                     <v-img class="style-strip__gradient"
-                      :gradient="`to left, rgba(0, 0, 0, 0), ${CharacterRoleGrandient[String(item.role) as keyof typeof CharacterRoleGrandient]} 35%, ${CharacterRoleGrandient[String(item.role) as keyof typeof CharacterRoleGrandient]} 85%, rgba(0, 0, 0, 0)`"
+                      :gradient="`to left, rgba(0, 0, 0, 0), ${CharacterRoleGradient[String(item.role) as keyof typeof CharacterRoleGradient]} 35%, ${CharacterRoleGradient[String(item.role) as keyof typeof CharacterRoleGradient]} 85%, rgba(0, 0, 0, 0)`"
                       height="1.5rem" width="66.66%">
                     </v-img>
 
@@ -98,7 +98,7 @@ import { useDisplay } from 'vuetify';
 // import { useRoute/*, useRouter */ } from 'vue-router';
 import { computed, ref/*, watch */ } from 'vue';
 import { Style } from '@/types';
-import { CardRarity, CharacterRole, CharacterTeam, CharacterRoleGrandient, SkillType } from '@/enums';
+import { CardRarity, CharacterRole, CharacterTeam, CharacterRoleGradient, SkillType } from '@/enums';
 import { ElementType } from '@/enums';
 import { WeaponType } from '@/enums';
 

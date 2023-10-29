@@ -663,7 +663,7 @@ export enum CharacterRoleURL {
     DEFENDER
 }
 
-export enum CharacterRoleGrandient {
+export enum CharacterRoleGradient {
     Attacker = `hsla(310, 64%, 35%, 0.84)`,
     Breaker = `hsla(358, 64%, 35%, 0.84)`,
     Blaster = `hsla(57, 64%, 35%, 0.84)`,

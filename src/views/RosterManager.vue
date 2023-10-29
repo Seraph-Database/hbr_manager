@@ -15,6 +15,22 @@
         </v-row>
       </v-card>
     </v-slide-y-transition>
+    <v-sheet color="transparent" class="mt-4" v-if="dataStore.getReducedUserData()">
+      <!-- <v-row no-gutters class="text-normal text-HBR">
+        <v-col cols="auto">
+          {{ encode(reducedUserData.map(d => [d.charaId, d.styleList])) }}
+        </v-col>
+      </v-row> -->
+      <!-- <v-row no-gutters class="mt-4">
+        <v-col cols="6">
+        </v-col>
+        <v-col cols="6" class="text-normal">
+          <div v-for="line, index in dataStore.getReducedUserData()" :key="index">
+            {{ line }}
+          </div>
+        </v-col>
+      </v-row> -->
+    </v-sheet>
   </v-container>
 </template>
 
@@ -29,6 +45,7 @@ import { Style } from '@/types';
 import { CardRarity, CharacterRole, CharacterTeam } from '@/enums';
 import { ElementType } from '@/enums';
 import { WeaponType } from '@/enums';
+// import { encode, decode } from '@/helpers/encoder';
 
 const dataStore = useStyleStore()
 const searchStore = useSearchStore()
@@ -130,4 +147,5 @@ const searchFilter = (s: Style): boolean => {
 
 .style--greyed {
   opacity: 0.24;
-}</style>
+}
+</style>

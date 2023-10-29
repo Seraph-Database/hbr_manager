@@ -5,12 +5,12 @@
                 <v-img width="356" height="144" class="style-strip"
                     :src="`https://hbr.quest/hbr/${(dataStore.getStyles as Style[])[styleIndex - 1].strip.replace(`Party`, `Select`)}`">
 
-                    <v-img class="style-rarity__icon"
+                    <img class="style-rarity__icon"
                         :src="`https://hbr.quest/ui/IconRarity${(dataStore.getStyles as Style[])[styleIndex - 1].tier}.webp`"
-                        width="3.375rem" height="3.375rem" />
+                        width="54" height="54" />
 
                     <v-img class="style-strip__gradient"
-                        :gradient="`to left, rgba(0, 0, 0, 0), ${CharacterRoleGrandient[String((dataStore.getStyles as Style[])[styleIndex - 1].role) as keyof typeof CharacterRoleGrandient]} 35%, ${CharacterRoleGrandient[String((dataStore.getStyles as Style[])[styleIndex - 1].role) as keyof typeof CharacterRoleGrandient]} 85%, rgba(0, 0, 0, 0)`"
+                        :gradient="`to left, rgba(0, 0, 0, 0), ${CharacterRoleGradient[String((dataStore.getStyles as Style[])[styleIndex - 1].role) as keyof typeof CharacterRoleGradient]} 35%, ${CharacterRoleGradient[String((dataStore.getStyles as Style[])[styleIndex - 1].role) as keyof typeof CharacterRoleGradient]} 85%, rgba(0, 0, 0, 0)`"
                         height="1.5rem" width="66.66%">
                     </v-img>
 
@@ -18,9 +18,9 @@
                         <span>{{ String((dataStore.getStyles as Style[])[styleIndex - 1].role).toUpperCase() }}</span>
                     </v-chip>
 
-                    <v-img class="style-type__icon" width="2.75rem" height="2.75rem"
+                    <img class="style-type__icon" width="44" height="44"
                         :src="`https://hbr.quest/ui/${(dataStore.getStyles as Style[])[styleIndex - 1].type}.webp`" />
-                    <v-img class="style-element__icon" width="2.75rem" height="2.75rem"
+                    <img class="style-element__icon" width="44" height="44"
                         v-if="(dataStore.getStyles as Style[])[styleIndex - 1].elements.length > 0"
                         :src="`https://hbr.quest/ui/${(dataStore.getStyles as Style[])[styleIndex - 1].elements[0]}.webp`" />
 
@@ -37,12 +37,12 @@
                                     {{ `${dataStore.getStyleLv((dataStore.getStyles as Style[])[styleIndex - 1].id)}` }}
                                 </v-col>
                                 <v-col
-                                    v-if="Number(dataStore.getStyleLv((dataStore.getStyles as Style[])[styleIndex - 1].id)) < (dataStore.getStyles as Style[])[styleIndex - 1].limit_break.bonus_per_level.length - 1"
+                                    v-if="dataStore.getStyleLv((dataStore.getStyles as Style[])[styleIndex - 1].id) < (dataStore.getStyles as Style[])[styleIndex - 1].limit_break.bonus_per_level.length - 1"
                                     cols="auto" class="px-0 text-HBR text-LB text-HBR--stroke">
                                     <v-btn width="1.5rem" height="1.5rem" variant="text" icon color="#d64f92"
                                         @click.stop="dataStore.setStyleLv((dataStore.getStyles as Style[])[styleIndex - 1].id, (dataStore.getStyles as Style[])[styleIndex - 1].limit_break.bonus_per_level.length - 1, true)">
                                         <v-icon class="text-HBR--stroke" color="#ffb9b9" size="1.5rem"
-                                            icon="mdi-chevron-double-right"></v-icon>
+                                            icon="mdi-chevron-double-up"></v-icon>
                                     </v-btn>
 
                                 </v-col>
@@ -64,7 +64,7 @@
 <script lang="ts" setup>
 import { useStyleStore } from '@/store/app';
 import { Style } from '@/types';
-import { CharacterRoleGrandient } from '@/enums';
+import { CharacterRoleGradient } from '@/enums';
 
 
 defineProps<{

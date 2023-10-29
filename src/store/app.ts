@@ -5,7 +5,9 @@ import {
   DataStore,
   Lottery,
   Style,
+  UserData,
 } from '@/types'
+import { charaList } from '@/helpers/chara';
 
 const myHeaders: HeadersInit = new Headers({
   "Access-Control-Allow-Origin": "*",
@@ -66,13 +68,16 @@ export const useStyleStore = defineStore('styles', {
         : [...this.owned, [styleId, 0]]
       localStorage.setItem("userData", JSON.stringify(this.owned))
     },
+    isOwned(style: Style): boolean {
+      return this.owned.findIndex(x => x[0] === style.id) > -1
+    },
     isAllVisibleOwned(styleList: number[][]): boolean {
       return styleList.every(s => this.owned.findIndex(x => x[0] === s[0]) > -1)
     },
     toggleAllVisibleMax(styleList: number[][]): void {
       this.owned = this.isAllVisibleOwned(styleList)
-      ? this.owned.filter(s => styleList.findIndex(x => x[0] === s[0]) < 0)
-      : [...this.owned.filter(s => styleList.findIndex(x => x[0] === s[0]) < 0), ...styleList]
+        ? this.owned.filter(s => styleList.findIndex(x => x[0] === s[0]) < 0)
+        : [...this.owned.filter(s => styleList.findIndex(x => x[0] === s[0]) < 0), ...styleList]
       localStorage.setItem("userData", JSON.stringify(this.owned))
     },
     setStyleLv(styleId: number, maxLv: number, setToMax: boolean = false): void {
@@ -88,13 +93,35 @@ export const useStyleStore = defineStore('styles', {
         : this.owned
       localStorage.setItem("userData", JSON.stringify(this.owned))
     },
-    getStyleLv(styleId: number): string {
+    getStyleLv(styleId: number): number {
       return this.owned.findIndex(s => s[0] === styleId) > -1
-        ? this.owned
+        ? Number(this.owned
           .filter(s => s[0] === styleId)
           .map(s => s[1])
-          .join(``)
-        : ``
+          .join(``))
+        : -1
+    },
+    getCharaIndex(label: string): number {
+      return charaList.findIndex(c => c === label) + 1
+    },
+    getIncrementedStyleLv(index: number): number {
+      return this.getStyleLv(index) + 1
+    },
+    getReducedUserData(): UserData[] | undefined {
+      return this.getStyles
+        ?.reduce((acc, style) => {
+          return acc.findIndex(a => a.charaId === this.getCharaIndex(style.chara_label)) > -1
+            ? acc.map(a => a.charaId === this.getCharaIndex(style.chara_label)
+              ? {
+                charaId: a.charaId,
+                styleList: [...a.styleList, this.getIncrementedStyleLv(style.id)]
+              }
+              : a)
+            : [...acc, {
+              charaId: this.getCharaIndex(style.chara_label),
+              styleList: [0, this.getIncrementedStyleLv(style.id)]
+            }]
+        }, [] as UserData[])
     }
   }
 })
