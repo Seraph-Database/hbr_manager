@@ -67,11 +67,13 @@ export type Style = {
     role: CharacterRole // StyleRole
     type: ElementType // AttackType
     elements: ElementType[] // AttackElement[]
-    weapon: Weapon
+    // weapon: Weapon
+    weapon: string
     base_param: BaseParam
     skills: Skill[]
     growth_abi: GrowthAbility
     limit_break: LimitBreak
+    max_lb: number
     ability_tree: AbilityTree[]
     passives: PassiveSkill[]
     generalize: boolean

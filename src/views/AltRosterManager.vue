@@ -68,8 +68,7 @@
                             {{ `Lv.` }}
                           </v-col>
                           <v-col cols="auto" class="px-1 text-HBR text-LB text-HBR--stroke">
-                            {{ `${item.limit_break.bonus_per_level.length -
-                              1}` }}
+                            {{ `${item.max_lb}` }}
                           </v-col>
                         </v-row>
                       </v-btn>
@@ -160,7 +159,7 @@ const searchFilter = (s: Style): boolean => {
     result = result && searchStore.attackTypes.includes(Number(ElementType[s.type]) - 10)
   }
   if (searchStore.weaponTypes.length > 0) {
-    result = result && searchStore.weaponTypes.includes(Number(WeaponType[s.weapon.type]) - 1)
+    result = result && searchStore.weaponTypes.includes(Number(WeaponType[s.weapon]) - 1)
   }
   if (searchStore.skillTypes.length > 0) {
     result = result && s.skills.length > 0

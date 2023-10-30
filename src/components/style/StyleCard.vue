@@ -26,7 +26,7 @@
 
                     <div class="style-status">
                         <v-btn
-                            @click.stop="dataStore.setStyleLv((dataStore.getStyles as Style[])[styleIndex - 1].id, (dataStore.getStyles as Style[])[styleIndex - 1].limit_break.bonus_per_level.length - 1)"
+                            @click.stop="dataStore.setStyleLv((dataStore.getStyles as Style[])[styleIndex - 1].id, (dataStore.getStyles as Style[])[styleIndex - 1].max_lb)"
                             class="pa-0 px-3 pr-1 ml-1 mb-2" color="transparent" rounded="pill" flat variant="text"
                             v-if="dataStore.getOwned.findIndex(s => s[0] === (dataStore.getStyles as Style[])[styleIndex - 1].id) > -1">
                             <v-row no-gutters class="align-center">
@@ -37,10 +37,10 @@
                                     {{ `${dataStore.getStyleLv((dataStore.getStyles as Style[])[styleIndex - 1].id)}` }}
                                 </v-col>
                                 <v-col
-                                    v-if="dataStore.getStyleLv((dataStore.getStyles as Style[])[styleIndex - 1].id) < (dataStore.getStyles as Style[])[styleIndex - 1].limit_break.bonus_per_level.length - 1"
+                                    v-if="dataStore.getStyleLv((dataStore.getStyles as Style[])[styleIndex - 1].id) < (dataStore.getStyles as Style[])[styleIndex - 1].max_lb"
                                     cols="auto" class="px-0 text-HBR text-LB text-HBR--stroke">
                                     <v-btn width="1.5rem" height="1.5rem" variant="text" icon color="#d64f92"
-                                        @click.stop="dataStore.setStyleLv((dataStore.getStyles as Style[])[styleIndex - 1].id, (dataStore.getStyles as Style[])[styleIndex - 1].limit_break.bonus_per_level.length - 1, true)">
+                                        @click.stop="dataStore.setStyleLv((dataStore.getStyles as Style[])[styleIndex - 1].id, (dataStore.getStyles as Style[])[styleIndex - 1].max_lb, true)">
                                         <v-icon class="text-HBR--stroke" color="#ffb9b9" size="1.5rem"
                                             icon="mdi-chevron-double-up"></v-icon>
                                     </v-btn>

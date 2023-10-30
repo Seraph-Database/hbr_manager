@@ -44,7 +44,7 @@
             <div v-if="dataStore.getStyles" class="text-normal text-center text-HBR mx-3 mt-2">
                 {{ dataStore.isAllVisibleOwned(dataStore.getStyles
                     .filter(searchFilter)
-                    .map(s => [s.id, s.limit_break.bonus_per_level.length - 1]))
+                    .map(s => [s.id, s.max_lb]))
                     ? `Reset the status of all displayed styles ?`
                     : `Set the status of all displayed styles to MAX LB ?`
                 }}
@@ -132,7 +132,7 @@ const searchFilter = (s: Style): boolean => {
         result = result && searchStore.attackTypes.includes(Number(ElementType[s.type]) - 10)
     }
     if (searchStore.weaponTypes.length > 0) {
-        result = result && searchStore.weaponTypes.includes(Number(WeaponType[s.weapon.type]) - 1)
+        result = result && searchStore.weaponTypes.includes(Number(WeaponType[s.weapon]) - 1)
     }
 
     return result
@@ -151,7 +151,7 @@ const confirmToggleAll = () => {
     // btnFocused.value = true
     // setTimeout(() => btnFocused.value = false, 150)
     if (dataStore.getStyles) {
-        dataStore.toggleAllVisibleMax(dataStore.getStyles.filter(searchFilter).map(s => [s.id, s.limit_break.bonus_per_level.length - 1]))
+        dataStore.toggleAllVisibleMax(dataStore.getStyles.filter(searchFilter).map(s => [s.id, s.max_lb]))
     }
 }
 </script>

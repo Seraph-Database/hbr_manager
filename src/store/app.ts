@@ -60,7 +60,7 @@ export const useStyleStore = defineStore('styles', {
   },
   actions: {
     async loadStyles(): Promise<boolean> {
-      return await request(`styles`).then((data) => {
+      return await request(`styles_s`).then((data) => {
         this.data = this.data ? { ...this.data, styles: data as Style[] } : { styles: data as Style[] }
         return true
       })

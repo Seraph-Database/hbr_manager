@@ -100,7 +100,7 @@ const searchFilter = (s: Style): boolean => {
     result = result && searchStore.attackTypes.includes(Number(ElementType[s.type]) - 10)
   }
   if (searchStore.weaponTypes.length > 0) {
-    result = result && searchStore.weaponTypes.includes(Number(WeaponType[s.weapon.type]) - 1)
+    result = result && searchStore.weaponTypes.includes(Number(WeaponType[s.weapon]) - 1)
   }
   // if (searchStore.skillTypes.length > 0) {
   //   result = result && s.skills.length > 0
