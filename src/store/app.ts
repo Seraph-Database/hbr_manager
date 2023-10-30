@@ -41,7 +41,7 @@ const getUserData = (): number[][] => {
 }
 
 const setUserData = (data: number[][]): void => {
-  setTimeout(() => localStorage.setItem("userData", JSON.stringify(data)), 150)
+  localStorage.setItem("userData", JSON.stringify(data))
 }
 
 export const useStyleStore = defineStore('styles', {
