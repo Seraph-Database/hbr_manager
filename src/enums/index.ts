@@ -5,6 +5,11 @@ export enum CardStatus {
 	Owned
 }
 
+export enum CardStatusURL {
+	NONE = 0,
+	OWNED
+}
+
 export enum CardRarity {
 	A = 1,
 	S,

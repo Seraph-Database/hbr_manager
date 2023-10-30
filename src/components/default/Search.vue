@@ -249,7 +249,8 @@ import {
     // ElementCategory,
     CharacterRoleGradient,
     CharacterRoleURL,
-    CardStatus
+    CardStatus,
+CardStatusURL
 } from '@/enums';
 // import { Style } from '@/types';
 const route = useRoute()
@@ -289,6 +290,9 @@ watch(search, () => {
 })
 
 watch(() => dataStore.loading, () => {
+    searchStore.setStatus(route.query.is
+        ? `${route.query.is}`.split(`,`).map(e => Number(CardStatusURL[e.toUpperCase() as keyof typeof CardStatusURL]))
+        : [])
     searchStore.setRarity(route.query.t
         ? `${route.query.t}`.split(`,`).map(e => Number(CardRarity[e.toUpperCase() as keyof typeof CardRarity]) - 1)
         : [])
@@ -342,6 +346,7 @@ searchStore.$subscribe(() => {
         params: { ...route.params },
         query: {
             ...route.query,
+            is: searchStore.status.length > 0 ? searchStore.status.map(e => String(CardStatusURL[e]).toLowerCase()).join(`,`) : undefined,
             t: searchStore.rarities.length > 0 ? searchStore.rarities.map(e => String(CardRarity[e + 1]).toLowerCase()).join(`,`) : undefined,
             r: searchStore.roles.length > 0 ? searchStore.roles.map(e => String(CharacterRoleURL[e]).toLowerCase()).join(`,`) : undefined,
             s: searchStore.teams.length > 0 ? searchStore.teams.map(e => String(CharacterTeamURL[e]).toLowerCase()).join(`,`) : undefined,

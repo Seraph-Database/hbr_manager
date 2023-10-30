@@ -251,6 +251,9 @@ export const useSearchStore = defineStore('searchFlag', {
     },
   },
   actions: {
+    setStatus(ls: number[]): void {
+      this.status = [...ls]
+    },
     setRarity(ls: number[]): void {
       this.rarities = [...ls]
     },
