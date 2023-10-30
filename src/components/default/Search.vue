@@ -79,8 +79,7 @@
                                 <template v-for="squad, index in CharacterTeam">
                                     <v-chip filter variant="text" v-if="!isNaN(Number(index))" :key="index">
                                         <div class="d-flex flex-row align-center">
-                                            <img
-                                                :src="`https://hbr.quest/ui/${String(squad).replace(/\s/g, ``).toLowerCase()}.webp`"
+                                            <img :src="`https://hbr.quest/ui/${String(squad).replace(/\s/g, ``).toLowerCase()}.webp`"
                                                 width="32" height="26.4" />
                                             <span class="pr-2">{{ CharacterTeamName[Number(index)] }}</span>
                                         </div>
@@ -250,7 +249,7 @@ import {
     CharacterRoleGradient,
     CharacterRoleURL,
     CardStatus,
-CardStatusURL
+    CardStatusURL
 } from '@/enums';
 // import { Style } from '@/types';
 const route = useRoute()
@@ -359,20 +358,24 @@ searchStore.$subscribe(() => {
 })
 
 const showSearch = () => {
-    router.push({
+    setTimeout(() => router.push({
         name: String(route.name),
         params: { ...route.params },
         query: { ...route.query, v: `search` }
-    })
+    }), 150)
 }
 
 const hideSearch = () => {
     // btnFocused.value = true
-    // setTimeout(() => btnFocused.value = false, 150)
-    router.push({
+    setTimeout(() => router.push({
         name: String(route.name),
         params: { ...route.params },
         query: { ...route.query, v: undefined }
-    })
+    }), 150)
+    // router.push({
+    //     name: String(route.name),
+    //     params: { ...route.params },
+    //     query: { ...route.query, v: undefined }
+    // })
 }
 </script>
