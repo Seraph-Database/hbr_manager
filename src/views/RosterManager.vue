@@ -79,9 +79,10 @@ const searchFilter = (s: Style): boolean => {
   let result: boolean = true
 
   // Logic
-  // if (searchStore.status.length > 0) {
-  //   result = result && searchStore.status.includes(Number(CardRarity[s.tier]) - 1)
-  // }
+  if (searchStore.status.length > 0) {
+    result = result && ((searchStore.status.includes(0) && !dataStore.isOwned(s)) || (searchStore.status.includes(1) && dataStore.isOwned(s)))
+
+  }
   if (searchStore.rarities.length > 0) {
     result = result && searchStore.rarities.includes(Number(CardRarity[s.tier]) - 1)
   }

@@ -1,12 +1,12 @@
 <template>
-    <v-slide-y-transition appear>
+    <v-scale-transition appear>
         <v-btn v-if="!dataStore.loading" aria-label="Save & Load" @click.stop="showShare" icon class="text-white" disabled>
             <v-icon icon="mdi-download"></v-icon>
             <v-tooltip v-if="!$vuetify.display.smAndDown" activator="parent" location="bottom">
                 {{ `Save & Load Data` }}
             </v-tooltip>
         </v-btn>
-    </v-slide-y-transition>
+    </v-scale-transition>
     <v-dialog :close-on-back="true" scrollable v-model:model-value="share" transition="scale-transition"
         :max-width="$vuetify.display.smAndDown ? undefined : `32rem`" :scrim="`#212121`" :close-on-content-click="false">
         <div class="v-card__white-frame--top-left"></div>

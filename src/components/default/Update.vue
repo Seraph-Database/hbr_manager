@@ -1,13 +1,13 @@
 <template>
-    <v-slide-y-transition appear>
-        <v-btn v-if="!dataStore.loading && dataStore.getStyles" aria-label="Update all" @click.stop="showToggleAll" icon class="text-white"
-        :disabled="dataStore.getStyles.filter(searchFilter).length < 1">
+    <v-scale-transition appear>
+        <v-btn v-if="!dataStore.loading && dataStore.getStyles" aria-label="Update all" @click.stop="showToggleAll" icon
+            class="text-white" :disabled="dataStore.getStyles.filter(searchFilter).length < 1">
             <v-icon icon="mdi-check-all"></v-icon>
             <v-tooltip v-if="!$vuetify.display.smAndDown" activator="parent" location="bottom">
                 {{ `Update all displayed styles` }}
             </v-tooltip>
         </v-btn>
-    </v-slide-y-transition>
+    </v-scale-transition>
     <v-dialog :close-on-back="true" scrollable v-model:model-value="toggleAll" :max-width="`36rem`"
         :max-height="$vuetify.display.smAndDown ? undefined : $vuetify.display.height - 192" transition="scale-transition"
         :scrim="`#212121`" :close-on-content-click="false">
@@ -111,6 +111,9 @@ const searchFilter = (s: Style): boolean => {
     let result: boolean = true
 
     // Logic
+    if (searchStore.status.length > 0) {
+        result = result && ((searchStore.status.includes(0) && !dataStore.isOwned(s)) || (searchStore.status.includes(1) && dataStore.isOwned(s)))
+    }
     if (searchStore.rarities.length > 0) {
         result = result && searchStore.rarities.includes(Number(CardRarity[s.tier]) - 1)
     }

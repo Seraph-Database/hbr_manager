@@ -2,11 +2,7 @@
 
 export enum CardStatus {
 	None = 0,
-	Owned,
-	LB1,
-	LB2,
-	LB3,
-	LB4
+	Owned
 }
 
 export enum CardRarity {
