@@ -40,6 +40,10 @@ const getUserData = (): number[][] => {
   return localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData") as string) : []
 }
 
+const setUserData = (data: number[][]): void => {
+  setTimeout(() => localStorage.setItem("userData", JSON.stringify(data)), 150)
+}
+
 export const useStyleStore = defineStore('styles', {
   state: () => ({
     data: undefined as DataStore | undefined,
@@ -66,7 +70,7 @@ export const useStyleStore = defineStore('styles', {
         ? this.owned
           .filter(s => s[0] !== styleId)
         : [...this.owned, [styleId, 0]]
-      localStorage.setItem("userData", JSON.stringify(this.owned))
+      setUserData(this.owned)
     },
     isOwned(style: Style): boolean {
       return this.owned.findIndex(x => x[0] === style.id) > -1
@@ -78,7 +82,7 @@ export const useStyleStore = defineStore('styles', {
       this.owned = this.isAllVisibleOwned(styleList)
         ? this.owned.filter(s => styleList.findIndex(x => x[0] === s[0]) < 0)
         : [...this.owned.filter(s => styleList.findIndex(x => x[0] === s[0]) < 0), ...styleList]
-      localStorage.setItem("userData", JSON.stringify(this.owned))
+      setUserData(this.owned)
     },
     setStyleLv(styleId: number, maxLv: number, setToMax: boolean = false): void {
       this.owned = this.owned.findIndex(s => s[0] === styleId) > -1
@@ -91,7 +95,7 @@ export const useStyleStore = defineStore('styles', {
                 : 0]
             : s)
         : this.owned
-      localStorage.setItem("userData", JSON.stringify(this.owned))
+      setUserData(this.owned)
     },
     getStyleLv(styleId: number): number {
       return this.owned.findIndex(s => s[0] === styleId) > -1
