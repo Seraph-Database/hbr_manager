@@ -34,10 +34,10 @@
                                     {{ `Lv.` }}
                                 </v-col>
                                 <v-col cols="auto" class="px-1 text-HBR text-LB text-HBR--stroke">
-                                    {{ `${dataStore.getStyleLv((dataStore.getStyles as Style[])[styleIndex - 1].id)}` }}
+                                    {{ `${dataStore.getStyle((dataStore.getStyles as Style[])[styleIndex - 1].id)[1]}` }}
                                 </v-col>
                                 <v-col
-                                    v-if="dataStore.getStyleLv((dataStore.getStyles as Style[])[styleIndex - 1].id) < (dataStore.getStyles as Style[])[styleIndex - 1].max_lb"
+                                    v-if="dataStore.getStyle((dataStore.getStyles as Style[])[styleIndex - 1].id)[1] < (dataStore.getStyles as Style[])[styleIndex - 1].max_lb"
                                     cols="auto" class="px-0 text-HBR text-LB text-HBR--stroke">
                                     <v-btn width="1.5rem" height="1.5rem" variant="text" icon color="#d64f92"
                                         @click.stop="dataStore.setStyleLv((dataStore.getStyles as Style[])[styleIndex - 1].id, (dataStore.getStyles as Style[])[styleIndex - 1].max_lb, true)">

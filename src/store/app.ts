@@ -97,19 +97,20 @@ export const useStyleStore = defineStore('styles', {
         : this.owned
       setUserData(this.owned)
     },
-    getStyleLv(styleId: number): number {
-      return this.owned.findIndex(s => s[0] === styleId) > -1
-        ? Number(this.owned
-          .filter(s => s[0] === styleId)
-          .map(s => s[1])
-          .join(``))
-        : -1
+    getStyle(styleId: number): number[] {
+      return this.owned.find(s => s[0] === styleId) || [-1, -1]
+      // return this.owned.findIndex(s => s[0] === styleId) > -1
+      //   ? Number(this.owned
+      //     .filter(s => s[0] === styleId)
+      //     .map(s => s[1])
+      //     .join(``))
+      //   : -1
     },
     getCharaIndex(label: string): number {
       return charaList.findIndex(c => c === label) + 1
     },
     getIncrementedStyleLv(index: number): number {
-      return this.getStyleLv(index) + 1
+      return this.getStyle(index)[1] + 1
     },
     getReducedUserData(): UserData[] | undefined {
       return this.getStyles
