@@ -1,10 +1,10 @@
 <template>
     <v-scale-transition appear>
-        <v-btn v-if="!dataStore.loading" aria-label="Save & Load" @click.stop="showShare" icon class="text-white" disabled>
+        <v-btn v-if="!dataStore.loading" aria-label="Save & Load" @click.stop="showShare" icon class="text-white">
             <v-icon icon="mdi-download"></v-icon>
-            <v-tooltip v-if="!$vuetify.display.smAndDown" activator="parent" location="bottom">
+            <!-- <v-tooltip v-if="!$vuetify.display.smAndDown" activator="parent" location="bottom">
                 {{ `Save & Load Data` }}
-            </v-tooltip>
+            </v-tooltip> -->
         </v-btn>
     </v-scale-transition>
     <v-dialog :close-on-back="true" scrollable v-model:model-value="share" transition="scale-transition"
@@ -13,7 +13,7 @@
         <div class="v-card__white-frame--bottom-right"></div>
         <v-card color="#312942aa" class="v-card--shadowless search elevation-0 rounded-0"
             :class="{ mobile: $vuetify.display.smAndDown }" v-click-outside="closeShare">
-            <v-toolbar color="#ffffff00" height="48" class="top-toolbar pa-1">
+            <v-toolbar color="#ffffff00" height="64" class="top-toolbar pa-1">
                 <v-toolbar-title class="text-HBR ml-3">
                     {{ `Save & Load Data`.toUpperCase() }}
                 </v-toolbar-title>
@@ -21,6 +21,19 @@
                 <template v-slot:prepend>
                     <v-icon icon="mdi-download" size="2rem"></v-icon>
                 </template>
+
+                <v-toolbar-items class="btn-toolbar__items align-center justify-center">
+                    <v-hover>
+                        <template v-slot:default="{ isHovering, props }">
+                            <v-btn v-bind="props" width="3.5rem" color="transparent" class="text-HBR" @click="closeShare">
+                                <v-img
+                                    :src="isHovering ? `/ui/ButtonCloseSmallActive.webp` : `/ui/ButtonCloseSmallDefault.webp`"
+                                    width="3.5rem" class="d-flex align-center justify-center">
+                                </v-img>
+                            </v-btn>
+                        </template>
+                    </v-hover>
+                </v-toolbar-items>
             </v-toolbar>
 
             <v-card-text
@@ -36,14 +49,15 @@
                             <img width="32" height="32" :src="`https://hbr.quest/hbr/${style.image}`" />
                         </template>
                     </v-list-item>
-                <v-sheet v-if="dataStore.getStyles && dataStore.getStyles.filter(dataStore.isOwned).length < 1" class="text-center" color="transparent">
-                    {{ `No data` }}
-                </v-sheet>
+                    <v-sheet v-if="dataStore.getStyles && dataStore.getStyles.filter(dataStore.isOwned).length < 1"
+                        class="text-center" color="transparent">
+                        {{ `No data` }}
+                    </v-sheet>
                 </v-list>
             </v-card-text>
 
-            <v-file-input class="mr-4 mt-4" single-line hide-details density="compact" v-model:model-value="fileData"
-                variant="outlined" accept="application/json" label="Load data" prepend-icon="">
+            <v-file-input flat class="ml-n1 mr-3 mt-4 load-btn" persistent-clear single-line hide-details density="compact" v-model:model-value="fileData"
+                accept="application/json" bg-color="#1f1f1f88" label="Import saved data" prepend-icon="">
                 <template v-slot:prepend>
                 </template>
             </v-file-input>
@@ -59,16 +73,6 @@
                                     :src="isHovering ? `/ui/ButtonFirstMiniActive.webp` : `/ui/ButtonFirstMiniNomal.webp`"
                                     width="13rem" class="d-flex align-center justify-center">
                                     <div class="text-white btn-text text-center">{{ `Save` }}</div>
-                                </v-img>
-                            </v-btn>
-                        </template>
-                    </v-hover>
-                    <v-hover>
-                        <template v-slot:default="{ isHovering, props }">
-                            <v-btn v-bind="props" width="3.75rem" color="transparent" class="text-HBR" @click="closeShare">
-                                <v-img
-                                    :src="isHovering ? `/ui/ButtonCloseSmallActive.webp` : `/ui/ButtonCloseSmallDefault.webp`"
-                                    width="3.75rem" class="d-flex align-center justify-center">
                                 </v-img>
                             </v-btn>
                         </template>

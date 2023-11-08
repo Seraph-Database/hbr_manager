@@ -12,7 +12,7 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 // import { fa } from 'vuetify/iconsets/fa'
 import { mdi } from 'vuetify/iconsets/mdi'
-import { VSkeletonLoader } from 'vuetify/labs/VSkeletonLoader'
+// import { VSkeletonLoader } from 'vuetify/labs/VSkeletonLoader'
 
 const seraphGradient = "to top, rgba(49, 42, 71, 0.72), rgba(168, 89, 141, 0.48)"
 const denchoGradient = "to top, rgba(9, 9, 35, 0.48), rgba(80, 135, 137, 0.72)"
@@ -63,7 +63,7 @@ export default createVuetify({
       denchoTheme,
     },
   },
-  components: {
-    VSkeletonLoader,
-  }
+  // components: {
+  //   VSkeletonLoader,
+  // }
 })

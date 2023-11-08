@@ -46,8 +46,8 @@
       </v-btn>
     </template>
     <template v-else-if="route.name === `RosterMan`">
-      <update />
-      <save />
+      <!-- <update /> -->
+      <share />
       <search />
     </template>
 
@@ -55,8 +55,8 @@
 </template>
 
 <script lang="ts" setup>
-import Update from '@/components/default/Update.vue';
-import Save from '@/components/default/Save.vue';
+// import Update from '@/components/default/Update.vue';
+import Share from '@/components/default/Share.vue';
 import Search from '@/components/default/Search.vue';
 import { useRoute } from 'vue-router';
 import { useLotteryStore } from '@/store/app';

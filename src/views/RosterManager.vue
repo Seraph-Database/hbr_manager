@@ -21,7 +21,7 @@
           {{ encode(reducedUserData.map(d => [d.charaId, d.styleList])) }}
         </v-col>
       </v-row> -->
-      <!-- <v-row no-gutters class="mt-4">
+      <v-row no-gutters class="mt-4">
         <v-col cols="6">
         </v-col>
         <v-col cols="6" class="text-normal">
@@ -29,7 +29,7 @@
             {{ line }}
           </div>
         </v-col>
-      </v-row> -->
+      </v-row>
     </v-sheet>
   </v-container>
 </template>
@@ -72,6 +72,15 @@ const loadData = async () => {
     await dataStore.loadStyles()
   }
 }
+
+// const saveData = () => {
+//   dataStore.setUserData()
+// }
+// onMounted(() => document.addEventListener("beforeunload", saveData))
+// onBeforeUnmount(() => {
+//   document.removeEventListener("beforeunload", saveData)
+//   dataStore.setUserData()
+// })
 
 loadData().then(() => showAll())
 

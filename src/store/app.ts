@@ -40,22 +40,18 @@ const getUserData = (): number[][] => {
   return localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData") as string) : []
 }
 
-const setUserData = (data: number[][]): void => {
-  localStorage.setItem("userData", JSON.stringify(data))
-}
-
 export const useStyleStore = defineStore('styles', {
   state: () => ({
-    data: undefined as DataStore | undefined,
+    data: {} as DataStore,
     owned: getUserData() as number[][],
     loading: true as boolean,
   }),
   getters: {
     getStyles(state): Style[] | undefined {
-      return state.data ? state.data.styles : undefined;
+      return state.data.styles
     },
     getOwned(state): number[][] {
-      return state.owned;
+      return state.owned
     }
   },
   actions: {
@@ -70,7 +66,7 @@ export const useStyleStore = defineStore('styles', {
         ? this.owned
           .filter(s => s[0] !== styleId)
         : [...this.owned, [styleId, 0]]
-      setUserData(this.owned)
+      this.setUserData()
     },
     isOwned(style: Style): boolean {
       return this.owned.findIndex(x => x[0] === style.id) > -1
@@ -82,7 +78,7 @@ export const useStyleStore = defineStore('styles', {
       this.owned = this.isAllVisibleOwned(styleList)
         ? this.owned.filter(s => styleList.findIndex(x => x[0] === s[0]) < 0)
         : [...this.owned.filter(s => styleList.findIndex(x => x[0] === s[0]) < 0), ...styleList]
-      setUserData(this.owned)
+      this.setUserData()
     },
     setStyleLv(styleId: number, maxLv: number, setToMax: boolean = false): void {
       this.owned = this.owned.findIndex(s => s[0] === styleId) > -1
@@ -95,7 +91,7 @@ export const useStyleStore = defineStore('styles', {
                 : 0]
             : s)
         : this.owned
-      setUserData(this.owned)
+      this.setUserData()
     },
     getStyle(styleId: number): number[] {
       return this.owned.find(s => s[0] === styleId) || [-1, -1]
@@ -119,14 +115,20 @@ export const useStyleStore = defineStore('styles', {
             ? acc.map(a => a.charaId === this.getCharaIndex(style.chara_label)
               ? {
                 charaId: a.charaId,
-                styleList: [...a.styleList, this.getIncrementedStyleLv(style.id)]
+                styleList: [...a.styleList, style.id]
               }
               : a)
             : [...acc, {
               charaId: this.getCharaIndex(style.chara_label),
-              styleList: [0, this.getIncrementedStyleLv(style.id)]
+              styleList: [style.id]
             }]
         }, [] as UserData[])
+      // .map((e, i) => {
+      //   return { ...e, styleList: Array.from(new Array(e.styleList.length)) }
+      // })
+    },
+    setUserData(): void {
+      localStorage.setItem("userData", JSON.stringify(this.owned))
     }
   }
 })
@@ -239,6 +241,7 @@ export const useLotteryStore = defineStore('gachalist', {
 
 export const useSearchStore = defineStore('searchFlag', {
   state: () => ({
+    menuFlag: false as boolean,
     searchFlag: false as boolean,
     status: [] as number[],
     rarities: [] as number[],

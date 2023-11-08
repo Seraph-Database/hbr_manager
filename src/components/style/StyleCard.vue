@@ -87,6 +87,7 @@ const dataStore = useStyleStore()
 .style-placeholder {
     border-radius: 1.25rem;
     overflow: hidden;
+    user-select: none;
 }
 
 .style-rarity__icon,

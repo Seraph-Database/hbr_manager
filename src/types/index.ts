@@ -14,12 +14,12 @@ export type Index = {
 }
 
 
-export type  Character = {
+export type Character = {
     // todo
 }
 
 
-export type  Lottery = {
+export type Lottery = {
     // todo
     id: number
     label: string
@@ -80,12 +80,12 @@ export type Style = {
 }
 
 
-export type  BaseParam = {
+export type BaseParam = {
     // todo
 }
 
 
-export type  Skill = {
+export type Skill = {
     id: number
     label: string
     name: string
@@ -117,26 +117,26 @@ export type SkillPart = {
     cond: string
     dv: number
     multipliers: {
-      dp: number
-      hp: number
-      dr: number
+        dp: number
+        hp: number
+        dr: number
     }
     diff_for_max: number
     parameters: {
-      str: number
-      wis: number
-      dex: number
-      spr: number
-      luk: number
-      con: number
+        str: number
+        wis: number
+        dex: number
+        spr: number
+        luk: number
+        con: number
     }
     growth: number[]
     hits: SkillHit[]
     effect: {
-      category: string
-      limitType: string
-      exitCond: string
-      exitVal: number[]
+        category: string
+        limitType: string
+        exitCond: string
+        exitVal: number[]
     }
 }
 
@@ -146,28 +146,28 @@ export type SkillHit = {
 }
 
 
-export type  GrowthAbility = {
+export type GrowthAbility = {
     // todo
 }
 
 
-export type  AbilityTree = {
+export type AbilityTree = {
     // todo
 }
 
 
-export type  LimitBreak = {
+export type LimitBreak = {
     stat_per_level: number,
     bonus_per_level: LimitBreakBonus[]
 }
 
 
-export type  LimitBreakBonus = {
+export type LimitBreakBonus = {
     // todo
 }
 
 
-export type  PassiveSkill = {
+export type PassiveSkill = {
     // todo
 }
 
@@ -196,4 +196,59 @@ export type Weapon = {
 export type UserData = {
     charaId: number,
     styleList: number[]
+}
+
+
+export type StyleList = {
+    RKayamori: number[]
+    YIzumi: number[]
+    MAikawa: number[]
+    TTojo: number[]
+    KAsakura: number[]
+    TKunimi: number[]
+    EAoi: number[]
+    IMinase: number[]
+    SMinase: number[]
+    SHiguchi: number[]
+    KHiiragi: number[]
+    Byakko: number[]
+    BIYamawaki: number[]
+    SSakuraba: number[]
+    MTenne: number[]
+    YBungo: number[]
+    AKanzaki: number[]
+    MSatsuki: number[]
+    YShirakawa: number[]
+    MTsukishiro: number[]
+    MKiryu: number[]
+    CSugahara: number[]
+    HOgasawara: number[]
+    SKura: number[]
+    MNikaido: number[]
+    IIshii: number[]
+    FMikoto: number[]
+    RMurohushi: number[]
+    ADate: number[]
+    AMizuhara: number[]
+    IcOhshima: number[]
+    NiOhshima: number[]
+    MiOhshima: number[]
+    YoOhshima: number[]
+    IrOhshima: number[]
+    MuOhshima: number[]
+    MYanagi: number[]
+    KMaruyama: number[]
+    SHanamura: number[]
+    CMatsuoka: number[]
+    INatsume: number[]
+    MKurosawa: number[]
+    CReaper: number[]
+    LShanhua: number[]
+    IRedmayne: number[]
+    VBalakrishnan: number[]
+    MdAngelis: number[]
+    CSkopovskaya: number[]
+    AliceA: number[]
+    AliceB: number[]
+    AliceC: number[]
 }

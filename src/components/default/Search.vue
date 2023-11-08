@@ -1,9 +1,9 @@
 <template>
     <v-btn @click="showSearch" :loading="dataStore.loading" icon class="text-white" aria-label="Show filters">
         <v-icon icon="mdi-dots-vertical"></v-icon>
-        <v-tooltip v-if="!$vuetify.display.smAndDown" activator="parent" location="bottom">
+        <!-- <v-tooltip v-if="!$vuetify.display.smAndDown" activator="parent" location="bottom">
             {{ `Display filters` }}
-        </v-tooltip>
+        </v-tooltip> -->
     </v-btn>
     <v-dialog :close-on-back="true" scrollable v-model:model-value="search" transition="scale-transition"
         :max-width="$vuetify.display.smAndDown ? undefined : `48rem`"
@@ -13,7 +13,7 @@
         <div class="v-card__white-frame--bottom-right"></div>
         <v-card color="#312942aa" class="v-card--shadowless search elevation-0 rounded-0"
             :class="{ mobile: $vuetify.display.smAndDown }" v-click-outside="hideSearch">
-            <v-toolbar color="#ffffff00" height="48" class="top-toolbar pa-1">
+            <v-toolbar color="#ffffff00" height="64" class="top-toolbar pa-1">
                 <v-toolbar-title class="text-HBR ml-3">
                     {{ `Style Filters`.toUpperCase() }}
                 </v-toolbar-title>
@@ -25,6 +25,19 @@
                 <template v-slot:prepend>
                     <v-icon icon="mdi-filter-variant" size="2rem"></v-icon>
                 </template>
+
+                <v-toolbar-items class="btn-toolbar__items align-center justify-center">
+                    <v-hover>
+                        <template v-slot:default="{ isHovering, props }">
+                            <v-btn v-bind="props" width="3.5rem" color="transparent" class="text-HBR" @click="hideSearch">
+                                <v-img
+                                    :src="isHovering ? `/ui/ButtonCloseSmallActive.webp` : `/ui/ButtonCloseSmallDefault.webp`"
+                                    width="3.5rem" class="d-flex align-center justify-center">
+                                </v-img>
+                            </v-btn>
+                        </template>
+                    </v-hover>
+                </v-toolbar-items>
             </v-toolbar>
 
             <v-card-text

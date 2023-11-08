@@ -3,9 +3,9 @@
         <v-btn v-if="!dataStore.loading && dataStore.getStyles" aria-label="Update all" @click.stop="showToggleAll" icon
             class="text-white" :disabled="dataStore.getStyles.filter(searchFilter).length < 1">
             <v-icon icon="mdi-check-all"></v-icon>
-            <v-tooltip v-if="!$vuetify.display.smAndDown" activator="parent" location="bottom">
+            <!-- <v-tooltip v-if="!$vuetify.display.smAndDown" activator="parent" location="bottom">
                 {{ `Update all displayed styles` }}
-            </v-tooltip>
+            </v-tooltip> -->
         </v-btn>
     </v-scale-transition>
     <v-dialog :close-on-back="true" scrollable v-model:model-value="toggleAll" :max-width="`36rem`"
@@ -15,7 +15,7 @@
         <div class="v-card__white-frame--bottom-right"></div>
         <v-card color="#312942aa" class="v-card--shadowless search elevation-0 rounded-0"
             :class="{ mobile: $vuetify.display.smAndDown }" v-click-outside="cancelToggleAll">
-            <v-toolbar color="#ffffff00" height="48" class="top-toolbar pa-1">
+            <v-toolbar color="#ffffff00" height="64" class="top-toolbar pa-1">
                 <v-toolbar-title class="text-HBR ml-3">
                     {{ `Notice`.toUpperCase() }}
                 </v-toolbar-title>
@@ -23,6 +23,21 @@
                 <template v-slot:prepend>
                     <v-icon icon="mdi-alert-outline" size="2rem"></v-icon>
                 </template>
+
+
+                <v-toolbar-items class="btn-toolbar__items align-center justify-center">
+                    <v-hover>
+                        <template v-slot:default="{ isHovering, props }">
+                            <v-btn v-bind="props" width="3.5rem" color="transparent" class="text-HBR"
+                                @click="cancelToggleAll">
+                                <v-img
+                                    :src="isHovering ? `/ui/ButtonCloseSmallActive.webp` : `/ui/ButtonCloseSmallDefault.webp`"
+                                    width="3.5rem" class="d-flex align-center justify-center">
+                                </v-img>
+                            </v-btn>
+                        </template>
+                    </v-hover>
+                </v-toolbar-items>
             </v-toolbar>
 
             <v-card-text
@@ -60,17 +75,6 @@
                                     :src="isHovering ? `/ui/ButtonFirstMiniActive.webp` : `/ui/ButtonFirstMiniNomal.webp`"
                                     width="13rem" class="d-flex align-center justify-center">
                                     <div class="text-white btn-text">{{ `Confirm` }}</div>
-                                </v-img>
-                            </v-btn>
-                        </template>
-                    </v-hover>
-                    <v-hover>
-                        <template v-slot:default="{ isHovering, props }">
-                            <v-btn v-bind="props" width="3.75rem" color="transparent" class="text-HBR"
-                                @click="cancelToggleAll">
-                                <v-img
-                                    :src="isHovering ? `/ui/ButtonCloseSmallActive.webp` : `/ui/ButtonCloseSmallDefault.webp`"
-                                    width="3.75rem" class="d-flex align-center justify-center">
                                 </v-img>
                             </v-btn>
                         </template>

@@ -2,6 +2,10 @@
     overflow: visible;
 }
 
+.v-chip.v-chip--size-default {
+    padding-right: 0;
+}
+
 .v-card__white-frame--top-left,
 .v-card__white-frame--bottom-right {
     position: absolute;
@@ -64,6 +68,16 @@
         background: transparent;
         // border-bottom: 0.0625rem solid #fff;
         color: #fff;
+    }
+
+    .load-btn {
+        .v-field {
+            border: 0.1875rem solid #50454f;
+            border-radius: 0.5rem;
+            .v-field__input {
+                min-height: 2.375rem;
+            }
+        }
     }
 
     .filter-list {
