@@ -7,7 +7,7 @@
     </v-btn>
     <v-dialog :close-on-back="true" scrollable v-model:model-value="search" transition="scale-transition"
         :max-width="$vuetify.display.smAndDown ? undefined : `48rem`"
-        :height="$vuetify.display.smAndDown ? undefined : $vuetify.display.height - 192" :scrim="`#212121`"
+        :max-height="$vuetify.display.smAndDown ? undefined : $vuetify.display.height - 192" :scrim="`#212121`"
         :close-on-content-click="false">
         <div class="v-card__white-frame--top-left"></div>
         <div class="v-card__white-frame--bottom-right"></div>

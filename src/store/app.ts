@@ -241,7 +241,7 @@ export const useLotteryStore = defineStore('gachalist', {
 
 export const useSearchStore = defineStore('searchFlag', {
   state: () => ({
-    menuFlag: false as boolean,
+    menuFlag: true as boolean,
     searchFlag: false as boolean,
     status: [] as number[],
     rarities: [] as number[],

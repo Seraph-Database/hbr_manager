@@ -2,7 +2,7 @@
     <v-skeleton-loader :loading="dataStore.loading" color="grey" width="356" height="144" class="style-placeholder">
         <v-slide-y-transition leave-absolute appear>
             <div v-ripple @click.stop="dataStore.toggleStyle((dataStore.getStyles as Style[])[styleIndex - 1].id)">
-                <v-img width="356" height="144" class="style-strip"
+                <v-img width="356" height="144" :aspect-ratio="356/144" class="style-strip"
                     :src="`https://hbr.quest/hbr/${(dataStore.getStyles as Style[])[styleIndex - 1].strip.replace(`Party`, `Select`)}`">
 
                     <img class="style-rarity__icon"
@@ -90,6 +90,11 @@ const dataStore = useStyleStore()
     user-select: none;
 }
 
+.style-ripple {
+    width: 100%;
+    max-width: 356px;
+}
+
 .style-rarity__icon,
 .style-type__icon,
 .style-element__icon,
@@ -145,4 +150,5 @@ const dataStore = useStyleStore()
     z-index: 1;
     top: 0.75rem;
     left: 0;
-}</style>
+}
+</style>

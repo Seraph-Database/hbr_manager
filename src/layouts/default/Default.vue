@@ -2,6 +2,7 @@
   <v-app>
     <default-bar />
     <!-- <default-nav /> -->
+    <side-bar v-if="route.name === `RosterMan`" />
     <default-view />
   </v-app>
 </template>
@@ -9,7 +10,11 @@
 <script lang="ts" setup>
 import DefaultBar from './AppBar.vue'
 // import DefaultNav from './NavBar.vue'
+import SideBar from './SideBar.vue'
 import DefaultView from './View.vue'
+import { useRoute } from 'vue-router';
+
+const route = useRoute()
 </script>
 
 <style lang="scss">

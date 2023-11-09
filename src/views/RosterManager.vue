@@ -1,36 +1,18 @@
 <template>
   <page-title title="Style Manager" />
-  <v-container class="pa-0 rounded-0 pt-2 pb-16" fluid>
+  <v-container class="pa-0 py-2" fluid>
     <v-slide-y-transition appear>
-      <v-card class="ma-0 pa-0" color="transparent" flat>
-        <v-row no-gutters justify="center" align="center">
-          <template v-for="styleIndex in !dataStore.loading && dataStore.getStyles ? dataStore.getStyles.length : 100"
-            :key="styleIndex">
-            <v-col v-show="dataStore.getStyles && searchFilter((dataStore.getStyles as Style[])[styleIndex - 1])"
-              cols="auto"
-              :class="`style-wrapper ${!dataStore.loading && dataStore.getOwned.findIndex(s => s[0] === (dataStore.getStyles as Style[])[styleIndex - 1].id) < 0 ? `style--greyed ` : ``}${$vuetify.display.width > 720 ? `pa-2` : `pa-0 pt-2 pb-2`}`">
-              <StyleCard :style-index="styleIndex" />
-            </v-col>
-          </template>
-        </v-row>
-      </v-card>
-    </v-slide-y-transition>
-    <v-sheet color="transparent" class="mt-4" v-if="dataStore.getReducedUserData()">
-      <!-- <v-row no-gutters class="text-normal text-HBR">
-        <v-col cols="auto">
-          {{ encode(reducedUserData.map(d => [d.charaId, d.styleList])) }}
-        </v-col>
-      </v-row> -->
-      <v-row no-gutters class="mt-4">
-        <v-col cols="6">
-        </v-col>
-        <v-col cols="6" class="text-normal">
-          <div v-for="line, index in dataStore.getReducedUserData()" :key="index">
-            {{ line }}
-          </div>
-        </v-col>
+      <v-row no-gutters class="align-center justify-center">
+        <template v-for="styleIndex in !dataStore.loading && dataStore.getStyles ? dataStore.getStyles.length : 100"
+          :key="styleIndex">
+          <v-col cols="auto"
+            v-show="dataStore.getStyles && searchFilter((dataStore.getStyles as Style[])[styleIndex - 1])"
+            :class="`style-wrapper ${!dataStore.loading && dataStore.getOwned.findIndex(s => s[0] === (dataStore.getStyles as Style[])[styleIndex - 1].id) < 0 ? `style--greyed ` : ``}${$vuetify.display.width > 720 ? `pa-2` : `pa-0 pt-2 pb-2`}`">
+            <StyleCard :style-index="styleIndex" />
+          </v-col>
+        </template>
       </v-row>
-    </v-sheet>
+    </v-slide-y-transition>
   </v-container>
 </template>
 
