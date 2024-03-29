@@ -1,4 +1,4 @@
-.v-dialog--scrollable > .v-overlay__content {
+.v-dialog--scrollable>.v-overlay__content {
     overflow: visible;
 }
 
@@ -53,11 +53,14 @@
     box-shadow: unset !important;
 }
 
+.bg-blur {
+    backdrop-filter: blur(0.375rem);
+}
+
 .search {
     color: #fff;
     // border: 0.125rem solid #fff;
     // box-shadow: 0 0 1rem #ffffffc8 !important;
-    backdrop-filter: blur(0.5rem);
 
     // &.mobile {
     //     border: 0.125rem solid #fff;
@@ -74,6 +77,7 @@
         .v-field {
             border: 0.1875rem solid #50454f;
             border-radius: 0.5rem;
+
             .v-field__input {
                 min-height: 2.375rem;
             }
@@ -95,7 +99,7 @@
                     box-shadow: unset;
                 }
 
-                > .v-expansion-panel-title {
+                >.v-expansion-panel-title {
                     min-height: unset;
                     // background: #d64f9280;
                     cursor: default;
@@ -166,7 +170,7 @@
             }
 
             &.v-expansion-panel--active {
-                > .v-expansion-panel-title {
+                >.v-expansion-panel-title {
                     // background: url('/ui/TabButtonToggleActiveL.webp'), transparent;
                     background-repeat: no-repeat;
                     background-size: calc(348 * 4rem / 96) 4rem;
@@ -179,9 +183,9 @@
             }
         }
 
-        .v-expansion-panels--variant-accordion > :not(:first-child):not(:last-child),
-        .v-expansion-panels--variant-accordion > :first-child,
-        .v-expansion-panels--variant-accordion > :last-child {
+        .v-expansion-panels--variant-accordion> :not(:first-child):not(:last-child),
+        .v-expansion-panels--variant-accordion> :first-child,
+        .v-expansion-panels--variant-accordion> :last-child {
             border-radius: 0.75rem !important;
         }
     }

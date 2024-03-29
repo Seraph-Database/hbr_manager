@@ -653,6 +653,11 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
+dom-to-image-more@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/dom-to-image-more/-/dom-to-image-more-3.3.0.tgz#17823e6c96c965cdb016fadf0efdbd475853ea5d"
+  integrity sha512-4k0oxVfQ4Nrv4/Iva6FpsXTAtPCp5JnZNO/n/hsuOpe3ANlMiK50URZDQKzJslthQD8k76z9vHS3usIzmJoFVw==
+
 esbuild@^0.18.10:
   version "0.18.20"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.18.20.tgz#4709f5a34801b43b799ab7d6d82f7284a9b7a7a6"
@@ -1574,10 +1579,10 @@ vue@^3.3.8:
     "@vue/server-renderer" "3.3.8"
     "@vue/shared" "3.3.8"
 
-vuetify@3.4.0-beta.0:
-  version "3.4.0-beta.0"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-3.4.0-beta.0.tgz#395871ed893b5952e0c778184979dc9605867d16"
-  integrity sha512-DHpaguw8EICDp/4ROymOfiyhuDleR5haya4iWdN5BonUNCKHJVgTJ8WyD0sAbTUat+fspgPBiaIDAvvgnFq9GQ==
+vuetify@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-3.4.1.tgz#0f695c7d2233d7837a8df415e49b36e5e1aa3b49"
+  integrity sha512-mF/vKa923F/90JVZnF6xZVoEY5aWbtDt0feh6CFOh6PFmZ7fRUVWIvhlQcH4zwHMXF+HpTL9Mer1CwOpi4D4oQ==
 
 webfontloader@^1.0.0:
   version "1.6.28"

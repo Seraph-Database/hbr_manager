@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer color="#212121d0" theme="dark"  temporary location="right" floating v-model:model-value="searchStore.menuFlag">
+    <v-navigation-drawer class="bg-blur" color="#312942aa" theme="dark" temporary location="right" floating v-model:model-value="searchStore.menuFlag">
         <v-slide-y-transition appear leave-absolute>
             <div class="pa-2 py-0">
             </div>

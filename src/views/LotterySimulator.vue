@@ -134,7 +134,8 @@
                     .filter(g => g.count === `multi` || g.count === `stepup`)
                     .sort((a, b) => b.in_date.localeCompare(a.in_date))">
                     <v-img :class="lotIndex === dataStore.getCurrentIndex ? `lottery--selected` : `lottery`"
-                        :src="`https://hbr.quest/hbr/${lottery.banner}?h=ABC`" width="10rem" height="calc(10rem * 56 / 144)">
+                        :src="`https://hbr.quest/hbr/${lottery.banner}?h=ABC`" width="10rem"
+                        height="calc(10rem * 56 / 144)">
 
                     </v-img>
                 </swiper-slide>
@@ -328,21 +329,41 @@ const rollGacha = async (times: number, cost: number) => {
             let num = randomIntFromInterval(1, 10000)
             // console.log(num)
 
-            dataStore.getLotteryData.rates.every((r, ri) => {
-                if (num - r.rate > 0) {
-                    num = num - r.rate
-                    return true
-                } else {
-                    num = index < 9 || ri !== 0 ? ri : 1
-                    return false
-                }
-            })
+            if (dataStore.getLotteryData.replace_rate !== null && index === 9) {
+                dataStore.getLotteryData.replace_rate.every((r, ri) => {
+                    if (num - r.rate > 0) {
+                        num = num - r.rate
+                        return true
+                    } else {
+                        num = ri
+                        return false
+                    }
+                })
 
-            try {
-                let result: GachaCard = dataStore.getLotteryData.rates[num].cards[Math.floor(Math.random() * dataStore.getLotteryData.rates[num].cards.length)]
-                dataStore.updateGachaResults(result.image)
-            } catch (error) {
-                console.log(`Error`)
+                try {
+                    let result: GachaCard = dataStore.getLotteryData.replace_rate[num].cards[Math.floor(Math.random() * dataStore.getLotteryData.replace_rate[num].cards.length)]
+                    dataStore.updateGachaResults(result.image)
+                } catch (error) {
+                    console.log(`Error`)
+                }
+                
+            } else {
+                dataStore.getLotteryData.rates.every((r, ri) => {
+                    if (num - r.rate > 0) {
+                        num = num - r.rate
+                        return true
+                    } else {
+                        num = index < 9 || ri !== 0 ? ri : 1
+                        return false
+                    }
+                })
+
+                try {
+                    let result: GachaCard = dataStore.getLotteryData.rates[num].cards[Math.floor(Math.random() * dataStore.getLotteryData.rates[num].cards.length)]
+                    dataStore.updateGachaResults(result.image)
+                } catch (error) {
+                    console.log(`Error`)
+                }
             }
         }
         await new Promise(r => setTimeout(r, 250))

@@ -31,6 +31,8 @@ export type Lottery = {
     notice_id: number
     ex_notice_id: number
     version: string
+    replace_step: number
+    replace_rate: GachaRate[]
 }
 
 

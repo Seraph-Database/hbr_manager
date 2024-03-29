@@ -14,9 +14,11 @@ const myHeaders: HeadersInit = new Headers({
   "Content-Type": "application/json",
 });
 
+const myHeadersDefault: HeadersInit = new Headers();
+
 const fetchConfig: RequestInit = {
   method: "GET",
-  headers: myHeaders,
+  headers: myHeadersDefault,
   mode: "cors",
   cache: "no-cache",
 };
@@ -241,7 +243,7 @@ export const useLotteryStore = defineStore('gachalist', {
 
 export const useSearchStore = defineStore('searchFlag', {
   state: () => ({
-    menuFlag: true as boolean,
+    menuFlag: false as boolean,
     searchFlag: false as boolean,
     status: [] as number[],
     rarities: [] as number[],

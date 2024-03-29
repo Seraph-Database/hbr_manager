@@ -11,13 +11,14 @@
   "dependencies": {
     "@mdi/font": "7.0.96",
     "core-js": "^3.8.3",
+    "dom-to-image-more": "^3.3.0",
     "pinia": "^2.0.23",
     "roboto-fontface": "*",
     "swiper": "^9.2.4",
     "vue": "^3.3.8",
     "vue-gtag": "^2.0.1",
     "vue-router": "^4.0.0",
-    "vuetify": "3.4.0-beta.0",
+    "vuetify": "^3.4.1",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {

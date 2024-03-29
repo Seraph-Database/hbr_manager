@@ -11,7 +11,7 @@
         :max-width="$vuetify.display.smAndDown ? undefined : `32rem`" :scrim="`#212121`" :close-on-content-click="false">
         <div class="v-card__white-frame--top-left"></div>
         <div class="v-card__white-frame--bottom-right"></div>
-        <v-card color="#312942aa" class="v-card--shadowless search elevation-0 rounded-0"
+        <v-card color="#312942aa" class="v-card--shadowless bg-blur search elevation-0 rounded-0"
             :class="{ mobile: $vuetify.display.smAndDown }" v-click-outside="closeShare">
             <v-toolbar color="#ffffff00" height="64" class="top-toolbar pa-1">
                 <v-toolbar-title class="text-HBR ml-3">
