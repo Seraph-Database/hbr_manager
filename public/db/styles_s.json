@@ -127,6 +127,26 @@
         "max_lb": 4
     },
     {
+        "id": 1001108,
+        "name": "The Feel of the Throne",
+        "image": "RKayamoriCombat2023_R3_Thumbnail.webp",
+        "strip": "RKayamoriCombat2023_R3_Party.webp",
+        "team": "31A",
+        "chara_label": "RKayamori",
+        "in_date": "2024-02-23 02:00:00+00:00",
+        "label": "RKayamori08",
+        "tier": "SS",
+        "role": "Attacker",
+        "type": "Slash",
+        "elements": [
+            "Dark",
+            "Fire"
+        ],
+        "weapon": "DoubleSword",
+        "growth_abi": "AttackUp",
+        "max_lb": 4
+    },
+    {
         "id": 1001201,
         "name": "Attack or March",
         "image": "YIzumiDefault_R1_Thumbnail.webp",
@@ -254,6 +274,25 @@
         "max_lb": 4
     },
     {
+        "id": 1001208,
+        "name": "君を待つ紅玉",
+        "image": "YIzumiSnowWhite_R3_Thumbnail.webp",
+        "strip": "YIzumiSnowWhite_R3_Party.webp",
+        "team": "31A",
+        "chara_label": "YIzumi",
+        "in_date": "2024-02-16 02:00:00+00:00",
+        "label": "YIzumi08",
+        "tier": "SS",
+        "role": "Breaker",
+        "type": "Stab",
+        "elements": [
+            "Dark"
+        ],
+        "weapon": "Cannon",
+        "growth_abi": "AttackUp",
+        "max_lb": 4
+    },
+    {
         "id": 1001301,
         "name": "Plain or Wild",
         "image": "MAikawaDefault_R1_Thumbnail.webp",
@@ -337,6 +376,25 @@
         "type": "Strike",
         "elements": [
             "Fire"
+        ],
+        "weapon": "LargeSword",
+        "growth_abi": "DebuffUp",
+        "max_lb": 4
+    },
+    {
+        "id": 1001307,
+        "name": "トワイライト・グロース",
+        "image": "MAikawaSuite_R3_Thumbnail.webp",
+        "strip": "MAikawaSuite_R3_Party.webp",
+        "team": "31A",
+        "chara_label": "MAikawa",
+        "in_date": "2023-12-15 02:00:00+00:00",
+        "label": "MAikawa07",
+        "tier": "SS",
+        "role": "Debuffer",
+        "type": "Strike",
+        "elements": [
+            "Dark"
         ],
         "weapon": "LargeSword",
         "growth_abi": "DebuffUp",
@@ -667,6 +725,23 @@
         "max_lb": 4
     },
     {
+        "id": 1001708,
+        "name": "トワイライト・メモリーズ",
+        "image": "TKunimiSuite_R3_Thumbnail.webp",
+        "strip": "TKunimiSuite_R3_Party.webp",
+        "team": "31A",
+        "chara_label": "TKunimi",
+        "in_date": "2023-12-15 02:00:00+00:00",
+        "label": "TKunimi08",
+        "tier": "SS",
+        "role": "Buffer",
+        "type": "Slash",
+        "elements": [],
+        "weapon": "Sword",
+        "growth_abi": "BuffUp",
+        "max_lb": 4
+    },
+    {
         "id": 1002101,
         "name": "戦場の花散らし",
         "image": "EAoiDefault_R1_Thumbnail.webp",
@@ -737,6 +812,25 @@
         "max_lb": 4
     },
     {
+        "id": 1002105,
+        "name": "キララ・究極のアイドル",
+        "image": "EAoiNewYear2024_R3_Thumbnail.webp",
+        "strip": "EAoiNewYear2024_R3_Party.webp",
+        "team": "31B",
+        "chara_label": "EAoi",
+        "in_date": "2023-12-29 02:00:00+00:00",
+        "label": "EAoi05",
+        "tier": "SS",
+        "role": "Defender",
+        "type": "Strike",
+        "elements": [
+            "Fire"
+        ],
+        "weapon": "Shield",
+        "growth_abi": "Passive.DefenceUpFromProvoke",
+        "max_lb": 4
+    },
+    {
         "id": 1002201,
         "name": "戦場の華火",
         "image": "IMinaseDefault_R1_Thumbnail.webp",
@@ -786,6 +880,25 @@
         "type": "Stab",
         "elements": [
             "Thunder"
+        ],
+        "weapon": "Gun",
+        "growth_abi": "AttackUp",
+        "max_lb": 4
+    },
+    {
+        "id": 1002204,
+        "name": "君の瞳にコロしてる",
+        "image": "IMinaseNewYear2024_R3_Thumbnail.webp",
+        "strip": "IMinaseNewYear2024_R3_Party.webp",
+        "team": "31B",
+        "chara_label": "IMinase",
+        "in_date": "2023-12-29 02:00:00+00:00",
+        "label": "IMinase04",
+        "tier": "SS",
+        "role": "Attacker",
+        "type": "Stab",
+        "elements": [
+            "Fire"
         ],
         "weapon": "Gun",
         "growth_abi": "AttackUp",
@@ -864,6 +977,25 @@
         "max_lb": 4
     },
     {
+        "id": 1002305,
+        "name": "類は友を呼ぶ",
+        "image": "SMinaseDefault_R2a_Thumbnail.webp",
+        "strip": "SMinaseDefault_R2a_Party.webp",
+        "team": "31B",
+        "chara_label": "SMinase",
+        "in_date": "2024-03-22 02:00:00+00:00",
+        "label": "SMinase05",
+        "tier": "S",
+        "role": "Breaker",
+        "type": "Slash",
+        "elements": [
+            "Thunder"
+        ],
+        "weapon": "Sword",
+        "growth_abi": "BuffUp",
+        "max_lb": 10
+    },
+    {
         "id": 1002401,
         "name": "戦場の科学者",
         "image": "SHiguchiDefault_R1_Thumbnail.webp",
@@ -934,6 +1066,25 @@
         "max_lb": 4
     },
     {
+        "id": 1002405,
+        "name": "青春の発露",
+        "image": "SHiguchiNewYear2024_R2_Thumbnail.webp",
+        "strip": "SHiguchiNewYear2024_R2_Party.webp",
+        "team": "31B",
+        "chara_label": "SHiguchi",
+        "in_date": "2023-12-29 02:00:00+00:00",
+        "label": "SHiguchi05",
+        "tier": "S",
+        "role": "Buffer",
+        "type": "Stab",
+        "elements": [
+            "Fire"
+        ],
+        "weapon": "Cannon",
+        "growth_abi": "AttackUp",
+        "max_lb": 10
+    },
+    {
         "id": 1002501,
         "name": "戦場の聳動",
         "image": "KHiiragiDefault_R1_Thumbnail.webp",
@@ -1001,6 +1152,23 @@
         ],
         "weapon": "Scythe",
         "growth_abi": "DebuffUp",
+        "max_lb": 4
+    },
+    {
+        "id": 1002505,
+        "name": "ホップ・ステップ・スリップ！",
+        "image": "KHiiragiWaitress_R3_Thumbnail.webp",
+        "strip": "KHiiragiWaitress_R3_Party.webp",
+        "team": "31B",
+        "chara_label": "KHiiragi",
+        "in_date": "2024-03-22 02:00:00+00:00",
+        "label": "KHiiragi05",
+        "tier": "SS",
+        "role": "Buffer",
+        "type": "Slash",
+        "elements": [],
+        "weapon": "Scythe",
+        "growth_abi": "CriticalRateUp",
         "max_lb": 4
     },
     {
@@ -1163,6 +1331,25 @@
         "max_lb": 10
     },
     {
+        "id": 1003106,
+        "name": "Daydream Believer",
+        "image": "BIYamawakiDaydream_R3_Thumbnail.webp",
+        "strip": "BIYamawakiDaydream_R3_Party.webp",
+        "team": "31C",
+        "chara_label": "BIYamawaki",
+        "in_date": "2024-02-16 02:00:00+00:00",
+        "label": "BIYamawaki06",
+        "tier": "SS",
+        "role": "Attacker",
+        "type": "Slash",
+        "elements": [
+            "Thunder"
+        ],
+        "weapon": "Scythe",
+        "growth_abi": "AttackUp",
+        "max_lb": 4
+    },
+    {
         "id": 1003201,
         "name": "クリスタルの導き",
         "image": "SSakurabaDefault_R1_Thumbnail.webp",
@@ -1231,6 +1418,25 @@
         "weapon": "Shield",
         "growth_abi": "BuffUp",
         "max_lb": 4
+    },
+    {
+        "id": 1003205,
+        "name": "今日のあなたの運勢は？",
+        "image": "SSakurabaDefault_R2a_Thumbnail.webp",
+        "strip": "SSakurabaDefault_R2a_Party.webp",
+        "team": "31C",
+        "chara_label": "SSakuraba",
+        "in_date": "2024-03-08 02:00:00+00:00",
+        "label": "SSakuraba05",
+        "tier": "S",
+        "role": "Defender",
+        "type": "Strike",
+        "elements": [
+            "Light"
+        ],
+        "weapon": "Shield",
+        "growth_abi": "DebuffUp",
+        "max_lb": 10
     },
     {
         "id": 1003301,
@@ -1303,6 +1509,25 @@
         "max_lb": 4
     },
     {
+        "id": 1003305,
+        "name": "至高のひととき",
+        "image": "MTenneWizard_R3_Thumbnail.webp",
+        "strip": "MTenneWizard_R3_Party.webp",
+        "team": "31C",
+        "chara_label": "MTenne",
+        "in_date": "2024-03-08 02:00:00+00:00",
+        "label": "MTenne05",
+        "tier": "SS",
+        "role": "Debuffer",
+        "type": "Stab",
+        "elements": [
+            "Light"
+        ],
+        "weapon": "Gun",
+        "growth_abi": "DebuffUp",
+        "max_lb": 4
+    },
+    {
         "id": 1003401,
         "name": "カニ手の使い魔",
         "image": "YBungoDefault_R1_Thumbnail.webp",
@@ -1369,6 +1594,25 @@
         "type": "Stab",
         "elements": [
             "Light"
+        ],
+        "weapon": "Gun",
+        "growth_abi": "AttackUp",
+        "max_lb": 4
+    },
+    {
+        "id": 1003405,
+        "name": "お花見怪人クシダンゴ",
+        "image": "YBungoDango_R3_Thumbnail.webp",
+        "strip": "YBungoDango_R3_Party.webp",
+        "team": "31C",
+        "chara_label": "YBungo",
+        "in_date": "2024-03-08 02:00:00+00:00",
+        "label": "YBungo05",
+        "tier": "SS",
+        "role": "Breaker",
+        "type": "Stab",
+        "elements": [
+            "Thunder"
         ],
         "weapon": "Gun",
         "growth_abi": "AttackUp",
@@ -1718,6 +1962,25 @@
         "max_lb": 4
     },
     {
+        "id": 1004204,
+        "name": "掩蔽された暇",
+        "image": "MTsukishiroRugged_R3_Thumbnail.webp",
+        "strip": "MTsukishiroRugged_R3_Party.webp",
+        "team": "30G",
+        "chara_label": "MTsukishiro",
+        "in_date": "2023-11-03 02:00:00+00:00",
+        "label": "MTsukishiro04",
+        "tier": "SS",
+        "role": "Attacker",
+        "type": "Strike",
+        "elements": [
+            "Light"
+        ],
+        "weapon": "LargeSword",
+        "growth_abi": "AttackUp",
+        "max_lb": 4
+    },
+    {
         "id": 1004301,
         "name": "幽幻閑寂いとらうたし",
         "image": "MKiryuDefault_R1_Thumbnail.webp",
@@ -1860,6 +2123,23 @@
         "max_lb": 4
     },
     {
+        "id": 1004405,
+        "name": "センパイの品格",
+        "image": "CSugaharaDefault_R2a_Thumbnail.webp",
+        "strip": "CSugaharaDefault_R2a_Party.webp",
+        "team": "30G",
+        "chara_label": "CSugahara",
+        "in_date": "2023-11-03 02:00:00+00:00",
+        "label": "CSugahara05",
+        "tier": "S",
+        "role": "Healer",
+        "type": "Strike",
+        "elements": [],
+        "weapon": "Shield",
+        "growth_abi": "HealUp",
+        "max_lb": 10
+    },
+    {
         "id": 1004501,
         "name": "仄かに揺らぐファイア",
         "image": "HOgasawaraDefault_R1_Thumbnail.webp",
@@ -1924,6 +2204,25 @@
         "type": "Stab",
         "elements": [
             "Dark"
+        ],
+        "weapon": "Gun",
+        "growth_abi": "AttackUp",
+        "max_lb": 4
+    },
+    {
+        "id": 1004505,
+        "name": "希求と渇仰",
+        "image": "HOgasawaraNightdress_R3_Thumbnail.webp",
+        "strip": "HOgasawaraNightdress_R3_Party.webp",
+        "team": "30G",
+        "chara_label": "HOgasawara",
+        "in_date": "2023-11-03 02:00:00+00:00",
+        "label": "HOgasawara05",
+        "tier": "SS",
+        "role": "Breaker",
+        "type": "Stab",
+        "elements": [
+            "Thunder"
         ],
         "weapon": "Gun",
         "growth_abi": "AttackUp",
@@ -2066,6 +2365,25 @@
         "type": "Strike",
         "elements": [
             "Dark"
+        ],
+        "weapon": "Shield",
+        "growth_abi": "AttackUp",
+        "max_lb": 4
+    },
+    {
+        "id": 1005104,
+        "name": "Holiday Ring a Bell",
+        "image": "MNikaidoXmas2023_R3_Thumbnail.webp",
+        "strip": "MNikaidoXmas2023_R3_Party.webp",
+        "team": "31D",
+        "chara_label": "MNikaido",
+        "in_date": "2023-12-01 02:00:00+00:00",
+        "label": "MNikaido04",
+        "tier": "SS",
+        "role": "Attacker",
+        "type": "Strike",
+        "elements": [
+            "Ice"
         ],
         "weapon": "Shield",
         "growth_abi": "AttackUp",
@@ -2333,6 +2651,25 @@
         "max_lb": 4
     },
     {
+        "id": 1005504,
+        "name": "Holiday Star Night",
+        "image": "ADateXmas2023_R3_Thumbnail.webp",
+        "strip": "ADateXmas2023_R3_Party.webp",
+        "team": "31D",
+        "chara_label": "ADate",
+        "in_date": "2023-12-01 02:00:00+00:00",
+        "label": "ADate04",
+        "tier": "SS",
+        "role": "Breaker",
+        "type": "Strike",
+        "elements": [
+            "Ice"
+        ],
+        "weapon": "LargeSword",
+        "growth_abi": "AttackUp",
+        "max_lb": 4
+    },
+    {
         "id": 1005601,
         "name": "深き海の学び手",
         "image": "AMizuharaDefault_R1_Thumbnail.webp",
@@ -2382,6 +2719,25 @@
         "weapon": "LargeSword",
         "growth_abi": "DebuffUp",
         "max_lb": 4
+    },
+    {
+        "id": 1005604,
+        "name": "奥深い味わいを",
+        "image": "AMizuharaDefault_R2a_Thumbnail.webp",
+        "strip": "AMizuharaDefault_R2a_Party.webp",
+        "team": "31D",
+        "chara_label": "AMizuhara",
+        "in_date": "2023-12-01 02:00:00+00:00",
+        "label": "AMizuhara04",
+        "tier": "S",
+        "role": "Debuffer",
+        "type": "Strike",
+        "elements": [
+            "Ice"
+        ],
+        "weapon": "LargeSword",
+        "growth_abi": "AttackUp",
+        "max_lb": 10
     },
     {
         "id": 1006101,
@@ -2653,6 +3009,25 @@
         "max_lb": 4
     },
     {
+        "id": 1006404,
+        "name": "ぐうたらパジャマナイト",
+        "image": "YoOhshimaSheep_R3_Thumbnail.webp",
+        "strip": "YoOhshimaSheep_R3_Party.webp",
+        "team": "31E",
+        "chara_label": "YoOhshima",
+        "in_date": "2024-01-05 02:00:00+00:00",
+        "label": "YoOhshima04",
+        "tier": "SS",
+        "role": "Buffer",
+        "type": "Stab",
+        "elements": [
+            "Light"
+        ],
+        "weapon": "Gun",
+        "growth_abi": "BuffUp",
+        "max_lb": 4
+    },
+    {
         "id": 1006501,
         "name": "五十鈴の秘密",
         "image": "IrOhshimaDefault_R1_Thumbnail.webp",
@@ -2791,6 +3166,23 @@
         "weapon": "Cannon",
         "growth_abi": "HealUp",
         "max_lb": 10
+    },
+    {
+        "id": 1006605,
+        "name": "早春向かい風",
+        "image": "MuOhshimaFurisode2024_R3_Thumbnail.webp",
+        "strip": "MuOhshimaFurisode2024_R3_Party.webp",
+        "team": "31E",
+        "chara_label": "MuOhshima",
+        "in_date": "2024-01-05 02:00:00+00:00",
+        "label": "MuOhshima05",
+        "tier": "SS",
+        "role": "Healer",
+        "type": "Stab",
+        "elements": [],
+        "weapon": "Cannon",
+        "growth_abi": "HealUp",
+        "max_lb": 4
     },
     {
         "id": 1007101,
@@ -3457,6 +3849,25 @@
         "max_lb": 4
     },
     {
+        "id": 1008504,
+        "name": "刹那の邂逅",
+        "image": "MdAngelisKnights_R3_Thumbnail.webp",
+        "strip": "MdAngelisKnights_R3_Party.webp",
+        "team": "31X",
+        "chara_label": "MdAngelis",
+        "in_date": "2023-11-17 02:00:00+00:00",
+        "label": "MdAngelis04",
+        "tier": "SS",
+        "role": "Healer",
+        "type": "Strike",
+        "elements": [
+            "Thunder"
+        ],
+        "weapon": "LargeSword",
+        "growth_abi": "AttackUp",
+        "max_lb": 4
+    },
+    {
         "id": 1008601,
         "name": "北風の使者",
         "image": "CSkopovskayaDefault_R1_Thumbnail.webp",
@@ -3510,6 +3921,25 @@
         "max_lb": 4
     },
     {
+        "id": 1008604,
+        "name": "とこしえの想い",
+        "image": "CSkopovskayaVampire_R3_Thumbnail.webp",
+        "strip": "CSkopovskayaVampire_R3_Party.webp",
+        "team": "31X",
+        "chara_label": "CSkopovskaya",
+        "in_date": "2023-11-17 02:00:00+00:00",
+        "label": "CSkopovskaya04",
+        "tier": "SS",
+        "role": "Debuffer",
+        "type": "Stab",
+        "elements": [
+            "Thunder"
+        ],
+        "weapon": "Cannon",
+        "growth_abi": "DebuffUp",
+        "max_lb": 4
+    },
+    {
         "id": 1020103,
         "name": "Earth Angel",
         "image": "AliceADefault_R3_Thumbnail.webp",
@@ -3523,6 +3953,25 @@
         "type": "Slash",
         "elements": [
             "Light"
+        ],
+        "weapon": "Sword",
+        "growth_abi": "AttackUp",
+        "max_lb": 4
+    },
+    {
+        "id": 1020104,
+        "name": "天翔ける剣",
+        "image": "AliceAOnePiece_R3_Thumbnail.webp",
+        "strip": "AliceAOnePiece_R3_Party.webp",
+        "team": "Angel Beats",
+        "chara_label": "AliceA",
+        "in_date": "2024-02-04 11:00:00+00:00",
+        "label": "AliceA04",
+        "tier": "SS",
+        "role": "Attacker",
+        "type": "Slash",
+        "elements": [
+            "Ice"
         ],
         "weapon": "Sword",
         "growth_abi": "AttackUp",
@@ -3548,6 +3997,25 @@
         "max_lb": 4
     },
     {
+        "id": 1020204,
+        "name": "ありふれた非日常",
+        "image": "AliceBBlazerUniform_R3_Thumbnail.webp",
+        "strip": "AliceBBlazerUniform_R3_Party.webp",
+        "team": "Angel Beats",
+        "chara_label": "AliceB",
+        "in_date": "2024-02-04 11:00:00+00:00",
+        "label": "AliceB04",
+        "tier": "SS",
+        "role": "Breaker",
+        "type": "Stab",
+        "elements": [
+            "Ice"
+        ],
+        "weapon": "Gun",
+        "growth_abi": "AttackUp",
+        "max_lb": 4
+    },
+    {
         "id": 1020302,
         "name": "Pure Cosmos",
         "image": "AliceCDefault_R2_Thumbnail.webp",
@@ -3562,6 +4030,44 @@
         "elements": [],
         "weapon": "Shield",
         "growth_abi": "HealUp",
+        "max_lb": 10
+    },
+    {
+        "id": 1020303,
+        "name": "Faraway Eden",
+        "image": "AliceCDefault_R3_Thumbnail.webp",
+        "strip": "AliceCDefault_R3_Party.webp",
+        "team": "Angel Beats",
+        "chara_label": "AliceC",
+        "in_date": "2024-01-20 13:00:00+00:00",
+        "label": "AliceC03",
+        "tier": "SS",
+        "role": "Defender",
+        "type": "Strike",
+        "elements": [
+            "Ice"
+        ],
+        "weapon": "Shield",
+        "growth_abi": "HealUp",
+        "max_lb": 4
+    },
+    {
+        "id": 1020402,
+        "name": "Finally found our silver lining",
+        "image": "BiancaADefault_R2_Thumbnail.webp",
+        "strip": "BiancaADefault_R2_Party.webp",
+        "team": "Angel Beats",
+        "chara_label": "BiancaA",
+        "in_date": "2024-02-04 11:00:00+00:00",
+        "label": "BiancaA02",
+        "tier": "S",
+        "role": "Debuffer",
+        "type": "Strike",
+        "elements": [
+            "Ice"
+        ],
+        "weapon": "LargeSword",
+        "growth_abi": "DebuffUp",
         "max_lb": 10
     }
 ]

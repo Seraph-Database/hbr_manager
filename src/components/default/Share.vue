@@ -75,18 +75,16 @@
             : `ma-0 pa-0 mx-4 ml-3 pr-3`
         } filter-list text-HBR`"
       >
-      <div>
-        <div 
-          ref="styleList">
-        <v-list
+        <!-- <v-list
           density="compact"
           class="style-list pa-0 py-1 text-normal"
           bg-color="#1f1f1f88"
         >
           <v-list-item
             class="px-2"
-            v-for="style in dataStore.getStyles?.filter(dataStore.isOwned)"
-            v-show="Number(CardRarity[style.tier]) === 3"
+            v-for="style in dataStore.getStyles
+              ?.filter(dataStore.isOwned)
+              .sort(sortByTier)"
             :key="style.id"
             :title="`${style.name}`"
           >
@@ -94,23 +92,17 @@
               <img
                 width="32"
                 height="32"
-                class="mr-2"
-                :src="`https://hbr.quest/hbr/${style.image}`"
-              />
-              <!-- <img
-                width="32"
-                height="32"
                 class="mr-1"
                 :src="`https://hbr.quest/ui/IconRarity${style.tier}.webp`"
-              /> -->
+              />
             </template>
-            <!-- <template v-slot:append>
+            <template v-slot:append>
               <img
                 width="32"
                 height="32"
                 :src="`https://hbr.quest/hbr/${style.image}`"
               />
-            </template> -->
+            </template>
           </v-list-item>
           <v-sheet
             v-if="
@@ -122,9 +114,111 @@
           >
             {{ `No data` }}
           </v-sheet>
-        </v-list>
-      </div>
-      </div>
+        </v-list> -->
+        <div :style="{ width: `1132px` }">
+          <div
+            ref="styleList"
+            class="d-flex flex-wrap align-center justify-start"
+            :style="{ gap: `0.125rem` }"
+          >
+            <div
+              v-for="style in dataStore.getStyles?.filter(
+                (s) => Number(CardRarity[s.tier]) === 3
+              )"
+              :key="style.id"
+              :style="{
+                position: `relative`,
+              }"
+            >
+              <div
+                v-if="dataStore.getStyle(style.id)[1] > -1"
+                :style="{
+                  position: `absolute`,
+                  top: `0rem`,
+                  left: `0rem`,
+                  color: `black`,
+                  fontSize: `0.625rem`,
+                  lineHeight: `0.75rem`,
+                  padding: `0.125rem`,
+                  textIndent: `0.125rem`,
+                  borderTopLeftRadius: `0.375rem`,
+                  borderTopRightRadius: `0.375rem`,
+                  textShadow: `1px 1px 0px #21212133`,
+                  textOverflow: `ellipsis`,
+                  whiteSpace: `nowrap`,
+                  overflowX: `hidden`,
+                  width: `160px`,
+                  background: `linear-gradient(90deg, #ffffffaa 100%, #ffffff00 100%)`,
+                }"
+              >
+                {{ style.name }}
+              </div>
+              <div
+                v-if="dataStore.getStyle(style.id)[1] > -1"
+                :style="{
+                  position: `absolute`,
+                  top: `1.25rem`,
+                  left: `0.25rem`,
+                  color: `black`,
+                  fontSize: `0.5rem`,
+                  lineHeight: `0.5rem`,
+                  padding: `0.125rem`,
+                  borderRadius: `0.25rem`,
+                  width: `2.75rem`,
+                  textShadow: `1px 1px 0px #21212133`,
+                  background: `linear-gradient(90deg, #ffffffaa 75%, #ffffff00 100%)`,
+                }"
+              >
+                {{ `LB ${dataStore.getStyle(style.id)[1]}/4` }}
+              </div>
+              <div
+                v-if="dataStore.getStyle(style.id)[1] > -1"
+                :style="{
+                  position: `absolute`,
+                  top: `2.125rem`,
+                  left: `0.25rem`,
+                  color: `black`,
+                  fontSize: `0.5rem`,
+                  lineHeight: `0.5rem`,
+                  padding: `0.125rem`,
+                  borderRadius: `0.25rem`,
+                  width: `2.75rem`,
+                  textShadow: `1px 1px 0px #21212133`,
+                  background: `linear-gradient(90deg, #ffffffaa 75%, #ffffff00 100%)`,
+                }"
+              >
+                {{ `Lv170` }}
+              </div>
+              <div
+                v-if="dataStore.getStyle(style.id)[1] > -1"
+                :style="{
+                  position: `absolute`,
+                  top: `3rem`,
+                  left: `0.25rem`,
+                  color: `black`,
+                  fontSize: `0.5rem`,
+                  lineHeight: `0.5rem`,
+                  padding: `0.125rem`,
+                  borderRadius: `0.25rem`,
+                  width: `2.75rem`,
+                  textShadow: `1px 1px 0px #21212133`,
+                  background: `linear-gradient(90deg, #ffffffaa 75%, #ffffff00 100%)`,
+                }"
+              >
+                {{ `89/89` }}
+              </div>
+              <img
+                class="d-block"
+                width="160"
+                height="64"
+                :src="`/hbr/${style.strip.replace(`Party`, `Select`)}`"
+                :style="{
+                  opacity: dataStore.getStyle(style.id)[1] > -1 ? 1 : 0.5,
+                }"
+              />
+            </div>
+          </div>
+        </div>
       </v-card-text>
 
       <v-toolbar color="#ffffff00" class="btn-toolbar pa-0 py-3">
@@ -188,6 +282,7 @@
 <script lang="ts" setup>
 import { useStyleStore } from "@/store/app";
 import { ref, onMounted, onBeforeUnmount } from "vue";
+import { Style } from "@/types";
 
 // @ts-ignore
 import domtoimage from "dom-to-image-more";
@@ -230,9 +325,13 @@ const generateImage = async () => {
       domtoimage
         .toPng(styleList.value)
         .then((dataUrl: any) => {
-          var img = new Image();
-          img.src = dataUrl;
-          document.body.appendChild(img);
+          // var img = new Image();
+          // img.src = dataUrl;
+          // document.body.appendChild(img);
+          var link = document.createElement("a");
+          link.download = "my-image-name.png";
+          link.href = dataUrl;
+          link.click();
         })
         .catch((error: any) => {
           console.error("Oops, something went wrong!", error);

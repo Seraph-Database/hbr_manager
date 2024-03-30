@@ -8,6 +8,7 @@ import {
   UserData,
 } from '@/types'
 import { charaList } from '@/helpers/chara';
+import { CardRarity } from '@/enums';
 
 const myHeaders: HeadersInit = new Headers({
   "Access-Control-Allow-Origin": "*",
@@ -50,7 +51,7 @@ export const useStyleStore = defineStore('styles', {
   }),
   getters: {
     getStyles(state): Style[] | undefined {
-      return state.data.styles
+      return state.data.styles?.sort((a: Style, b: Style) => a.chara_label == b.chara_label ? Number(CardRarity[a.tier]) - Number(CardRarity[b.tier]) : a.id - b.id)
     },
     getOwned(state): number[][] {
       return state.owned
