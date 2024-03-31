@@ -76,6 +76,7 @@ export type Style = {
     growth_abi: GrowthAbility
     limit_break: LimitBreak
     max_lb: number
+    tree_count: number
     ability_tree: AbilityTree[]
     passives: PassiveSkill[]
     generalize: boolean

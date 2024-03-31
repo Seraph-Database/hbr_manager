@@ -18,7 +18,7 @@
     scrollable
     v-model:model-value="share"
     transition="scale-transition"
-    :max-width="`36rem`"
+    :max-width="`74.375rem`"
     :max-height="
       $vuetify.display.smAndDown ? undefined : $vuetify.display.height - 192
     "
@@ -205,7 +205,7 @@
                   background: `linear-gradient(90deg, #ffffffaa 75%, #ffffff00 100%)`,
                 }"
               >
-                {{ `89/89` }}
+                {{ `??/${style.tree_count}` }}
               </div>
               <img
                 class="d-block"
