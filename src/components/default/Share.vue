@@ -317,7 +317,7 @@ import { CardRarity } from "@/enums";
 
 const dataStore = useStyleStore();
 const share = ref(false);
-const styleList = ref(null);
+const styleList = ref(null as HTMLElement | null);
 // const fileData = ref(undefined)
 
 const catchEsc = (e: KeyboardEvent) => {
@@ -363,9 +363,17 @@ const copyToClipboard = async () => {
 
 const generateImage = async () => {
   try {
-    if (styleList) {
-      domtoimage
-        .toPng(styleList.value)
+    if (styleList.value) {
+      const scale = 1;
+      await domtoimage
+        .toPng(styleList.value, {
+          width: styleList.value.clientWidth * scale,
+          height: styleList.value.clientHeight * scale,
+          style: {
+            transform: "scale(" + scale + ")",
+            transformOrigin: "top left"
+          }
+        })
         .then((dataUrl: any) => {
           // var img = new Image();
           // img.src = dataUrl;
