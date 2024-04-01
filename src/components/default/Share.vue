@@ -160,18 +160,18 @@
                   top: `1.25rem`,
                   left: `0.25rem`,
                   color: `black`,
-                  fontSize: `0.5rem`,
-                  lineHeight: `0.5rem`,
+                  fontSize: `0.75rem`,
+                  lineHeight: `0.75rem`,
                   padding: `0.125rem`,
                   borderRadius: `0.25rem`,
-                  width: `2.75rem`,
+                  width: `4rem`,
                   textShadow: `1px 1px 0px #21212133`,
                   background: `linear-gradient(90deg, #ffffffaa 75%, #ffffff00 100%)`,
                 }"
               >
                 {{ `LB ${dataStore.getStyle(style.id)[1]}/4` }}
               </div>
-              <div
+              <!-- <div
                 v-if="dataStore.getStyle(style.id)[1] > -1"
                 :style="{
                   position: `absolute`,
@@ -187,26 +187,64 @@
                   background: `linear-gradient(90deg, #ffffffaa 75%, #ffffff00 100%)`,
                 }"
               >
-                {{ `Lv170` }}
-              </div>
-              <div
+                {{ `??/${style.tree_count}` }}
+              </div> -->
+              <!-- <div
                 v-if="dataStore.getStyle(style.id)[1] > -1"
                 :style="{
                   position: `absolute`,
-                  top: `3rem`,
-                  left: `0.25rem`,
+                  top: `1rem`,
+                  left: `0rem`,
                   color: `black`,
                   fontSize: `0.5rem`,
-                  lineHeight: `0.5rem`,
                   padding: `0.125rem`,
-                  borderRadius: `0.25rem`,
-                  width: `2.75rem`,
+                  lineHeight: `0.5rem`,
+                  // borderRadius: `0.25rem`,
+                  width: `5rem`,
                   textShadow: `1px 1px 0px #21212133`,
                   background: `linear-gradient(90deg, #ffffffaa 75%, #ffffff00 100%)`,
                 }"
               >
-                {{ `??/${style.tree_count}` }}
-              </div>
+                <div
+                  :style="{
+                    marginBottom: `0.125rem`,
+                  }"
+                >
+                  <img
+                    v-for="n in 5"
+                    :key="n"
+                    :width="12"
+                    :height="12"
+                    :src="`/orb/${n + 10}.webp`"
+                  />
+                </div>
+                <div
+                  :style="{
+                    marginBottom: `0.125rem`,
+                  }"
+                >
+                  <img
+                    v-for="n in 5"
+                    :key="n"
+                    :width="12"
+                    :height="12"
+                    :src="`/orb/${n + 5}.webp`"
+                  />
+                </div>
+                <div
+                  :style="{
+                    marginBottom: `0.125rem`,
+                  }"
+                >
+                  <img
+                    v-for="n in 2"
+                    :key="n"
+                    :width="12"
+                    :height="12"
+                    :src="`/orb/${n}.webp`"
+                  />
+                </div>
+              </div> -->
               <img
                 class="d-block"
                 width="160"
