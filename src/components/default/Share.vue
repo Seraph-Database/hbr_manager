@@ -18,7 +18,7 @@
     scrollable
     v-model:model-value="share"
     transition="scale-transition"
-    :max-width="`74.375rem`"
+    :max-width="`68.625rem`"
     :max-height="
       $vuetify.display.smAndDown ? undefined : $vuetify.display.height - 192
     "
@@ -75,185 +75,152 @@
             : `ma-0 pa-0 mx-4 ml-3 pr-3`
         } filter-list text-HBR`"
       >
-        <!-- <v-list
-          density="compact"
-          class="style-list pa-0 py-1 text-normal"
-          bg-color="#1f1f1f88"
-        >
-          <v-list-item
-            class="px-2"
-            v-for="style in dataStore.getStyles
-              ?.filter(dataStore.isOwned)
-              .sort(sortByTier)"
-            :key="style.id"
-            :title="`${style.name}`"
-          >
-            <template v-slot:prepend>
-              <img
-                width="32"
-                height="32"
-                class="mr-1"
-                :src="`https://hbr.quest/ui/IconRarity${style.tier}.webp`"
-              />
-            </template>
-            <template v-slot:append>
-              <img
-                width="32"
-                height="32"
-                :src="`https://hbr.quest/hbr/${style.image}`"
-              />
-            </template>
-          </v-list-item>
-          <v-sheet
-            v-if="
-              dataStore.getStyles &&
-              dataStore.getStyles.filter(dataStore.isOwned).length < 1
-            "
-            class="text-center"
-            color="transparent"
-          >
-            {{ `No data` }}
-          </v-sheet>
-        </v-list> -->
-        <div :style="{ width: `1132px` }">
-          <div
-            ref="styleList"
-            class="d-flex flex-wrap align-center justify-start"
-            :style="{ gap: `0.125rem` }"
-          >
+        <template v-if="false">
+          <div :style="{ width: `1132px` }">
             <div
-              v-for="style in dataStore.getStyles?.filter(
-                (s) => Number(CardRarity[s.tier]) === 3
-              )"
-              :key="style.id"
-              :style="{
-                position: `relative`,
-              }"
+              ref="styleList"
+              class="d-flex flex-wrap align-center justify-start"
+              :style="{ gap: `0.125rem` }"
             >
               <div
-                v-if="dataStore.getStyle(style.id)[1] > -1"
+                v-for="style in dataStore.getStyles?.filter(
+                  (s) => Number(CardRarity[s.tier]) === 3
+                )"
+                :key="style.id"
                 :style="{
-                  position: `absolute`,
-                  top: `0rem`,
-                  left: `0rem`,
-                  color: `black`,
-                  fontSize: `0.625rem`,
-                  lineHeight: `0.75rem`,
-                  padding: `0.125rem`,
-                  textIndent: `0.125rem`,
-                  borderTopLeftRadius: `0.375rem`,
-                  borderTopRightRadius: `0.375rem`,
-                  textShadow: `1px 1px 0px #21212133`,
-                  textOverflow: `ellipsis`,
-                  whiteSpace: `nowrap`,
-                  overflowX: `hidden`,
-                  width: `160px`,
-                  background: `linear-gradient(90deg, #ffffffaa 100%, #ffffff00 100%)`,
+                  position: `relative`,
                 }"
               >
-                {{ style.name }}
+                <div
+                  v-if="dataStore.getStyle(style.id)[1] > -1"
+                  :style="{
+                    position: `absolute`,
+                    top: `0rem`,
+                    left: `0rem`,
+                    color: `black`,
+                    fontSize: `0.625rem`,
+                    lineHeight: `0.75rem`,
+                    padding: `0.125rem`,
+                    textIndent: `0.125rem`,
+                    borderTopLeftRadius: `0.375rem`,
+                    borderTopRightRadius: `0.375rem`,
+                    textShadow: `1px 1px 0px #21212133`,
+                    textOverflow: `ellipsis`,
+                    whiteSpace: `nowrap`,
+                    overflowX: `hidden`,
+                    width: `160px`,
+                    background: `linear-gradient(90deg, #ffffffaa 100%, #ffffff00 100%)`,
+                  }"
+                >
+                  {{ style.name }}
+                </div>
+                <div
+                  v-if="dataStore.getStyle(style.id)[1] > -1"
+                  :style="{
+                    position: `absolute`,
+                    top: `1.25rem`,
+                    left: `0.25rem`,
+                    color: `black`,
+                    fontSize: `0.75rem`,
+                    lineHeight: `0.75rem`,
+                    padding: `0.125rem`,
+                    borderRadius: `0.25rem`,
+                    width: `4rem`,
+                    textShadow: `1px 1px 0px #21212133`,
+                    background: `linear-gradient(90deg, #ffffffaa 75%, #ffffff00 100%)`,
+                  }"
+                >
+                  {{ `LB ${dataStore.getStyle(style.id)[1]}/4` }}
+                </div>
+                <img
+                  class="d-block"
+                  width="160"
+                  height="64"
+                  :src="`/hbr/${style.strip.replace(`Party`, `Select`)}`"
+                  :style="{
+                    opacity: dataStore.getStyle(style.id)[1] > -1 ? 1 : 0.5,
+                  }"
+                />
               </div>
+            </div>
+          </div>
+        </template>
+        <div v-if="styleGroups" class="mx-auto" :style="{ width: `65rem` }">
+          <div ref="styleList" class="py-3 pb-6">
+            <div
+              v-for="(g, gi) in styleGroups"
+              :key="gi"
+              class="d-flex flex-wrap align-center justify-center"
+              :style="{ gap: `0.125rem` }"
+            >
               <div
-                v-if="dataStore.getStyle(style.id)[1] > -1"
+                v-for="style in g"
+                :key="style.id"
                 :style="{
-                  position: `absolute`,
-                  top: `1.25rem`,
-                  left: `0.25rem`,
-                  color: `black`,
-                  fontSize: `0.75rem`,
-                  lineHeight: `0.75rem`,
-                  padding: `0.125rem`,
-                  borderRadius: `0.25rem`,
-                  width: `4rem`,
-                  textShadow: `1px 1px 0px #21212133`,
-                  background: `linear-gradient(90deg, #ffffffaa 75%, #ffffff00 100%)`,
-                }"
-              >
-                {{ `LB ${dataStore.getStyle(style.id)[1]}/4` }}
-              </div>
-              <!-- <div
-                v-if="dataStore.getStyle(style.id)[1] > -1"
-                :style="{
-                  position: `absolute`,
-                  top: `2.125rem`,
-                  left: `0.25rem`,
-                  color: `black`,
-                  fontSize: `0.5rem`,
-                  lineHeight: `0.5rem`,
-                  padding: `0.125rem`,
-                  borderRadius: `0.25rem`,
-                  width: `2.75rem`,
-                  textShadow: `1px 1px 0px #21212133`,
-                  background: `linear-gradient(90deg, #ffffffaa 75%, #ffffff00 100%)`,
-                }"
-              >
-                {{ `??/${style.tree_count}` }}
-              </div> -->
-              <!-- <div
-                v-if="dataStore.getStyle(style.id)[1] > -1"
-                :style="{
-                  position: `absolute`,
-                  top: `1rem`,
-                  left: `0rem`,
-                  color: `black`,
-                  fontSize: `0.5rem`,
-                  padding: `0.125rem`,
-                  lineHeight: `0.5rem`,
-                  // borderRadius: `0.25rem`,
+                  position: `relative`,
+                  backgroundImage: `url(${`/hbr/${style.strip.replace(
+                    `Party`,
+                    `StylePiece`
+                  )}`})`,
+                  // backgroundColor: `#000`,
                   width: `5rem`,
-                  textShadow: `1px 1px 0px #21212133`,
-                  background: `linear-gradient(90deg, #ffffffaa 75%, #ffffff00 100%)`,
+                  height: `5rem`,
+                  backgroundSize: `135%`,
+                  backgroundPosition: `center`,
+                  marginRight: `-0.125rem`,
+                  marginLeft: `-0.125rem`,
+                  marginBottom: `-0.75rem`,
+                  // boxShadow: `0px 0px 0px 0px #000`,
+                  // opacity: dataStore.getStyle(style.id)[1] > -1 ? 1 : 0.25,
+                  clipPath: `polygon(45% 1.33975%, 46.5798% 0.60307%, 48.26352% 0.15192%, 50% 0%, 51.73648% 0.15192%, 53.4202% 0.60307%, 55% 1.33975%, 89.64102% 21.33975%, 91.06889% 22.33956%, 92.30146% 23.57212%, 93.30127% 25%, 94.03794% 26.5798%, 94.48909% 28.26352%, 94.64102% 30%, 94.64102% 70%, 94.48909% 71.73648%, 94.03794% 73.4202%, 93.30127% 75%, 92.30146% 76.42788%, 91.06889% 77.66044%, 89.64102% 78.66025%, 55% 98.66025%, 53.4202% 99.39693%, 51.73648% 99.84808%, 50% 100%, 48.26352% 99.84808%, 46.5798% 99.39693%, 45% 98.66025%, 10.35898% 78.66025%, 8.93111% 77.66044%, 7.69854% 76.42788%, 6.69873% 75%, 5.96206% 73.4202%, 5.51091% 71.73648%, 5.35898% 70%, 5.35898% 30%, 5.51091% 28.26352%, 5.96206% 26.5798%, 6.69873% 25%, 7.69854% 23.57212%, 8.93111% 22.33956%, 10.35898% 21.33975%)`,
                 }"
               >
                 <div
+                  v-if="dataStore.getStyle(style.id)[1] > 0"
                   :style="{
-                    marginBottom: `0.125rem`,
+                    position: `absolute`,
+                    top: `0.0625rem`,
+                    left: `calc(50% - 0.5rem)`,
+                    color: `black`,
+                    fontSize: `0.75rem`,
+                    lineHeight: `0.75rem`,
+                    padding: `0.125rem`,
+                    borderRadius: `50%`,
+                    width: `1rem`,
+                    height: `1rem`,
+                    textAlign: `center`,
+                    clipPath: `polygon(45% 1.33975%, 46.5798% 0.60307%, 48.26352% 0.15192%, 50% 0%, 51.73648% 0.15192%, 53.4202% 0.60307%, 55% 1.33975%, 89.64102% 21.33975%, 91.06889% 22.33956%, 92.30146% 23.57212%, 93.30127% 25%, 94.03794% 26.5798%, 94.48909% 28.26352%, 94.64102% 30%, 94.64102% 70%, 94.48909% 71.73648%, 94.03794% 73.4202%, 93.30127% 75%, 92.30146% 76.42788%, 91.06889% 77.66044%, 89.64102% 78.66025%, 55% 98.66025%, 53.4202% 99.39693%, 51.73648% 99.84808%, 50% 100%, 48.26352% 99.84808%, 46.5798% 99.39693%, 45% 98.66025%, 10.35898% 78.66025%, 8.93111% 77.66044%, 7.69854% 76.42788%, 6.69873% 75%, 5.96206% 73.4202%, 5.51091% 71.73648%, 5.35898% 70%, 5.35898% 30%, 5.51091% 28.26352%, 5.96206% 26.5798%, 6.69873% 25%, 7.69854% 23.57212%, 8.93111% 22.33956%, 10.35898% 21.33975%)`,
+                    textShadow: `1px 1px 0px #21212133`,
+                    background: `linear-gradient(180deg, #ffffffaa 100%, #ffffff00 100%)`,
                   }"
                 >
-                  <img
-                    v-for="n in 5"
-                    :key="n"
-                    :width="12"
-                    :height="12"
-                    :src="`/orb/${n + 10}.webp`"
-                  />
+                  {{ `${dataStore.getStyle(style.id)[1]}` }}
+                  <!-- <img :src="`/ui/ExchangeBadgeicon.webp`" :width="24" :height="24" /> -->
                 </div>
+                <div v-if="dataStore.getStyle(style.id)[1] < 0" :style="{
+                  width: `100%`,
+                  height: `100%`,
+                  background: `#000000bb`,
+                }"></div>
+            </div>
+              <template v-if="gi === styleGroups.length - 1">
                 <div
+                  v-for="n in (gi % 2 === 0 ? 13 : 12) - g.length"
+                  :key="`empty-${n}`"
                   :style="{
-                    marginBottom: `0.125rem`,
+                    position: `relative`,
+                    background: `transparent`,
+                    width: `5rem`,
+                    height: `5rem`,
+                    backgroundSize: `135%`,
+                    backgroundPosition: `center`,
+                    marginRight: `-0.125rem`,
+                    marginLeft: `-0.125rem`,
+                    marginBottom: `-0.75rem`,
+                    clipPath: `polygon(45% 1.33975%, 46.5798% 0.60307%, 48.26352% 0.15192%, 50% 0%, 51.73648% 0.15192%, 53.4202% 0.60307%, 55% 1.33975%, 89.64102% 21.33975%, 91.06889% 22.33956%, 92.30146% 23.57212%, 93.30127% 25%, 94.03794% 26.5798%, 94.48909% 28.26352%, 94.64102% 30%, 94.64102% 70%, 94.48909% 71.73648%, 94.03794% 73.4202%, 93.30127% 75%, 92.30146% 76.42788%, 91.06889% 77.66044%, 89.64102% 78.66025%, 55% 98.66025%, 53.4202% 99.39693%, 51.73648% 99.84808%, 50% 100%, 48.26352% 99.84808%, 46.5798% 99.39693%, 45% 98.66025%, 10.35898% 78.66025%, 8.93111% 77.66044%, 7.69854% 76.42788%, 6.69873% 75%, 5.96206% 73.4202%, 5.51091% 71.73648%, 5.35898% 70%, 5.35898% 30%, 5.51091% 28.26352%, 5.96206% 26.5798%, 6.69873% 25%, 7.69854% 23.57212%, 8.93111% 22.33956%, 10.35898% 21.33975%)`,
                   }"
-                >
-                  <img
-                    v-for="n in 5"
-                    :key="n"
-                    :width="12"
-                    :height="12"
-                    :src="`/orb/${n + 5}.webp`"
-                  />
-                </div>
-                <div
-                  :style="{
-                    marginBottom: `0.125rem`,
-                  }"
-                >
-                  <img
-                    v-for="n in 2"
-                    :key="n"
-                    :width="12"
-                    :height="12"
-                    :src="`/orb/${n}.webp`"
-                  />
-                </div>
-              </div> -->
-              <img
-                class="d-block"
-                width="160"
-                height="64"
-                :src="`/hbr/${style.strip.replace(`Party`, `Select`)}`"
-                :style="{
-                  opacity: dataStore.getStyle(style.id)[1] > -1 ? 1 : 0.5,
-                }"
-              />
+                ></div>
+              </template>
             </div>
           </div>
         </div>
@@ -319,7 +286,7 @@
 
 <script lang="ts" setup>
 import { useStyleStore } from "@/store/app";
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount, computed } from "vue";
 import { Style } from "@/types";
 
 // @ts-ignore
@@ -348,6 +315,21 @@ const closeShare = () => {
   share.value = false;
 };
 
+const styleGroups = computed(() => {
+  return dataStore.getStyles
+    ?.filter((s) => Number(CardRarity[s.tier]) === 3)
+    .reduce((acc, s) => {
+      if (acc.length < 1) {
+        return [[s]];
+      } else if (
+        acc[acc.length - 1].length < ((acc.length - 1) % 2 === 0 ? 13 : 12)
+      ) {
+        return acc.map((sg, sgi) => (sgi === acc.length - 1 ? [...sg, s] : sg));
+      }
+      return [...acc, [s]];
+    }, [] as Style[][]);
+});
+
 const copyToClipboard = async () => {
   try {
     await navigator.clipboard.writeText(getEncodedData());
@@ -367,7 +349,7 @@ const generateImage = async () => {
           // img.src = dataUrl;
           // document.body.appendChild(img);
           var link = document.createElement("a");
-          link.download = "my-image-name.png";
+          link.download = "my-style-list.png";
           link.href = dataUrl;
           link.click();
         })
@@ -405,15 +387,3 @@ const getEncodedData = (): string => {
     : `No data to copy`;
 };
 </script>
-
-<style lang="scss" scoped>
-ul {
-  list-style: none;
-  gap: 0.25rem;
-
-  li {
-    width: 4rem;
-    height: 4rem;
-  }
-}
-</style>
