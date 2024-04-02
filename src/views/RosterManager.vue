@@ -40,6 +40,8 @@ const showAll = async (delay: number = 200) => {
     await new Promise(r => setTimeout(r, delay))
     dataStore.loading = false
     displayedResults.value += dataStore.getStyles.length - displayedResults.value
+    // dataStore.initBoxData()
+    // dataStore.convertOwnedToBoxData()
   }
 }
 

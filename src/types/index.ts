@@ -19,6 +19,14 @@ export type Character = {
 }
 
 
+export type StyleData = {
+    id: number
+    lbLv: number
+    abilityLv: number
+    styleLv: number
+}
+
+
 export type Lottery = {
     // todo
     id: number
