@@ -95,6 +95,10 @@ export const useStyleStore = defineStore("styles", {
           ? this.owned.filter((s) => s[0] !== styleId)
           : [...this.owned, [styleId, 0]];
       this.setUserData();
+      // new
+      // this.box = this.box.map((s) =>
+      //   s.id === styleId ? { ...s, lbLv: s.lbLv > -1 ? -1 : 0 } : s
+      // );
       // this.persistBoxData(this.box.find((s) => s.id === styleId));
     },
     isOwned(style: Style): boolean {
@@ -139,6 +143,20 @@ export const useStyleStore = defineStore("styles", {
             )
           : this.owned;
       this.setUserData();
+      // new
+      // this.box = this.box.map((s) =>
+      //   s.id === styleId
+      //     ? {
+      //         ...s,
+      //         lbLv: setToMax
+      //           ? maxLv
+      //           : s.lbLv < maxLv
+      //           ? Math.min(s.lbLv + 1, maxLv)
+      //           : 0,
+      //       }
+      //     : s
+      // );
+      // this.persistBoxData(this.box.find((s) => s.id === styleId));
     },
     getStyle(styleId: number): number[] {
       return this.owned.find((s) => s[0] === styleId) || [-1, -1];
