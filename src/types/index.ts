@@ -60,6 +60,18 @@ export type GachaCard = {
 }
 
 
+export type ElementList = {
+    element: string | ElementType,
+    list: Style[]
+}
+
+
+export type ElementListGroup = {
+    element: string | ElementType,
+    groups: Style[][]
+}
+
+
 export type Style = {
     id: number
     image: string
