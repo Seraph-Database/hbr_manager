@@ -1,18 +1,36 @@
 <template>
-  <v-scale-transition appear>
-    <v-btn
-      v-if="!dataStore.loading"
-      aria-label="Save & Load"
-      @click.stop="showShare"
-      icon
-      class="text-white"
-    >
-      <v-icon icon="mdi-share"></v-icon>
-      <!-- <v-tooltip v-if="!$vuetify.display.smAndDown" activator="parent" location="bottom">
-                {{ `Share collection` }}
-            </v-tooltip> -->
-    </v-btn>
-  </v-scale-transition>
+  <v-hover>
+    <template v-slot:default="{ isHovering, props }">
+      <v-scale-transition appear>
+        <v-btn
+          v-if="!dataStore.loading"
+          aria-label="Save & Load"
+          v-bind="props"
+          :stacked="true"
+          class="text-transparent"
+          color="transparent"
+          :flat="true"
+          :width="`100%`"
+          max-width="10rem"
+          @click.stop="showShare"
+        >
+          <v-img
+            :src="
+              isHovering
+                ? `/ui/ButtonFifthCircleActive.webp`
+                : `/ui/ButtonFifthCircleDefault.webp`
+            "
+            width="3rem"
+            height="3rem"
+            class="d-flex align-center justify-center"
+          >
+            <v-icon class="mb-1" color="white" icon="mdi-share"></v-icon>
+          </v-img>
+          <div class="text-HBR text-white mb-1">{{ `Share` }}</div>
+        </v-btn>
+      </v-scale-transition>
+    </template>
+  </v-hover>
   <v-dialog
     :close-on-back="true"
     scrollable
@@ -151,6 +169,13 @@
               v-for="(elg, eli) in styleGroups"
               :key="eli"
               class="pt-1 pb-5"
+              :style="
+                true
+                  ? {}
+                  : {
+                      filter: `drop-shadow(-1px -1px 0 #9f4f4f) drop-shadow(0 -1px 0 #9f4f4f) drop-shadow(1px -1px 0 #9f4f4f) drop-shadow(1px 0 0 #9f4f4f) drop-shadow(1px 1px 0 #9f4f4f) drop-shadow(0 1px 0 #9f4f4f) drop-shadow(-1px 1px 0 #9f4f4f) drop-shadow(-1px 0 0 #9f4f4f`,
+                    }
+              "
             >
               <div
                 v-for="(g, gi) in elg.groups"
@@ -204,9 +229,6 @@
                       top: `0.0625rem`,
                       left: `calc(50% - 0.75rem)`,
                       color: `black`,
-                      fontSize: `1rem`,
-                      lineHeight: `1rem`,
-                      padding: `0.1875rem`,
                       borderRadius: `50%`,
                       width: `1.5rem`,
                       height: `1.5rem`,
@@ -215,8 +237,16 @@
                       // textShadow: `1px 1px 0px #21212133`,
                       background: `linear-gradient(180deg, #ffffffaa 100%, #ffffff00 100%)`,
                     }"
+                    class="d-flex align-center justify-center"
                   >
-                    {{ `${dataStore.getStyle(style.id)[1]}` }}
+                    <span
+                      class="d-block"
+                      :style="{
+                        fontSize: `1rem`,
+                        lineHeight: `1rem`,
+                      }"
+                      >{{ `${dataStore.getStyle(style.id)[1]}` }}</span
+                    >
                     <!-- <img :src="`/ui/ExchangeBadgeicon.webp`" :width="24" :height="24" /> -->
                   </div>
                   <div
@@ -389,7 +419,8 @@ const groupByNatureElement = (styleList: Style[]): ElementListGroup[] => {
     }, [] as ElementList[])
     .map((sl) => {
       return { element: sl.element, groups: groupForHexagonList(sl.list) };
-    });
+    })
+    .sort((a, b) => ElementType[a.element] - ElementType[b.element]);
 };
 
 const groupForHexagonList = (styleList: Style[]): Style[][] => {

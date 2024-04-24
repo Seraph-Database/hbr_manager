@@ -24,6 +24,7 @@ const route = useRoute()
   font-weight: 400;
   src: local("HBRFont"), url("@/assets/A-OTF-SOFTGOSTD-DEBOLD.otf") format("opentype");
   font-display: swap;
+  ascent-override: 92%; /* play with values */
 }
 
 .text-JP {

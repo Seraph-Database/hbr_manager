@@ -1,8 +1,41 @@
 <template>
   <page-title title="Style Manager" />
-  <v-container class="pa-0 py-2" fluid>
+  <img
+    v-if="dataStore.loading"
+    :id="`loading-petals`"
+    :src="`/ui/IconLoadingRing.webp`"
+    width="64"
+    height="64"
+  />
+  <v-container class="pa-0 py-2" fluid v-else>
     <v-slide-y-transition appear>
-      <v-row no-gutters class="align-center justify-center">
+      <div class="mx-auto" :style="{ width: `${itemsPerLine * 366}px` }">
+        <RecycleScroller
+          page-mode
+          class="scroller"
+          :buffer="1440"
+          :items="dataStore.getStyles?.filter(searchFilter)"
+          :grid-items="itemsPerLine"
+          :item-secondary-size="366"
+          :item-size="154"
+          key-field="id"
+          v-slot="{ item }"
+        >
+          <div
+            cols="auto"
+            v-show="dataStore.getStyles && searchFilter(item)"
+            :class="`style-wrapper ${
+              !dataStore.loading &&
+              dataStore.getOwned.findIndex((s) => s[0] === item.id) < 0
+                ? `style--greyed `
+                : ``
+            }${$vuetify.display.width > 720 ? `pa-2` : `pa-0 pt-2 pb-2`}`"
+          >
+            <StyleCard :style="item" />
+          </div>
+        </RecycleScroller>
+      </div>
+      <!-- <v-row no-gutters class="align-center justify-center">
         <template
           v-for="styleIndex in !dataStore.loading && dataStore.getStyles
             ? dataStore.getStyles.length
@@ -17,7 +50,7 @@
             <StyleCard :style-index="styleIndex" />
           </v-col>
         </template>
-      </v-row>
+      </v-row> -->
     </v-slide-y-transition>
   </v-container>
 </template>
@@ -27,8 +60,9 @@ import PageTitle from "@/components/default/PageTitle.vue";
 // import Gauge from '@/components/battle/Gauge.vue';
 import StyleCard from "@/components/style/StyleCard.vue";
 import { useStyleStore, useSearchStore } from "@/store/app";
-// import { useRoute/*, useRouter */ } from 'vue-router';
-import { ref /*, watch */ } from "vue";
+import { useRoute /*, useRouter */ } from "vue-router";
+import { computed, ref /*, watch */ } from "vue";
+import { useDisplay } from "vuetify";
 import { Style } from "@/types";
 import { CardRarity, CharacterRole, CharacterTeam } from "@/enums";
 import { ElementType } from "@/enums";
@@ -37,7 +71,7 @@ import { WeaponType } from "@/enums";
 
 const dataStore = useStyleStore();
 const searchStore = useSearchStore();
-// const route = useRoute()
+const route = useRoute();
 // const router = useRouter()
 let displayedResults = ref(30);
 
@@ -54,6 +88,10 @@ const showAll = async (delay: number = 200) => {
     // dataStore.convertOwnedToBoxData()
   }
 };
+
+const itemsPerLine = computed(() => {
+  return Math.max(Math.trunc(useDisplay().width.value / 366), 1);
+});
 
 // const showAllAgain = () => {
 //   dataStore.loading = true
@@ -164,5 +202,11 @@ const searchFilter = (s: Style): boolean => {
 
 .style--greyed {
   opacity: 0.24;
+}
+
+#loading-petals {
+  position: fixed;
+  bottom: calc(50% - 32px);
+  left: calc(50% - 32px);
 }
 </style>

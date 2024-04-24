@@ -55,11 +55,11 @@ defineProps<{
   position: absolute;
   top: 0.8125rem;
   left: 3.125rem;
-  height: 1.5rem !important;
+  height: 1.4375rem !important;
   z-index: 2;
 
   span {
-    margin-bottom: 0.125rem;
+    // margin-bottom: 0.125rem;
     font-size: 1.0625rem;
     color: white;
     letter-spacing: 1px;

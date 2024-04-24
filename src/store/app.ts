@@ -64,6 +64,7 @@ export const useStyleStore = defineStore("styles", {
     owned: getUserData() as number[][],
     box: [] as StyleData[],
     loading: true as boolean,
+    selection: -1,
   }),
   getters: {
     getStyles(state): Style[] | undefined {
@@ -72,6 +73,9 @@ export const useStyleStore = defineStore("styles", {
           ? Number(CardRarity[a.tier]) - Number(CardRarity[b.tier])
           : a.id - b.id
       );
+    },
+    getSelectedStyle(state): Style | undefined {
+      return this.getStyles?.find(s => s.id === state.selection);
     },
     getOwned(state): number[][] {
       return state.owned;
@@ -90,6 +94,7 @@ export const useStyleStore = defineStore("styles", {
       });
     },
     toggleStyle(styleId: number): void {
+      this.selection = styleId
       this.owned =
         this.owned.findIndex((s) => s[0] === styleId) > -1
           ? this.owned.filter((s) => s[0] !== styleId)
