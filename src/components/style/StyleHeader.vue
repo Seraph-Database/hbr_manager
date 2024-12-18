@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Style } from "@/types";
+import { type Style } from "@/types";
 import { CharacterRoleGradient } from "@/enums";
 
 defineProps<{

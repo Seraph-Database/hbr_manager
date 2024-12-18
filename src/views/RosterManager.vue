@@ -13,7 +13,7 @@
         <RecycleScroller
           page-mode
           class="scroller"
-          :buffer="1440"
+          :buffer="308"
           :items="dataStore.getStyles?.filter(searchFilter)"
           :grid-items="itemsPerLine"
           :item-secondary-size="366"
@@ -53,6 +53,7 @@
       </v-row> -->
     </v-slide-y-transition>
   </v-container>
+  <div class="mt-2 py-12"></div>
 </template>
 
 <script lang="ts" setup>
@@ -63,7 +64,7 @@ import { useStyleStore, useSearchStore } from "@/store/app";
 import { useRoute /*, useRouter */ } from "vue-router";
 import { computed, ref /*, watch */ } from "vue";
 import { useDisplay } from "vuetify";
-import { Style } from "@/types";
+import { type Style } from "@/types";
 import { CardRarity, CharacterRole, CharacterTeam } from "@/enums";
 import { ElementType } from "@/enums";
 import { WeaponType } from "@/enums";

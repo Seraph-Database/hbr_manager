@@ -1,18 +1,38 @@
 <template>
-  <v-scale-transition appear>
-    <v-btn
-      @click="showSearch"
-      v-if="!dataStore.loading"
-      icon
-      class="text-white"
-      aria-label="Show filters"
-    >
-      <v-icon icon="mdi-filter-variant"></v-icon>
-      <!-- <v-tooltip v-if="!$vuetify.display.smAndDown" activator="parent" location="bottom">
-            {{ `Display filters` }}
-        </v-tooltip> -->
-    </v-btn>
-  </v-scale-transition>
+  <v-hover>
+    <template v-slot:default="{ isHovering, props }">
+      <v-scale-transition appear>
+        <v-btn
+          :aria-label="`Show Filters`"
+          v-bind="props"
+          :stacked="true"
+          class="text-white"
+          color="white"
+          :flat="true"
+          :width="`100%`"
+          max-width="9rem"
+          @click="showSearch"
+          v-if="!dataStore.loading"
+        >
+          <v-img
+            :src="
+              isHovering
+                ? `/ui/ButtonFifthCircleActive.webp`
+                : `/ui/ButtonFifthCircleDefault.webp`
+            "
+            width="3.0625rem"
+            height="3.0625rem"
+            class="d-flex align-center justify-center"
+          >
+            <v-icon color="white" :icon="`mdi-filter-variant`"></v-icon>
+          </v-img>
+          <div class="text-HBR text-white mb-1">
+            {{ `Filters` }}
+          </div>
+        </v-btn>
+      </v-scale-transition>
+    </template>
+  </v-hover>
   <v-dialog
     :close-on-back="true"
     scrollable
@@ -99,7 +119,7 @@
             {{ `Status` }}
           </v-tab>
         </v-tabs> -->
-        
+
         <v-expansion-panels
           readonly
           v-model="activeFilters"
@@ -164,42 +184,6 @@
                       ></v-sheet>
                       <span class="px-2">
                         {{ role }}
-                      </span>
-                    </div>
-                  </v-chip>
-                </template>
-              </v-chip-group>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-
-          <v-expansion-panel class="filter-category mb-2">
-            <v-expansion-panel-title hide-actions>
-              {{ `Team` }}
-            </v-expansion-panel-title>
-            <v-expansion-panel-text>
-              <v-chip-group
-                class="filter-category__list"
-                v-model="searchStore.teams"
-                column
-                multiple
-              >
-                <template v-for="(squad, index) in CharacterTeam">
-                  <v-chip
-                    filter
-                    variant="text"
-                    v-if="!isNaN(Number(index))"
-                    :key="index"
-                  >
-                    <div class="d-flex flex-row align-center">
-                      <img
-                        :src="`https://hbr.quest/ui/${String(squad)
-                          .replace(/\s/g, ``)
-                          .toLowerCase()}.webp`"
-                        width="32"
-                        height="26.4"
-                      />
-                      <span class="pr-2">
-                        {{ CharacterTeamName[Number(index)] }}
                       </span>
                     </div>
                   </v-chip>
@@ -277,7 +261,43 @@
               </v-chip-group>
             </v-expansion-panel-text>
           </v-expansion-panel>
-          
+
+          <v-expansion-panel class="filter-category mb-2">
+            <v-expansion-panel-title hide-actions>
+              {{ `Team` }}
+            </v-expansion-panel-title>
+            <v-expansion-panel-text>
+              <v-chip-group
+                class="filter-category__list"
+                v-model="searchStore.teams"
+                column
+                multiple
+              >
+                <template v-for="(squad, index) in CharacterTeam">
+                  <v-chip
+                    filter
+                    variant="text"
+                    v-if="!isNaN(Number(index))"
+                    :key="index"
+                  >
+                    <div class="d-flex flex-row align-center">
+                      <img
+                        :src="`https://hbr.quest/ui/${String(squad)
+                          .replace(/\s/g, ``)
+                          .toLowerCase()}.webp`"
+                        width="32"
+                        height="26.4"
+                      />
+                      <span class="pr-2">
+                        {{ CharacterTeamName[Number(index)] }}
+                      </span>
+                    </div>
+                  </v-chip>
+                </template>
+              </v-chip-group>
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+
           <v-expansion-panel class="filter-category mb-2">
             <v-expansion-panel-title hide-actions>
               {{ `Weapon` }}
@@ -410,7 +430,7 @@ const dataStore = useStyleStore();
 const searchStore = useSearchStore();
 const search = ref(route.query.v === `search`);
 const activeFilters = ref([] as number[]);
-const filterTab = ref(0);
+// const filterTab = ref(0);
 
 const initialize = async () => {
   await new Promise((r) => setTimeout(r, 100));

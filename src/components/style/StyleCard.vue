@@ -1,33 +1,23 @@
 <template>
-  <!-- <v-skeleton-loader
-    :loading="dataStore.loading"
-    color="grey"
-    width="356"
-    height="144"
+  <div
     class="style-placeholder"
-  > -->
-      <div
-        class="style-placeholder mx-auto"
-        @click.stop="dataStore.toggleStyle(style.id)"
-      >
-        <img
-          width="356"
-          height="144"
-          class="d-block style-strip"
-          :src="`https://hbr.quest/hbr/${style.strip.replace(
-            `Party`,
-            `Select`
-          )}`"
-        />
-        <style-header :style="style" />
-        <style-status :style="style" />
-      </div>
-  <!-- </v-skeleton-loader> -->
+    :style="{ width: `356px`, height: `144px`, background: `#999` }"
+    @click.stop="dataStore.toggleStyle(style.id)"
+  >
+    <img
+      width="356"
+      height="144"
+      class="d-block style-strip"
+      :src="`https://hbr.quest/hbr/${style.strip.replace(`Party`, `Select`)}`"
+    />
+    <style-header :style="style" />
+    <style-status :style="style" />
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { useStyleStore } from "@/store/app";
-import { Style } from "@/types";
+import { type Style } from "@/types";
 import StyleHeader from "@/components/style/StyleHeader.vue";
 import StyleStatus from "@/components/style/StyleStatus.vue";
 // import { useRoute } from "vue-router";

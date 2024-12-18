@@ -7,11 +7,11 @@
           aria-label="Save & Load"
           v-bind="props"
           :stacked="true"
-          class="text-transparent"
-          color="transparent"
+          class="text-white"
+          color="white"
           :flat="true"
           :width="`100%`"
-          max-width="10rem"
+          max-width="9rem"
           @click.stop="showShare"
         >
           <v-img
@@ -20,8 +20,8 @@
                 ? `/ui/ButtonFifthCircleActive.webp`
                 : `/ui/ButtonFifthCircleDefault.webp`
             "
-            width="3rem"
-            height="3rem"
+            width="3.0625rem"
+            height="3.0625rem"
             class="d-flex align-center justify-center"
           >
             <v-icon class="mb-1" color="white" icon="mdi-share"></v-icon>
@@ -163,7 +163,7 @@
             </div>
           </div>
         </template>
-        <div v-if="styleGroups" class="mx-auto" :style="{ width: `50rem` }">
+        <div v-if="true && styleGroups" class="mx-auto" :style="{ width: `50rem` }">
           <div ref="styleList" class="py-3 pb-6 pl-10">
             <div
               v-for="(elg, eli) in styleGroups"
@@ -308,6 +308,132 @@
             </div>
           </div>
         </div>
+        <div v-else class="mx-auto" :style="{ width: `48rem` }">
+          <div ref="styleList" class="py-3">
+            <div
+              class="pt-1 pb-5"
+              :style="
+                true
+                  ? {}
+                  : {
+                      filter: `drop-shadow(-1px -1px 0 #9f4f4f) drop-shadow(0 -1px 0 #9f4f4f) drop-shadow(1px -1px 0 #9f4f4f) drop-shadow(1px 0 0 #9f4f4f) drop-shadow(1px 1px 0 #9f4f4f) drop-shadow(0 1px 0 #9f4f4f) drop-shadow(-1px 1px 0 #9f4f4f) drop-shadow(-1px 0 0 #9f4f4f`,
+                    }
+              "
+            >
+              <div
+                v-for="(g, gi) in hexagonGroups"
+                :key="gi"
+                class="d-flex flex-wrap align-center justify-center"
+                :style="{ gap: `0.125rem` }"
+              >
+                <div
+                  v-for="style in g"
+                  :key="style.id"
+                  :style="{
+                    position: `relative`,
+                    backgroundImage: `url(${`/hbr/${style.strip.replace(
+                      `Party`,
+                      `StylePiece`
+                    )}`})`,
+                    // backgroundColor: `#000`,
+                    width: `5rem`,
+                    height: `5rem`,
+                    backgroundSize: `135%`,
+                    backgroundPosition: `center`,
+                    marginRight: `-0.25rem`,
+                    marginLeft: `-0.25rem`,
+                    marginBottom: `-1rem`,
+                    // boxShadow: `0px 0px 0px 0px #000`,
+                    // opacity: dataStore.getStyle(style.id)[1] > -1 ? 1 : 0.25,
+                    clipPath: `polygon(45% 1.33975%, 46.5798% 0.60307%, 48.26352% 0.15192%, 50% 0%, 51.73648% 0.15192%, 53.4202% 0.60307%, 55% 1.33975%, 89.64102% 21.33975%, 91.06889% 22.33956%, 92.30146% 23.57212%, 93.30127% 25%, 94.03794% 26.5798%, 94.48909% 28.26352%, 94.64102% 30%, 94.64102% 70%, 94.48909% 71.73648%, 94.03794% 73.4202%, 93.30127% 75%, 92.30146% 76.42788%, 91.06889% 77.66044%, 89.64102% 78.66025%, 55% 98.66025%, 53.4202% 99.39693%, 51.73648% 99.84808%, 50% 100%, 48.26352% 99.84808%, 46.5798% 99.39693%, 45% 98.66025%, 10.35898% 78.66025%, 8.93111% 77.66044%, 7.69854% 76.42788%, 6.69873% 75%, 5.96206% 73.4202%, 5.51091% 71.73648%, 5.35898% 70%, 5.35898% 30%, 5.51091% 28.26352%, 5.96206% 26.5798%, 6.69873% 25%, 7.69854% 23.57212%, 8.93111% 22.33956%, 10.35898% 21.33975%)`,
+                  }"
+                >
+                  <div
+                    v-if="dataStore.getStyle(style.id)[1] > 0"
+                    :style="{
+                      position: `absolute`,
+                      top: `0.0625rem`,
+                      left: `calc(50% - 0.75rem)`,
+                      color: `black`,
+                      borderRadius: `50%`,
+                      width: `1.5rem`,
+                      height: `1.5rem`,
+                      textAlign: `center`,
+                      clipPath: `polygon(45% 1.33975%, 46.5798% 0.60307%, 48.26352% 0.15192%, 50% 0%, 51.73648% 0.15192%, 53.4202% 0.60307%, 55% 1.33975%, 89.64102% 21.33975%, 91.06889% 22.33956%, 92.30146% 23.57212%, 93.30127% 25%, 94.03794% 26.5798%, 94.48909% 28.26352%, 94.64102% 30%, 94.64102% 70%, 94.48909% 71.73648%, 94.03794% 73.4202%, 93.30127% 75%, 92.30146% 76.42788%, 91.06889% 77.66044%, 89.64102% 78.66025%, 55% 98.66025%, 53.4202% 99.39693%, 51.73648% 99.84808%, 50% 100%, 48.26352% 99.84808%, 46.5798% 99.39693%, 45% 98.66025%, 10.35898% 78.66025%, 8.93111% 77.66044%, 7.69854% 76.42788%, 6.69873% 75%, 5.96206% 73.4202%, 5.51091% 71.73648%, 5.35898% 70%, 5.35898% 30%, 5.51091% 28.26352%, 5.96206% 26.5798%, 6.69873% 25%, 7.69854% 23.57212%, 8.93111% 22.33956%, 10.35898% 21.33975%)`,
+                      // textShadow: `1px 1px 0px #21212133`,
+                      background: `linear-gradient(180deg, #ffffffaa 100%, #ffffff00 100%)`,
+                    }"
+                    class="d-flex align-center justify-center"
+                  >
+                    <span
+                      class="d-block"
+                      :style="{
+                        fontSize: `1rem`,
+                        lineHeight: `1rem`,
+                      }"
+                      >{{ `${dataStore.getStyle(style.id)[1]}` }}</span
+                    >
+                    <!-- <img :src="`/ui/ExchangeBadgeicon.webp`" :width="24" :height="24" /> -->
+                  </div>
+                  <div
+                    v-if="false && dataStore.getStyle(style.id)[1] > 0"
+                    :style="{
+                      position: `absolute`,
+                      top: `0.5rem`,
+                      left: `calc(50% - 20.5px)`,
+                      color: `black`,
+                      fontSize: `0.75rem`,
+                      lineHeight: `0.75rem`,
+                      // borderRadius: `50%`,
+                      width: `41.55555555555556px`,
+                      height: `12px`,
+                      textAlign: `center`,
+                      // clipPath: `polygon(45% 1.33975%, 46.5798% 0.60307%, 48.26352% 0.15192%, 50% 0%, 51.73648% 0.15192%, 53.4202% 0.60307%, 55% 1.33975%, 89.64102% 21.33975%, 91.06889% 22.33956%, 92.30146% 23.57212%, 93.30127% 25%, 94.03794% 26.5798%, 94.48909% 28.26352%, 94.64102% 30%, 94.64102% 70%, 94.48909% 71.73648%, 94.03794% 73.4202%, 93.30127% 75%, 92.30146% 76.42788%, 91.06889% 77.66044%, 89.64102% 78.66025%, 55% 98.66025%, 53.4202% 99.39693%, 51.73648% 99.84808%, 50% 100%, 48.26352% 99.84808%, 46.5798% 99.39693%, 45% 98.66025%, 10.35898% 78.66025%, 8.93111% 77.66044%, 7.69854% 76.42788%, 6.69873% 75%, 5.96206% 73.4202%, 5.51091% 71.73648%, 5.35898% 70%, 5.35898% 30%, 5.51091% 28.26352%, 5.96206% 26.5798%, 6.69873% 25%, 7.69854% 23.57212%, 8.93111% 22.33956%, 10.35898% 21.33975%)`,
+                      // textShadow: `1px 1px 0px #21212133`,
+                      filter: `drop-shadow(0px 0px 0px #000)`,
+                      // background: `linear-gradient(180deg, #ffffffaa 100%, #ffffff00 100%)`,
+                    }"
+                  >
+                    <!-- {{ `${dataStore.getStyle(style.id)[1]}` }} -->
+                    <img
+                      :src="`/ui/ImageStarScore0${
+                        dataStore.getStyle(style.id)[1]
+                      }.webp`"
+                      :width="41.55555555555556"
+                      :height="12"
+                    />
+                  </div>
+                  <div
+                    v-if="dataStore.getStyle(style.id)[1] < 0"
+                    :style="{
+                      width: `100%`,
+                      height: `100%`,
+                      background: `#000000bb`,
+                    }"
+                  ></div>
+                </div>
+                <template v-if="gi === g.length - 1">
+                  <div
+                    v-for="n in (gi % 2 === 0 ? 10 : 9) - g.length"
+                    :key="`empty-${n}`"
+                    :style="{
+                      position: `relative`,
+                      background: `transparent`,
+                      width: `5rem`,
+                      height: `5rem`,
+                      backgroundSize: `135%`,
+                      backgroundPosition: `center`,
+                      marginRight: `-0.25rem`,
+                      marginLeft: `-0.25rem`,
+                      marginBottom: `-1rem`,
+                      clipPath: `polygon(45% 1.33975%, 46.5798% 0.60307%, 48.26352% 0.15192%, 50% 0%, 51.73648% 0.15192%, 53.4202% 0.60307%, 55% 1.33975%, 89.64102% 21.33975%, 91.06889% 22.33956%, 92.30146% 23.57212%, 93.30127% 25%, 94.03794% 26.5798%, 94.48909% 28.26352%, 94.64102% 30%, 94.64102% 70%, 94.48909% 71.73648%, 94.03794% 73.4202%, 93.30127% 75%, 92.30146% 76.42788%, 91.06889% 77.66044%, 89.64102% 78.66025%, 55% 98.66025%, 53.4202% 99.39693%, 51.73648% 99.84808%, 50% 100%, 48.26352% 99.84808%, 46.5798% 99.39693%, 45% 98.66025%, 10.35898% 78.66025%, 8.93111% 77.66044%, 7.69854% 76.42788%, 6.69873% 75%, 5.96206% 73.4202%, 5.51091% 71.73648%, 5.35898% 70%, 5.35898% 30%, 5.51091% 28.26352%, 5.96206% 26.5798%, 6.69873% 25%, 7.69854% 23.57212%, 8.93111% 22.33956%, 10.35898% 21.33975%)`,
+                    }"
+                  ></div>
+                </template>
+              </div>
+            </div>
+          </div>
+        </div>
       </v-card-text>
 
       <v-toolbar color="#ffffff00" class="btn-toolbar pa-0 py-3">
@@ -371,11 +497,11 @@
 <script lang="ts" setup>
 import { useStyleStore } from "@/store/app";
 import { ref, onMounted, onBeforeUnmount, computed } from "vue";
-import { ElementList, ElementListGroup, Style } from "@/types";
+import { ElementList, ElementListGroup, RoleList, RoleListGroup, Style } from "@/types";
 
 // @ts-ignore
 import domtoimage from "dom-to-image-more";
-import { CardRarity, ElementType } from "@/enums";
+import { CardRarity, CharacterRole, ElementType } from "@/enums";
 
 const dataStore = useStyleStore();
 const share = ref(false);
@@ -400,7 +526,11 @@ const closeShare = () => {
 };
 
 const styleGroups = computed(() => {
-  return dataStore.getStyles ? groupByNatureElement(dataStore.getStyles) : [];
+  return dataStore.getStyles ? groupByRole(dataStore.getStyles) : [];
+});
+
+const hexagonGroups = computed(() => {
+  return dataStore.getStyles ? groupForHexagonList(dataStore.getStyles) : [];
 });
 
 const groupByNatureElement = (styleList: Style[]): ElementListGroup[] => {
@@ -421,6 +551,26 @@ const groupByNatureElement = (styleList: Style[]): ElementListGroup[] => {
       return { element: sl.element, groups: groupForHexagonList(sl.list) };
     })
     .sort((a, b) => ElementType[a.element] - ElementType[b.element]);
+};
+
+const groupByRole = (styleList: Style[]): RoleListGroup[] => {
+  return styleList
+    .filter((s) => Number(CardRarity[s.tier]) === 3)
+    .reduce((acc, s) => {
+      let styleRole = s.role;
+      let elementIndex = acc.findIndex((sl) => styleRole === sl.element);
+
+      if (elementIndex > -1) {
+        return acc.map((sl) =>
+          sl.element === styleRole ? { ...sl, list: [...sl.list, s] } : sl
+        );
+      }
+      return [...acc, { element: styleRole, list: [s] }];
+    }, [] as RoleList[])
+    .map((sl) => {
+      return { element: sl.element, groups: groupForHexagonList(sl.list) };
+    })
+    .sort((a, b) => CharacterRole[a.element] - CharacterRole[b.element]);
 };
 
 const groupForHexagonList = (styleList: Style[]): Style[][] => {

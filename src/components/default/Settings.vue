@@ -3,13 +3,13 @@
     :loading="dataStore.loading"
     @click="searchStore.menuFlag = !searchStore.menuFlag"
     icon
-    class="text-white"
-    aria-label="Show settings"
+    class="ml-3 text-white"
+    aria-label="Show menu"
   >
     <v-icon icon="mdi-dots-vertical"></v-icon>
-    <!-- <v-tooltip v-if="!$vuetify.display.smAndDown" activator="parent" location="bottom">
-          {{ `Display filters` }}
-      </v-tooltip> -->
+    <v-tooltip v-if="!$vuetify.display.smAndDown" activator="parent" location="left">
+          {{ `Show Menu` }}
+      </v-tooltip>
   </v-btn>
 </template>
 

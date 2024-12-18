@@ -1,9 +1,20 @@
 <template>
-  <v-img cover :src="route.name === `GachaSim` && lotteryStore.getLotteryData
-    ? `https://hbr.quest/hbr/${lotteryStore.getLotteryData.banner.replace(`Banner`, `Bg`)}?v=${lotteryStore.getLotteryData.version}&h=ABC`
-    : route.name === `DimensionBattle`
-      ? `https://hbr.quest/hbr/DimensionNightSky.webp`
-      : undefined">
+  <v-img
+    cover
+    :src="
+      route.name?.toString().startsWith(`GachaSim`) &&
+      lotteryStore.getLotteryData
+        ? `https://hbr.quest/${
+            route.name?.toString().endsWith(`En`) ? `en/` : ``
+          }hbr/${lotteryStore.getLotteryData.banner.replace(
+            `Banner`,
+            `Bg`
+          )}?v=${lotteryStore.getLotteryData.version}&h=ABC`
+        : route.name === `DimensionBattle`
+        ? `https://hbr.quest/hbr/DimensionNightSky.webp`
+        : undefined
+    "
+  >
     <v-main class="main">
       <router-view />
     </v-main>
@@ -11,15 +22,14 @@
 </template>
 
 <script lang="ts" setup>
-import { useLotteryStore } from '@/store/app';
-import { useRoute } from 'vue-router';
+import { useLotteryStore } from "@/store/app";
+import { useRoute } from "vue-router";
 
-const lotteryStore = useLotteryStore()
-const route = useRoute()
+const lotteryStore = useLotteryStore();
+const route = useRoute();
 </script>
 
 <style lang="scss">
-
 .main {
   // background: url('/ui/Arena_Battle.webp');
   background-attachment: fixed;

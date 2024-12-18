@@ -48,7 +48,7 @@ const route = useRoute()
 }
 
 .text-HBR {
-  font-family: HBRFont, 'Noto Sans', sans-serif;
+  font-family: HBRFont, 'Noto Sans', sans-serif !important;
 }
 
 .text-HBR--stroke {
@@ -63,32 +63,28 @@ const route = useRoute()
     -1px 0 0 #443f4b;
 }
 
+.v-btn--disabled {
+  opacity: 1 !important;
+}
+
 // .text-header {
 // //  color: #be9898;
 //  color: #ffccf5;
 // //  text-shadow: 0 0 0 #fff;
 // }
 
-.text-label {
-  color: #ffb9b9;
-  font-size: 1.5rem;
-  line-height: 1.5rem;
-  text-transform: capitalize;
-}
-
 .text-normal {
   color: #f6e5e5;
   font-size: 1rem;
 }
 
-.text-LB {
-  color: #f6e5e5;
-  font-size: 1.5rem;
-  line-height: 1.5rem;
-}
-
 .text-title {
   font-size: 1.125rem;
+}
+
+.text-small {
+  font-size: 0.625rem;
+  margin-top: 0.45rem
 }
 
 // .active {

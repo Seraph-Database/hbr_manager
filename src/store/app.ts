@@ -33,7 +33,7 @@ const request = async (tableName: string): Promise<any[]> => {
 };
 
 const PROD =
-  "https://dissidiadb-cbde0.appspot.com.storage.googleapis.com/hbr/TABLE";
+  "https://master.hbr.quest/TABLE";
 const DEV = "/db/TABLE";
 
 const getUserData = (): number[][] => {
@@ -63,8 +63,9 @@ export const useStyleStore = defineStore("styles", {
     data: {} as DataStore,
     owned: getUserData() as number[][],
     box: [] as StyleData[],
-    loading: true as boolean,
+    loading: true,
     selection: -1,
+    readOnly: false,
   }),
   getters: {
     getStyles(state): Style[] | undefined {
@@ -75,7 +76,7 @@ export const useStyleStore = defineStore("styles", {
       );
     },
     getSelectedStyle(state): Style | undefined {
-      return this.getStyles?.find(s => s.id === state.selection);
+      return this.getStyles?.find((s) => s.id === state.selection);
     },
     getOwned(state): number[][] {
       return state.owned;
@@ -93,13 +94,18 @@ export const useStyleStore = defineStore("styles", {
         return true;
       });
     },
+    toggleEditMode(): void {
+      this.readOnly = !this.readOnly
+    },
     toggleStyle(styleId: number): void {
-      this.selection = styleId
-      this.owned =
-        this.owned.findIndex((s) => s[0] === styleId) > -1
-          ? this.owned.filter((s) => s[0] !== styleId)
-          : [...this.owned, [styleId, 0]];
-      this.setUserData();
+      if (!this.readOnly) {
+        this.selection = styleId;
+        this.owned =
+          this.owned.findIndex((s) => s[0] === styleId) > -1
+            ? this.owned.filter((s) => s[0] !== styleId)
+            : [...this.owned, [styleId, 0]];
+        this.setUserData();
+      }
       // new
       // this.box = this.box.map((s) =>
       //   s.id === styleId ? { ...s, lbLv: s.lbLv > -1 ? -1 : 0 } : s
@@ -115,39 +121,43 @@ export const useStyleStore = defineStore("styles", {
       );
     },
     toggleAllVisibleMax(styleList: number[][]): void {
-      this.owned = this.isAllVisibleOwned(styleList)
-        ? this.owned.filter(
-            (s) => styleList.findIndex((x) => x[0] === s[0]) < 0
-          )
-        : [
-            ...this.owned.filter(
+      if (!this.readOnly) {
+        this.owned = this.isAllVisibleOwned(styleList)
+          ? this.owned.filter(
               (s) => styleList.findIndex((x) => x[0] === s[0]) < 0
-            ),
-            ...styleList,
-          ];
-      this.setUserData();
+            )
+          : [
+              ...this.owned.filter(
+                (s) => styleList.findIndex((x) => x[0] === s[0]) < 0
+              ),
+              ...styleList,
+            ];
+        this.setUserData();
+      }
     },
     setStyleLv(
       styleId: number,
       maxLv: number,
       setToMax: boolean = false
     ): void {
-      this.owned =
-        this.owned.findIndex((s) => s[0] === styleId) > -1
-          ? this.owned.map((s) =>
-              s[0] === styleId
-                ? [
-                    s[0],
-                    setToMax
-                      ? maxLv
-                      : s[1] < maxLv
-                      ? Math.min(s[1] + 1, maxLv)
-                      : 0,
-                  ]
-                : s
-            )
-          : this.owned;
-      this.setUserData();
+      if (!this.readOnly) {
+        this.owned =
+          this.owned.findIndex((s) => s[0] === styleId) > -1
+            ? this.owned.map((s) =>
+                s[0] === styleId
+                  ? [
+                      s[0],
+                      setToMax
+                        ? maxLv
+                        : s[1] < maxLv
+                        ? Math.min(s[1] + 1, maxLv)
+                        : 0,
+                    ]
+                  : s
+              )
+            : this.owned;
+        this.setUserData();
+      }
       // new
       // this.box = this.box.map((s) =>
       //   s.id === styleId
@@ -237,6 +247,7 @@ export const useLotteryStore = defineStore("gachalist", {
     loading: true as boolean,
     index: 0 as number,
     amountSpent: 0 as number,
+    rollCount: 0 as number,
     lastRollNum: 0 as number,
     rollDelay: 0 as number,
     gachaResults: [] as string[],
@@ -254,6 +265,9 @@ export const useLotteryStore = defineStore("gachalist", {
     },
     getAmountSpent(state): number {
       return state.amountSpent;
+    },
+    getRollCount(state): number {
+      return state.rollCount;
     },
     getLastRollNum(state): number {
       return state.lastRollNum;
@@ -278,7 +292,7 @@ export const useLotteryStore = defineStore("gachalist", {
     },
     getLotteryData(state): Lottery | undefined {
       return state.data?.gachaList
-        ?.filter((b) => b.count === `multi` || b.count === `stepup`)
+        ?.filter((b) => b.count > 1 || b.is_free)
         .map((b) => {
           return { ...b, label: b.label.replace(`lottery_`, ``) };
         })
@@ -287,8 +301,8 @@ export const useLotteryStore = defineStore("gachalist", {
     },
   },
   actions: {
-    async loadGachaList(): Promise<boolean> {
-      return await request(`banners`).then((data) => {
+    async loadGachaList(region: string): Promise<boolean> {
+      return await request(`${region === `en` ? `en/` : ``}banners`).then((data) => {
         this.data = this.data
           ? { ...this.data, gachaList: data as Lottery[] }
           : { gachaList: data as Lottery[] };
@@ -304,6 +318,9 @@ export const useLotteryStore = defineStore("gachalist", {
     updateLastRollNum(times: number) {
       this.lastRollNum = times;
     },
+    updateRollCount() {
+      this.rollCount += 1;
+    },
     clearAmountSpent() {
       this.amountSpent = 0;
     },
@@ -314,6 +331,7 @@ export const useLotteryStore = defineStore("gachalist", {
     clearAll() {
       this.amountSpent = 0;
       this.lastRollNum = 0;
+      this.rollCount = 0;
       this.gachaResults = [];
       this.totalResults = [];
       this.activeResults = false;

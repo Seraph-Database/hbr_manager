@@ -8,12 +8,12 @@
           @click.stop="showToggleAll"
           v-bind="props"
           :stacked="true"
-          class="text-transparent"
-          color="transparent"
+          class="text-white"
+          color="white"
           :flat="true"
           :width="`100%`"
-          max-width="10rem"
-          :disabled="true || (dataStore.getStyles?.filter(searchFilter).length || 0) < 1"
+          max-width="9rem"
+          :disabled="(dataStore.getStyles?.filter(searchFilter).length || 0) < 1"
         >
           <v-img
             :src="
@@ -21,8 +21,8 @@
                 ? `/ui/ButtonFifthCircleActive.webp`
                 : `/ui/ButtonFifthCircleDefault.webp`
             "
-            width="3rem"
-            height="3rem"
+            width="3.0625rem"
+            height="3.0625rem"
             class="d-flex align-center justify-center"
           >
             <v-icon color="white" icon="mdi-check-all"></v-icon>

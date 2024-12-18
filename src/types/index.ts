@@ -31,16 +31,30 @@ export type Lottery = {
     // todo
     id: number
     label: string
-    name: string
-    banner: string
-    count: string
-    in_date: string
-    rates: GachaRate[]
-    notice_id: number
-    ex_notice_id: number
     version: string
-    replace_step: number
-    replace_rate: GachaRate[]
+    name: string
+    in_date: string
+    banner: string
+    banner_title: string
+    currency: string
+    count: number
+    cost: number
+    ticket: {
+        image: string
+    } | null
+    draw_limit: {
+        max_daily: number
+        max_draws: number
+    }
+    is_free: boolean
+    is_gauge: boolean
+    rates: GachaRate[]
+    gss_step: number
+    gss_rates: GachaRate[]
+    notices: {
+        gacha: number
+        exchange: number
+    }
 }
 
 
@@ -66,8 +80,20 @@ export type ElementList = {
 }
 
 
+export type RoleList = {
+    element: string | CharacterRole,
+    list: Style[]
+}
+
+
 export type ElementListGroup = {
     element: string | ElementType,
+    groups: Style[][]
+}
+
+
+export type RoleListGroup = {
+    element: string | CharacterRole,
     groups: Style[][]
 }
 

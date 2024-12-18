@@ -5,7 +5,7 @@
  */
 
 // Plugins
-// import { loadFonts } from './webfontloader'
+import { loadFonts } from './webfontloader'
 import vuetify from './vuetify'
 import pinia from '../store'
 import router from '../router'
@@ -19,7 +19,7 @@ import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 import type { App } from 'vue'
 
 export function registerPlugins(app: App) {
-  // loadFonts()
+  loadFonts()
   app
     .use(gtag, gconfig)
     .use(vuetify)
