@@ -292,7 +292,7 @@ export const useLotteryStore = defineStore("gachalist", {
     },
     getLotteryData(state): Lottery | undefined {
       return state.data?.gachaList
-        ?.filter((b) => b.count > 1 || b.is_free)
+        ?.filter((b) => b.is_free || b.steps !== null || b.count > 1)
         .map((b) => {
           return { ...b, label: b.label.replace(`lottery_`, ``) };
         })
@@ -302,7 +302,7 @@ export const useLotteryStore = defineStore("gachalist", {
   },
   actions: {
     async loadGachaList(region: string): Promise<boolean> {
-      return await request(`${region === `en` ? `en/` : ``}banners`).then((data) => {
+      return await request(`${region === `en` ? `en/` : ``}gachasim`).then((data) => {
         this.data = this.data
           ? { ...this.data, gachaList: data as Lottery[] }
           : { gachaList: data as Lottery[] };

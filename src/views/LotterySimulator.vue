@@ -6,11 +6,34 @@
   />
   <v-container fluid v-if="dataStore.getGachaList !== undefined">
     <v-slide-y-transition appear>
-      <v-row v-if="dataStore.getLastRollNum > 0" no-gutters>
+      <v-row
+        v-if="dataStore.getLotteryData && dataStore.getLastRollNum > 0"
+        no-gutters
+      >
         <v-spacer />
         <v-col cols="auto">
           <v-sheet color="#ffffffc0" rounded="pill" class="quartz-num px-2">
-            <v-row no-gutters align="center" justify="space-between">
+            <v-row
+              v-if="dataStore.getLotteryData.ticket"
+              no-gutters
+              align="center"
+              justify="space-between"
+            >
+              <v-col cols="auto">
+                <v-img
+                  :src="`https://hbr.quest/hbr/${dataStore.getLotteryData.ticket.image}`"
+                  width="1.5rem"
+                />
+              </v-col>
+              <v-col cols="auto" class="px-1 text-HBR">
+                {{
+                  `${(
+                    dataStore.getLotteryData.cost * dataStore.getRollCount
+                  ).toLocaleString()}`
+                }}
+              </v-col>
+            </v-row>
+            <v-row v-else no-gutters align="center" justify="space-between">
               <v-col cols="auto">
                 <v-img
                   :src="`https://hbr.quest/hbr/IconHcSmall.webp`"
@@ -27,7 +50,7 @@
     </v-slide-y-transition>
     <v-slide-y-transition appear>
       <v-row v-if="dataStore.getTotalResults.length > 0" no-gutters>
-        <v-col> </v-col>
+        <v-spacer />
         <v-col cols="auto">
           <v-sheet
             rounded="pill"
@@ -60,7 +83,7 @@
     </v-slide-y-transition>
     <!-- <v-slide-y-transition appear>
       <v-row v-if="dataStore.getLotteryData" no-gutters>
-        <v-col> </v-col>
+        <v-spacer />
         <v-col cols="auto">
           <v-sheet
             rounded="pill"
@@ -81,215 +104,331 @@
         </v-col>
       </v-row>
     </v-slide-y-transition> -->
-    <v-slide-y-reverse-transition appear>
-      <v-row
-        v-if="dataStore.getLotteryData && !dataStore.activeResults"
-        no-gutters
-        :class="`gacha-actions${
-          $vuetify.display.smAndUp ? `` : ` gacha-actions--mobile`
-        }`"
-        justify="end"
-      >
-        <v-spacer />
-        <v-col
-          cols="auto"
+    <template v-if="isStepUp">
+      <v-slide-y-reverse-transition appear>
+        <v-row
           v-if="
-            (!isStepUp &&
-              [`Gem`, `TicketOrGem`].includes(
+            dataStore.getLotteryData !== undefined &&
+            !dataStore.activeResults &&
+            dataStore.getLotteryData.steps !== null
+          "
+          no-gutters
+          class="gacha-actions"
+          justify="end"
+        >
+          <v-spacer />
+          <v-col cols="auto">
+            <v-btn
+              variant="text"
+              color="transparent"
+              @click="
+                hasNextStep
+                  ? rollGacha(
+                      dataStore.getLotteryData.steps[dataStore.getRollCount]
+                        .count,
+                      dataStore.getLotteryData.steps[dataStore.getRollCount]
+                        .cost
+                    )
+                  : rollGacha(0, 0)
+              "
+              width="14rem"
+              height="5.779375rem"
+              :disabled="atMaxDraws"
+            >
+              <v-img
+                class="gacha-btn"
+                :src="
+                  atMaxDraws
+                    ? `/ui/ButtonLottery_Disabled.webp`
+                    : `/ui/ButtonLottery_${buttonColor}Nomal.webp`
+                "
+                width="14rem"
+              >
+                <v-img
+                  class="gacha-btn--focused"
+                  :src="
+                    gachaBtnFocus === 10
+                      ? `/ui/ButtonLottery_${buttonColor}Active.webp`
+                      : `/ui/ButtonLottery_${buttonColor}Focused.webp`
+                  "
+                  width="14rem"
+                />
+                <v-sheet
+                  :class="`gacha-cost`"
+                  width="10rem"
+                  color="#ffffff00"
+                  rounded="pill"
+                  class="px-2 pl-3"
+                >
+                  <v-row
+                    class="mb-n1 guarantee-text"
+                    no-gutters
+                    align="center"
+                    justify="space-between"
+                  >
+                    <v-spacer />
+                    <v-col cols="auto" class="px-1 text-HBR text-small">
+                      {{
+                        dataStore.getLotteryData.draw_limit.max_draws > 0
+                          ? `${dataStore.getLotteryData.draw_limit.max_draws}× max`
+                          : `&nbsp;`
+                      }}
+                    </v-col>
+                    <v-spacer />
+                  </v-row>
+                  <v-row no-gutters align="center" justify="space-between">
+                    <v-col cols="auto">
+                      <v-img
+                        :src="`https://hbr.quest/hbr/${`IconHcSmall.webp`}`"
+                        width="1.625rem"
+                        height="1.625rem"
+                        class="quartz-icon"
+                      />
+                    </v-col>
+                    <v-col cols="auto" class="px-2 text-HBR quartz-cost">
+                      {{
+                        hasNextStep
+                          ? `${dataStore.getLotteryData.steps[
+                              dataStore.getRollCount
+                            ].cost.toLocaleString()}`
+                          : `${dataStore.getLotteryData.steps[0].cost.toLocaleString()}`
+                      }}
+                    </v-col>
+                  </v-row>
+                  <v-row
+                    class="times-text"
+                    no-gutters
+                    align="center"
+                    justify="space-between"
+                  >
+                    <v-spacer />
+                    <v-col cols="auto" class="px-1 text-HBR">
+                      {{
+                        hasNextStep
+                          ? `${
+                              dataStore.getLotteryData.steps[
+                                dataStore.getRollCount
+                              ].count
+                            }×`
+                          : `${dataStore.getLotteryData.steps[0].count}×`
+                      }}
+                    </v-col>
+                    <v-spacer />
+                  </v-row>
+                </v-sheet>
+              </v-img>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-slide-y-reverse-transition>
+    </template>
+    <template v-else>
+      <v-slide-y-reverse-transition appear>
+        <v-row
+          v-if="dataStore.getLotteryData && !dataStore.activeResults"
+          no-gutters
+          :class="`gacha-actions${
+            $vuetify.display.smAndUp ? `` : ` gacha-actions--mobile`
+          }`"
+          justify="end"
+        >
+          <v-spacer />
+          <v-col
+            cols="auto"
+            v-if="
+              ([`Gem`, `TicketOrGem`].includes(
                 dataStore.getLotteryData.currency
               ) &&
-              !dataStore.getLotteryData.is_free) ||
-            (dataStore.getLotteryData.count === 1 &&
-              dataStore.getLotteryData.is_free)
-          "
-        >
-          <v-btn
-            variant="text"
-            color="transparent"
-            @click="
-              rollGacha(1, dataStore.getLotteryData.is_free ? 0 : rollCost[0])
+                !dataStore.getLotteryData.is_free) ||
+              (dataStore.getLotteryData.count === 1 &&
+                dataStore.getLotteryData.is_free)
             "
-            width="14rem"
-            height="5.779375rem"
-            :disabled="atMaxDraws"
           >
-            <v-img
-              class="gacha-btn"
-              :src="
-                atMaxDraws
-                  ? `/ui/ButtonLottery_Disabled.webp`
-                  : `/ui/ButtonLottery_${buttonColor}Nomal.webp`
+            <v-btn
+              variant="text"
+              color="transparent"
+              @click="
+                rollGacha(1, dataStore.getLotteryData.is_free ? 0 : rollCost[0])
               "
               width="14rem"
+              height="5.779375rem"
+              :disabled="atMaxDraws"
             >
               <v-img
-                class="gacha-btn--focused"
+                class="gacha-btn"
                 :src="
-                  gachaBtnFocus === 1
-                    ? `/ui/ButtonLottery_${buttonColor}Active.webp`
-                    : `/ui/ButtonLottery_${buttonColor}Focused.webp`
+                  atMaxDraws
+                    ? `/ui/ButtonLottery_Disabled.webp`
+                    : `/ui/ButtonLottery_${buttonColor}Nomal.webp`
                 "
                 width="14rem"
-              />
-              <v-sheet
-                :class="`gacha-cost`"
-                width="10rem"
-                color="#ffffff00"
-                rounded="pill"
-                class="px-2 pl-3"
               >
-                <v-row
-                  class="mb-n1 guarantee-text"
-                  no-gutters
-                  align="center"
-                  justify="space-between"
+                <v-img
+                  class="gacha-btn--focused"
+                  :src="
+                    gachaBtnFocus === 1
+                      ? `/ui/ButtonLottery_${buttonColor}Active.webp`
+                      : `/ui/ButtonLottery_${buttonColor}Focused.webp`
+                  "
+                  width="14rem"
+                />
+                <v-sheet
+                  :class="`gacha-cost`"
+                  width="10rem"
+                  color="#ffffff00"
+                  rounded="pill"
+                  class="px-2 pl-3"
                 >
-                  <v-spacer />
-                  <v-col cols="auto" class="px-1 text-HBR text-small">
-                    {{
-                      dataStore.getLotteryData.draw_limit.max_draws > 0
-                        ? `${dataStore.getLotteryData.draw_limit.max_draws}× max`
-                        : `&nbsp;`
-                    }}
-                  </v-col>
-                  <v-spacer />
-                </v-row>
-                <v-row no-gutters align="center" justify="space-between">
-                  <v-col cols="auto">
-                    <v-img
-                      :src="`https://hbr.quest/hbr/${
-                        (dataStore.getLotteryData.ticket &&
-                          dataStore.getLotteryData.ticket.image) ||
-                        `IconHcSmall.webp`
-                      }`"
-                      width="1.625rem"
-                      height="1.625rem"
-                      class="quartz-icon"
-                    />
-                  </v-col>
-                  <v-col cols="auto" class="px-2 text-HBR quartz-cost">
-                    {{
-                      `${(dataStore.getLotteryData.is_free
-                        ? 0
-                        : rollCost[0]
-                      ).toLocaleString()}`
-                    }}
-                  </v-col>
-                </v-row>
-                <v-row
-                  no-gutters
-                  class="times-text"
-                  align="center"
-                  justify="space-between"
-                >
-                  <v-spacer />
-                  <v-col cols="auto" class="px-1 text-HBR">
-                    {{ `1×` }}
-                  </v-col>
-                  <v-spacer />
-                </v-row>
-              </v-sheet>
-            </v-img>
-          </v-btn>
-        </v-col>
-        <v-col
-          cols="auto"
-          v-if="!isStepUp && dataStore.getLotteryData.count > 1"
-        >
-          <v-btn
-            variant="text"
-            color="transparent"
-            @click="
-              rollGacha(
-                dataStore.getLotteryData.count,
-                dataStore.getLotteryData.is_free ? 0 : rollCost[1]
-              )
-            "
-            width="14rem"
-            height="5.779375rem"
-            :disabled="atMaxDraws"
-          >
-            <v-img
-              class="gacha-btn"
-              :src="
-                atMaxDraws
-                  ? `/ui/ButtonLottery_Disabled.webp`
-                  : `/ui/ButtonLottery_${buttonColor}Nomal.webp`
+                  <v-row
+                    class="mb-n1 guarantee-text"
+                    no-gutters
+                    align="center"
+                    justify="space-between"
+                  >
+                    <v-spacer />
+                    <v-col cols="auto" class="px-1 text-HBR text-small">
+                      {{
+                        dataStore.getLotteryData.draw_limit.max_draws > 0
+                          ? `${dataStore.getLotteryData.draw_limit.max_draws}× max`
+                          : `&nbsp;`
+                      }}
+                    </v-col>
+                    <v-spacer />
+                  </v-row>
+                  <v-row no-gutters align="center" justify="space-between">
+                    <v-col cols="auto">
+                      <v-img
+                        :src="`https://hbr.quest/hbr/${
+                          (dataStore.getLotteryData.ticket &&
+                            dataStore.getLotteryData.ticket.image) ||
+                          `IconHcSmall.webp`
+                        }`"
+                        width="1.625rem"
+                        height="1.625rem"
+                        class="quartz-icon"
+                      />
+                    </v-col>
+                    <v-col cols="auto" class="px-2 text-HBR quartz-cost">
+                      {{
+                        `${(dataStore.getLotteryData.is_free
+                          ? 0
+                          : rollCost[0]
+                        ).toLocaleString()}`
+                      }}
+                    </v-col>
+                  </v-row>
+                  <v-row
+                    no-gutters
+                    class="times-text"
+                    align="center"
+                    justify="space-between"
+                  >
+                    <v-spacer />
+                    <v-col cols="auto" class="px-1 text-HBR">
+                      {{ `1×` }}
+                    </v-col>
+                    <v-spacer />
+                  </v-row>
+                </v-sheet>
+              </v-img>
+            </v-btn>
+          </v-col>
+          <v-col cols="auto" v-if="dataStore.getLotteryData.count > 1">
+            <v-btn
+              variant="text"
+              color="transparent"
+              @click="
+                rollGacha(
+                  dataStore.getLotteryData.count,
+                  dataStore.getLotteryData.is_free ? 0 : rollCost[1]
+                )
               "
               width="14rem"
+              height="5.779375rem"
+              :disabled="atMaxDraws"
             >
               <v-img
-                class="gacha-btn--focused"
+                class="gacha-btn"
                 :src="
-                  gachaBtnFocus === 10
-                    ? `/ui/ButtonLottery_${buttonColor}Active.webp`
-                    : `/ui/ButtonLottery_${buttonColor}Focused.webp`
+                  atMaxDraws
+                    ? `/ui/ButtonLottery_Disabled.webp`
+                    : `/ui/ButtonLottery_${buttonColor}Nomal.webp`
                 "
                 width="14rem"
-              />
-              <v-sheet
-                :class="`gacha-cost`"
-                width="10rem"
-                color="#ffffff00"
-                rounded="pill"
-                class="px-2 pl-3"
               >
-                <v-row
-                  class="mb-n1 guarantee-text"
-                  no-gutters
-                  align="center"
-                  justify="space-between"
+                <v-img
+                  class="gacha-btn--focused"
+                  :src="
+                    gachaBtnFocus === 10
+                      ? `/ui/ButtonLottery_${buttonColor}Active.webp`
+                      : `/ui/ButtonLottery_${buttonColor}Focused.webp`
+                  "
+                  width="14rem"
+                />
+                <v-sheet
+                  :class="`gacha-cost`"
+                  width="10rem"
+                  color="#ffffff00"
+                  rounded="pill"
+                  class="px-2 pl-3"
                 >
-                  <v-spacer />
-                  <v-col cols="auto" class="px-1 text-HBR text-small">
-                    {{
-                      dataStore.getLotteryData.draw_limit.max_draws > 0
-                        ? `${dataStore.getLotteryData.draw_limit.max_draws}× max`
-                        : `&nbsp;`
-                    }}
-                  </v-col>
-                  <v-spacer />
-                </v-row>
-                <v-row no-gutters align="center" justify="space-between">
-                  <v-col cols="auto">
-                    <v-img
-                      :src="`https://hbr.quest/hbr/${
-                        (dataStore.getLotteryData.ticket &&
-                          dataStore.getLotteryData.ticket.image) ||
-                        `IconHcSmall.webp`
-                      }`"
-                      width="1.625rem"
-                      height="1.625rem"
-                      class="quartz-icon"
-                    />
-                  </v-col>
-                  <v-col cols="auto" class="px-2 text-HBR quartz-cost">
-                    {{
-                      `${(dataStore.getLotteryData.is_free
-                        ? 0
-                        : dataStore.getLotteryData.cost
-                      ).toLocaleString()}`
-                    }}
-                  </v-col>
-                </v-row>
-                <v-row
-                  class="times-text"
-                  no-gutters
-                  align="center"
-                  justify="space-between"
-                >
-                  <v-spacer />
-                  <v-col cols="auto" class="px-1 text-HBR">
-                    {{ `10×` }}
-                  </v-col>
-                  <v-spacer />
-                </v-row>
-              </v-sheet>
-            </v-img>
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-slide-y-reverse-transition>
+                  <v-row
+                    class="mb-n1 guarantee-text"
+                    no-gutters
+                    align="center"
+                    justify="space-between"
+                  >
+                    <v-spacer />
+                    <v-col cols="auto" class="px-1 text-HBR text-small">
+                      {{
+                        dataStore.getLotteryData.draw_limit.max_draws > 0
+                          ? `${dataStore.getLotteryData.draw_limit.max_draws}× max`
+                          : `&nbsp;`
+                      }}
+                    </v-col>
+                    <v-spacer />
+                  </v-row>
+                  <v-row no-gutters align="center" justify="space-between">
+                    <v-col cols="auto">
+                      <v-img
+                        :src="`https://hbr.quest/hbr/${
+                          (dataStore.getLotteryData.ticket &&
+                            dataStore.getLotteryData.ticket.image) ||
+                          `IconHcSmall.webp`
+                        }`"
+                        width="1.625rem"
+                        height="1.625rem"
+                        class="quartz-icon"
+                      />
+                    </v-col>
+                    <v-col cols="auto" class="px-2 text-HBR quartz-cost">
+                      {{
+                        `${(dataStore.getLotteryData.is_free
+                          ? 0
+                          : dataStore.getLotteryData.cost
+                        ).toLocaleString()}`
+                      }}
+                    </v-col>
+                  </v-row>
+                  <v-row
+                    class="times-text"
+                    no-gutters
+                    align="center"
+                    justify="space-between"
+                  >
+                    <v-spacer />
+                    <v-col cols="auto" class="px-1 text-HBR">
+                      {{ `10×` }}
+                    </v-col>
+                    <v-spacer />
+                  </v-row>
+                </v-sheet>
+              </v-img>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-slide-y-reverse-transition>
+    </template>
   </v-container>
   <v-bottom-navigation
     v-if="dataStore.getGachaList !== undefined"
@@ -310,7 +449,7 @@
       >
         <swiper-slide
           v-for="(lottery, lotIndex) in dataStore.getGachaList
-            .filter((g) => g.is_free || g.count > 1)
+            .filter((g) => g.is_free || g.steps !== null || g.count > 1)
             .sort((a, b) => b.in_date.localeCompare(a.in_date))"
         >
           <v-img
@@ -501,17 +640,32 @@
                   variant="text"
                   color="transparent"
                   @click="
-                    rollGacha(
-                      dataStore.getLastRollNum,
-                      (dataStore.getLotteryData?.is_free ? 0 : rollCost[0]) *
-                        dataStore.getLastRollNum
-                    )
+                    isStepUp && dataStore.getLotteryData.steps !== null
+                      ? rollGacha(
+                          dataStore.getLotteryData.steps[dataStore.getRollCount]
+                            .count,
+                          dataStore.getLotteryData.steps[dataStore.getRollCount]
+                            .cost
+                        )
+                      : rollGacha(
+                          dataStore.getLastRollNum,
+                          (dataStore.getLotteryData?.is_free
+                            ? 0
+                            : rollCost[0]) * dataStore.getLastRollNum
+                        )
                   "
                   width="12rem"
                   height="3.78076062639821rem"
                   class="repeat-gacha-btn"
                 >
-                  <span>{{ `Roll Again` }}</span>
+                  <span>{{
+                    isStepUp && dataStore.getLotteryData.steps !== null
+                      ? `Roll ${
+                          dataStore.getLotteryData.steps[dataStore.getRollCount]
+                            .text
+                        }`
+                      : `Roll Again`
+                  }}</span>
                 </v-btn>
                 <v-btn
                   v-else
@@ -550,7 +704,7 @@
 import PageTitle from "@/components/default/PageTitle.vue";
 import { useLotteryStore } from "@/store/app";
 import { useRoute, useRouter } from "vue-router";
-import { type GachaCard, type Lottery } from "@/types";
+import { GachaRate, type GachaCard, type Lottery } from "@/types";
 import { computed, ref } from "vue";
 
 // Import Swiper Vue.js components
@@ -587,7 +741,7 @@ loadData()
   .then(() => {
     if (String(route.params.label).length > 0 && dataStore.getGachaList) {
       let bannerIndex = dataStore.getGachaList
-        ?.filter((b) => b.is_free || b.count > 1)
+        ?.filter((b) => b.is_free || b.steps !== null || b.count > 1)
         .map((b) => {
           return { ...b, label: b.label.replace(`lottery_`, ``) };
         })
@@ -621,15 +775,23 @@ const randomIntFromInterval = (min: number, max: number): number => {
 };
 
 const isStepUp = computed((): boolean => {
-  if (dataStore.getLotteryData) {
-    const isFree = dataStore.getLotteryData.is_free;
-    const isStandard =
-      dataStore.getLotteryData.draw_limit.max_draws < 4 &&
-      dataStore.getLotteryData.currency.endsWith(`Gem`);
-    const isTicket = dataStore.getLotteryData.currency.endsWith(`Ticket`);
-    return !isStandard && !isFree && !isTicket;
-  }
-  return true;
+  // if (dataStore.getLotteryData) {
+  //   const isFree = dataStore.getLotteryData.is_free;
+  //   const isStandard =
+  //     dataStore.getLotteryData.draw_limit.max_draws < 4 &&
+  //     dataStore.getLotteryData.currency.endsWith(`Gem`);
+  //   const isTicket = dataStore.getLotteryData.currency.endsWith(`Ticket`);
+  //   return !isStandard && !isFree && !isTicket;
+  // }
+  // return true;
+  return dataStore.getLotteryData?.steps !== null;
+});
+
+const hasNextStep = computed((): boolean => {
+  return (
+    dataStore.getLotteryData !== undefined &&
+    dataStore.getRollCount < dataStore.getLotteryData.draw_limit.max_draws
+  );
 });
 
 const atMaxDraws = computed((): boolean => {
@@ -640,7 +802,11 @@ const atMaxDraws = computed((): boolean => {
   );
 });
 
-const rollGacha = async (times: number, cost: number) => {
+const rollGacha = async (
+  times: number,
+  cost: number,
+  useSteps: boolean = false
+) => {
   // Get banner data
   dataStore.clearGachaResults();
 
@@ -649,10 +815,6 @@ const rollGacha = async (times: number, cost: number) => {
 
   // Process rolls
   if (dataStore.getLotteryData !== undefined) {
-    // console.log(`Rolled ${times} times!`)
-    dataStore.updateAmountSpent(cost);
-    dataStore.updateLastRollNum(times);
-    dataStore.updateRollCount();
     dataStore.openResults();
 
     for (let index = 0; index < times; index++) {
@@ -662,60 +824,82 @@ const rollGacha = async (times: number, cost: number) => {
       let num = randomIntFromInterval(1, 10000);
       // console.log(num)
 
-      if (
-        dataStore.getLotteryData.gss_step > 0 &&
-        index === dataStore.getLotteryData.gss_step - 1
-      ) {
-        dataStore.getLotteryData.gss_rates.every((r, ri) => {
-          if (num - r.rate > 0) {
-            num = num - r.rate;
-            return true;
-          } else {
-            num = ri;
-            return false;
-          }
-        });
-
-        try {
-          let result: GachaCard =
-            dataStore.getLotteryData.gss_rates[num].cards[
-              Math.floor(
-                Math.random() *
-                  dataStore.getLotteryData.gss_rates[num].cards.length
-              )
-            ];
-          dataStore.updateGachaResults(result.image);
-        } catch (error) {
-          console.log(`Error`);
-        }
+      if (isStepUp && dataStore.getLotteryData.steps !== null && hasNextStep) {
+        pickRatesAndRoll(
+          dataStore.getLotteryData.steps[dataStore.getRollCount].rates,
+          dataStore.getLotteryData.steps[dataStore.getRollCount].gss_rates,
+          dataStore.getLotteryData.steps[dataStore.getRollCount].gss_step,
+          num,
+          index
+        );
       } else {
-        dataStore.getLotteryData.rates.every((r, ri) => {
-          if (num - r.rate > 0) {
-            num = num - r.rate;
-            return true;
-          } else {
-            num = index < 9 || ri !== 0 ? ri : 1;
-            return false;
-          }
-        });
-
-        try {
-          let result: GachaCard =
-            dataStore.getLotteryData.rates[num].cards[
-              Math.floor(
-                Math.random() * dataStore.getLotteryData.rates[num].cards.length
-              )
-            ];
-          dataStore.updateGachaResults(result.image);
-        } catch (error) {
-          console.log(`Error`);
-        }
+        pickRatesAndRoll(
+          dataStore.getLotteryData.rates,
+          dataStore.getLotteryData.gss_rates,
+          dataStore.getLotteryData.gss_step,
+          num,
+          index
+        );
       }
     }
+    // console.log(`Rolled ${times} times!`)
+    dataStore.updateAmountSpent(cost);
+    dataStore.updateLastRollNum(times);
+    dataStore.updateRollCount();
     await new Promise((r) => setTimeout(r, 250));
     dataStore.toggleCard(true);
   } else {
     console.log(`Banner data not found.`);
+  }
+};
+
+const pickRatesAndRoll = (
+  rates: GachaRate[],
+  gssRates: GachaRate[],
+  gssStep: number,
+  num: number,
+  index: number
+) => {
+  if (dataStore.getLotteryData !== undefined) {
+    if (gssStep > 0 && index === gssStep - 1) {
+      gssRates.every((r, ri) => {
+        if (num - r.rate > 0) {
+          num = num - r.rate;
+          return true;
+        } else {
+          num = ri;
+          return false;
+        }
+      });
+
+      try {
+        let result: GachaCard =
+          gssRates[num].cards[
+            Math.floor(Math.random() * gssRates[num].cards.length)
+          ];
+        dataStore.updateGachaResults(result.image);
+      } catch (error) {
+        console.log(`Error`);
+      }
+    } else {
+      rates.every((r, ri) => {
+        if (num - r.rate > 0) {
+          num = num - r.rate;
+          return true;
+        } else {
+          num = index < 9 || ri !== 0 ? ri : 1;
+          return false;
+        }
+      });
+
+      try {
+        let result: GachaCard =
+          rates[num].cards[Math.floor(Math.random() * rates[num].cards.length)];
+        dataStore.updateGachaResults(result.image);
+      } catch (error) {
+        console.log(`Error`);
+      }
+    }
   }
 };
 </script>

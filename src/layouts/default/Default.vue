@@ -8,13 +8,13 @@
 </template>
 
 <script lang="ts" setup>
-import DefaultBar from './AppBar.vue'
+import DefaultBar from "./AppBar.vue";
 // import DefaultNav from './NavBar.vue'
-import SideBar from './SideBar.vue'
-import DefaultView from './View.vue'
-import { useRoute } from 'vue-router';
+import SideBar from "./SideBar.vue";
+import DefaultView from "./View.vue";
+import { useRoute } from "vue-router";
 
-const route = useRoute()
+const route = useRoute();
 </script>
 
 <style lang="scss">
@@ -22,49 +22,46 @@ const route = useRoute()
   font-family: HBRFont;
   font-style: normal;
   font-weight: 400;
-  src: local("HBRFont"), url("@/assets/A-OTF-SOFTGOSTD-DEBOLD.otf") format("opentype");
+  src: local("HBRFont"),
+    url("@/assets/A-OTF-SOFTGOSTD-DEBOLD.otf") format("opentype");
   font-display: swap;
   ascent-override: 92%; /* play with values */
 }
 
 .text-JP {
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
 }
 
 .text-TW {
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: "Noto Sans TC", sans-serif;
 }
 
 .text-CN {
-  font-family: 'Noto Sans SC', sans-serif;
+  font-family: "Noto Sans SC", sans-serif;
 }
 
 .text-KR {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 .text-DF {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: "Noto Sans", sans-serif;
 }
 
 .text-HBR {
-  font-family: HBRFont, 'Noto Sans', sans-serif !important;
+  font-family: HBRFont, "Noto Sans", sans-serif !important;
 }
 
 .text-HBR--stroke {
-  text-shadow:
-    -1px -1px 0 #443f4b,
-    0 -1px 0 #443f4b,
-    1px -1px 0 #443f4b,
-    2px 0 0 #443f4b,
-    2px 2px 0 #443f4b,
-    0 2px 0 #443f4b,
-    -1px 1px 0 #443f4b,
+  text-shadow: -1px -1px 0 #443f4b, 0 -1px 0 #443f4b, 1px -1px 0 #443f4b,
+    2px 0 0 #443f4b, 2px 2px 0 #443f4b, 0 2px 0 #443f4b, -1px 1px 0 #443f4b,
     -1px 0 0 #443f4b;
 }
 
-.v-btn--disabled {
-  opacity: 1 !important;
+.gacha-actions {
+  .v-btn--disabled {
+    opacity: 1;
+  }
 }
 
 // .text-header {
@@ -84,7 +81,7 @@ const route = useRoute()
 
 .text-small {
   font-size: 0.625rem;
-  margin-top: 0.45rem
+  margin-top: 0.45rem;
 }
 
 // .active {
@@ -93,7 +90,7 @@ const route = useRoute()
 //   color: #fff;
 // }
 
-.v-overlay[role=tooltip] {
+.v-overlay[role="tooltip"] {
   .v-overlay__content {
     opacity: 1;
     border: 0.125rem solid #fdf7f7;
@@ -104,15 +101,16 @@ const route = useRoute()
     border-radius: 0.25rem;
     padding: 0.375rem 0.5rem;
     font-size: 1rem;
-    background: linear-gradient(15deg, rgba(49, 42, 71, 1) 0%, rgba(168, 89, 141, 1) 100%);
+    background: linear-gradient(
+      15deg,
+      rgba(49, 42, 71, 1) 0%,
+      rgba(168, 89, 141, 1) 100%
+    );
   }
 }
 
-
-
 // Custom scrollbar
 @media (min-width: 60rem) {
-
   /* FIREFOX */
   body {
     scrollbar-width: thin;

@@ -55,6 +55,16 @@ export type Lottery = {
         gacha: number
         exchange: number
     }
+    tab: string
+    steps: {
+        step: number
+        cost: number
+        count: number
+        text: string
+        rates: GachaRate[]
+        gss_step: number
+        gss_rates: GachaRate[]
+    } | null
 }
 
 
