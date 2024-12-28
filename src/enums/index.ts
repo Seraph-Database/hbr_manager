@@ -762,7 +762,8 @@ export enum CharacterRole {
 	Healer,
 	Buffer,
 	Debuffer,
-	Defender
+	Defender,
+	Admiral
 }
 
 export enum CharacterRoleURL {
@@ -772,7 +773,8 @@ export enum CharacterRoleURL {
 	HEALER,
 	BUFFER,
 	DEBUFFER,
-	DEFENDER
+	DEFENDER,
+	ADMIRAL
 }
 
 export enum CharacterRoleGradient {
@@ -782,7 +784,8 @@ export enum CharacterRoleGradient {
 	Healer = `hsla(171, 64%, 35%, 0.84)`,
 	Buffer = `hsla(126, 64%, 35%, 0.84)`,
 	Debuffer = `hsla(278, 64%, 35%, 0.84)`,
-	Defender = `hsla(214, 64%, 35%, 0.84)`
+	Defender = `hsla(214, 64%, 35%, 0.84)`,
+	Admiral = `hsla(240, 64%, 35%, 0.84)`
 }
 
 export enum WeaponType {
