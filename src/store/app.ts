@@ -294,7 +294,7 @@ export const useLotteryStore = defineStore("gachalist", {
       return state.data?.gachaList
         ?.filter((b) => b.is_free || b.steps !== null || b.count > 1)
         .map((b) => {
-          return { ...b, label: b.label.replace(`lottery_`, ``) };
+          return { ...b, label: b.label.replace(`lotteryShop_`, ``) };
         })
         .sort((a, b) => b.in_date.localeCompare(a.in_date))
         .find((b, bi) => bi === state.index);

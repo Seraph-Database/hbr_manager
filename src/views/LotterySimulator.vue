@@ -113,7 +113,9 @@
             dataStore.getLotteryData.steps !== null
           "
           no-gutters
-          class="gacha-actions"
+          :class="`gacha-actions${
+            $vuetify.display.mdAndDown ? ` gacha-actions--mobile` : ``
+          }`"
           justify="end"
         >
           <v-spacer />
@@ -228,7 +230,7 @@
           v-if="dataStore.getLotteryData && !dataStore.activeResults"
           no-gutters
           :class="`gacha-actions${
-            $vuetify.display.smAndUp ? `` : ` gacha-actions--mobile`
+            $vuetify.display.mdAndDown ? ` gacha-actions--mobile` : ``
           }`"
           justify="end"
         >
@@ -502,6 +504,7 @@
             justify="center"
           >
             <v-col
+              class="roll-slot"
               cols="auto"
               v-for="card in dataStore.getGachaResults.slice(
                 0,
@@ -556,6 +559,7 @@
           </v-row>
           <v-row v-else no-gutters align="center" justify="center">
             <v-col
+              class="roll-slot"
               cols="auto"
               v-for="card in dataStore.getGachaResults.slice(
                 0,
@@ -743,7 +747,7 @@ loadData()
       let bannerIndex = dataStore.getGachaList
         ?.filter((b) => b.is_free || b.steps !== null || b.count > 1)
         .map((b) => {
-          return { ...b, label: b.label.replace(`lottery_`, ``) };
+          return { ...b, label: b.label.replace(`lotteryShop_`, ``) };
         })
         .sort((a, b) => b.in_date.localeCompare(a.in_date))
         .findIndex(
@@ -841,6 +845,7 @@ const rollGacha = async (
           index
         );
       }
+      // await new Promise((r) => setTimeout(r, 250));
     }
     // console.log(`Rolled ${times} times!`)
     dataStore.updateAmountSpent(cost);
@@ -966,7 +971,7 @@ const pickRatesAndRoll = (
 }
 
 .quartz-cost {
-  padding-bottom: 0.125rem !important;
+  padding-bottom: 0.0625rem !important;
 }
 
 .quartz-num {
@@ -1001,15 +1006,14 @@ const pickRatesAndRoll = (
   left: 0;
   right: 0.5rem;
 
-  // &.gacha-actions--mobile {
-  //   bottom: 3.25rem;
-  //   right: -3rem;
-  //   transform: scale(75%);
+  &.gacha-actions--mobile {
+    // bottom: 3.25rem;
+    // right: -3rem;
 
-  //   > div {
-  //     margin-top: -0.5rem;
-  //   }
-  // }
+    > div {
+      margin-top: -0.5rem;
+    }
+  }
 }
 
 .gacha-btn {
@@ -1048,11 +1052,11 @@ const pickRatesAndRoll = (
   text-shadow: 0 0 0.25rem #212121;
 }
 
-// .gacha-actions--mobile {
-//   .gacha-cost {
-//     top: calc(50% - 2.3125rem);
-//   }
-// }
+.gacha-actions--mobile {
+  .gacha-cost {
+    top: calc(50% - 2.3125rem);
+  }
+}
 
 .repeat-gacha-btn {
   span {
@@ -1065,9 +1069,11 @@ const pickRatesAndRoll = (
 .times-text {
   font-size: 0.9374rem;
   margin-top: -0.25rem !important;
+  text-shadow: 0 0 0.25rem #660000;
 }
 
 .guarantee-text {
   font-size: 0.875rem;
+  text-shadow: 0 0 0.25rem #660000;
 }
 </style>
