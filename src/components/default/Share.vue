@@ -188,7 +188,7 @@
                     :key="`element-${elg.element}`"
                     :style="{
                       position: `relative`,
-                      background: `url('/svg/${elg.element}.svg')`,
+                      background: `url('/svg/${elg.element}.svg?2025')`,
                       width: `5rem`,
                       height: `5rem`,
                       backgroundSize: `105%`,
