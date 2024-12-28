@@ -154,7 +154,7 @@
                   class="d-block"
                   width="160"
                   height="64"
-                  :src="`/hbr/${style.strip.replace(`Party`, `Select`)}`"
+                  :src="`/hbr/${style.strip.replace(`Party`, `Select`)}?2024`"
                   :style="{
                     opacity: dataStore.getStyle(style.id)[1] > -1 ? 1 : 0.5,
                   }"
@@ -188,7 +188,7 @@
                     :key="`element-${elg.element}`"
                     :style="{
                       position: `relative`,
-                      background: `url('/svg/${elg.element}.svg')`,
+                      background: `url('/svg/${elg.element}.svg?2024')`,
                       width: `5rem`,
                       height: `5rem`,
                       backgroundSize: `105%`,
@@ -208,7 +208,7 @@
                     backgroundImage: `url(${`/hbr/${style.strip.replace(
                       `Party`,
                       `StylePiece`
-                    )}`})`,
+                    )}`}?2024)`,
                     // backgroundColor: `#000`,
                     width: `5rem`,
                     height: `5rem`,
@@ -334,7 +334,7 @@
                     backgroundImage: `url(${`/hbr/${style.strip.replace(
                       `Party`,
                       `StylePiece`
-                    )}`})`,
+                    )}`}?2024)`,
                     // backgroundColor: `#000`,
                     width: `5rem`,
                     height: `5rem`,
