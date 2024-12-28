@@ -286,7 +286,7 @@
                     }"
                   ></div>
                 </div>
-                <template v-if="gi === ((elg.groups.length > 1 ? elg.groups : [...elg.groups, []])).length - 1">
+                <template v-if="(elg.groups.length > 1 && gi === elg.groups.length - 1) || (elg.groups.length === 1)">
                   <div
                     v-for="n in (gi % 2 === 0 ? 10 : 9) - g.length"
                     :key="`empty-${n}`"
