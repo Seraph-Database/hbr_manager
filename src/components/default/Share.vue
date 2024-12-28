@@ -178,7 +178,7 @@
               "
             >
               <div
-                v-for="(g, gi) in elg.groups"
+                v-for="(g, gi) in (elg.groups.length > 1 ? elg.groups : [...elg.groups, []])"
                 :key="gi"
                 class="d-flex flex-wrap align-center justify-center"
                 :style="{ gap: `0.125rem` }"
