@@ -188,7 +188,7 @@
                     :key="`element-${elg.element}`"
                     :style="{
                       position: `relative`,
-                      background: `url('/svg/${elg.element}.svg?2024')`,
+                      background: `url('/svg/${elg.element}.svg')`,
                       width: `5rem`,
                       height: `5rem`,
                       backgroundSize: `105%`,
@@ -286,7 +286,7 @@
                     }"
                   ></div>
                 </div>
-                <template v-if="gi === elg.groups.length - 1">
+                <template v-if="gi === ((elg.groups.length > 1 ? elg.groups : [...elg.groups, []])).length - 1">
                   <div
                     v-for="n in (gi % 2 === 0 ? 10 : 9) - g.length"
                     :key="`empty-${n}`"
