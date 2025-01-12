@@ -19,7 +19,7 @@
     class="style-type__icon"
     width="44"
     height="44"
-    :src="`https://hbr.quest/ui/${style.type}.webp`"
+    :src="`https://hbr.quest/ui/${String(route.name).endsWith(`En`) ? `en/` : ``}${style.type}.webp`"
   />
   <img
     v-for="(ele, eleIndex) in style.elements"
@@ -28,17 +28,19 @@
     width="44"
     height="44"
     :style="{ right: `${4 + 44 * (eleIndex + 1)}px` }"
-    :src="`https://hbr.quest/ui/${ele}.webp`"
+    :src="`https://hbr.quest/ui/${String(route.name).endsWith(`En`) ? `en/` : ``}${ele}.webp`"
   />
 </template>
 
 <script lang="ts" setup>
 import { type Style } from "@/types";
 import { CharacterRoleGradient } from "@/enums";
+import { useRoute } from "vue-router";
 
 defineProps<{
   style: Style;
 }>();
+const route = useRoute();
 </script>
 
 <style lang="scss" scoped>

@@ -862,8 +862,8 @@ export enum ElementTypeName {
 	Dark,
 	Null,
 	Slash = 10,
-	Stab = 11,
-	Strike = 12
+	Pierce = 11,
+	Crush = 12
 }
 
 export enum ElementTypeURL {

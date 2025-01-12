@@ -216,7 +216,7 @@
                   >
                     <div class="d-flex flex-row align-center">
                       <img
-                        :src="`https://hbr.quest/ui/${String(element)}.webp`"
+                        :src="`https://hbr.quest/ui/${String(route.name).endsWith(`En`) ? `en/` : ``}${String(element)}.webp`"
                         width="32"
                         height="32"
                       />
@@ -250,11 +250,11 @@
                   >
                     <div class="d-flex flex-row align-center">
                       <img
-                        :src="`https://hbr.quest/ui/${String(attackType)}.webp`"
+                        :src="`https://hbr.quest/ui/${String(route.name).endsWith(`En`) ? `en/` : ``}${String(attackType)}.webp`"
                         width="32"
                         height="32"
                       />
-                      <span class="px-2">{{ attackType }}</span>
+                      <span class="px-2">{{ ElementTypeName[Number(index)] }}</span>
                     </div>
                   </v-chip>
                 </template>
@@ -332,7 +332,7 @@
             </v-expansion-panel-text>
           </v-expansion-panel>
 
-          <v-expansion-panel class="filter-category">
+          <v-expansion-panel v-if="false" class="filter-category">
             <v-expansion-panel-title hide-actions>
               {{ `Status` }}
             </v-expansion-panel-title>

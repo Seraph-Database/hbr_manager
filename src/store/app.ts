@@ -65,7 +65,7 @@ export const useStyleStore = defineStore("styles", {
     box: [] as StyleData[],
     loading: true,
     selection: -1,
-    readOnly: false,
+    readOnly: true,
   }),
   getters: {
     getStyles(state): Style[] | undefined {
@@ -86,8 +86,8 @@ export const useStyleStore = defineStore("styles", {
     },
   },
   actions: {
-    async loadStyles(): Promise<boolean> {
-      return await request(`styles_s`).then((data) => {
+    async loadStyles(region: string): Promise<boolean> {
+      return await request(`${region === `en` ? `en/` : ``}styles_s`).then((data) => {
         this.data = this.data
           ? { ...this.data, styles: data as Style[] }
           : { styles: data as Style[] };

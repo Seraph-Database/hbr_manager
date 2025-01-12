@@ -1,7 +1,7 @@
 <template>
   <v-app-bar
     color="#212121c0"
-    :height="route.name === `RosterMan` ? 80 : undefined"
+    :height="String(route.name).startsWith(`RosterMan`) ? 80 : undefined"
   >
     <!-- <template v-slot:image>
       <v-img gradient="to top, rgba(49, 42, 71, 0.72), rgba(168, 89, 141, 0.48)"></v-img>
@@ -25,14 +25,14 @@
         <v-col class="text-title mb-n1" cols="12">ガチャシミュ</v-col>
         <v-col class="text-subtitle" cols="12">Gacha Simulator</v-col>
       </v-row>
-      <!-- <v-row no-gutters align="center" v-else-if="route.name === `RosterMan`">
-        <v-col class="text-title mb-n1" cols="12">スタイル一覧</v-col>
+      <v-row no-gutters align="center" v-else-if="String(route.name).startsWith(`RosterMan`)">
+        <v-col class="text-title mb-n1" cols="12">{{ String(route.name).endsWith(`En`) ? `HBR EN` : `スタイル一覧` }}</v-col>
         <v-col class="text-subtitle" cols="12">Style List</v-col>
-      </v-row> -->
-      <v-row no-gutters align="center" v-else-if="route.name === `RosterMan`">
+      </v-row>
+      <!-- <v-row no-gutters align="center" v-else-if="String(route.name).startsWith(`RosterMan`)">
         <v-col class="text-title mb-n1" cols="12">スタイル選択</v-col>
         <v-col class="text-subtitle" cols="12">Style Manager</v-col>
-      </v-row>
+      </v-row> -->
       <v-row
         no-gutters
         align="center"
@@ -73,10 +73,10 @@
         <v-icon icon="mdi-information-outline"></v-icon>
       </v-btn>
     </template>
-    <template v-else-if="route.name === `RosterMan`">
+    <template v-else-if="String(route.name).startsWith(`RosterMan`)">
       <search />
-      <share />
-      <edit-mode />
+      <share v-if="false" />
+      <edit-mode v-if="false" />
       <!-- <update /> -->
       <div class="pl-1"></div>
       <!-- <settings /> -->

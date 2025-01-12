@@ -25,7 +25,7 @@
             cols="auto"
             v-show="dataStore.getStyles && searchFilter(item)"
             :class="`style-wrapper ${
-              !dataStore.loading &&
+              false && !dataStore.loading &&
               dataStore.getOwned.findIndex((s) => s[0] === item.id) < 0
                 ? `style--greyed `
                 : ``
@@ -102,7 +102,7 @@ const itemsPerLine = computed(() => {
 
 const loadData = async () => {
   if (dataStore.getStyles === undefined) {
-    await dataStore.loadStyles();
+    await dataStore.loadStyles(String(route.name).endsWith(`En`) ? `en` : ``);
   }
 };
 
