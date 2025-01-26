@@ -48,4 +48,10 @@ const dataStore = useStyleStore();
   width: 100%;
   max-width: 356px;
 }
+
+// .style-hexagon {
+//   position: absolute;
+//   bottom: 1.25rem;
+//   left: 0.5rem;
+// }
 </style>

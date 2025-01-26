@@ -27,7 +27,7 @@
       </v-row>
       <v-row no-gutters align="center" v-else-if="String(route.name).startsWith(`RosterMan`)">
         <v-col class="text-title mb-n1" cols="12">{{ String(route.name).endsWith(`En`) ? `HBR EN` : `スタイル一覧` }}</v-col>
-        <v-col class="text-subtitle" cols="12">Style List</v-col>
+        <v-col class="text-subtitle" cols="12">{{ `${String(route.name).endsWith(`En`) ? `Memoria` : `Style`} List` }}</v-col>
       </v-row>
       <!-- <v-row no-gutters align="center" v-else-if="String(route.name).startsWith(`RosterMan`)">
         <v-col class="text-title mb-n1" cols="12">スタイル選択</v-col>

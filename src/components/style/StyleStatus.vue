@@ -9,8 +9,16 @@
       "
     >
       <div :style="{ width: `100%` }">
-        <v-row v-if="String(style.tier) === `SS`" no-gutters class="align-center ma-1 mx-2 mb-3 pa-0">
-          <v-col @click.stop cols="3" class="text-HBR text-label text-HBR--stroke">
+        <v-row
+          v-if="String(style.tier) === `SS`"
+          no-gutters
+          class="align-center ma-1 mx-2 mb-3 pa-0"
+        >
+          <v-col
+            @click.stop
+            cols="3"
+            class="text-HBR text-label text-HBR--stroke"
+          >
             {{ `S Lv` }}
           </v-col>
           <v-col cols="auto">
@@ -23,7 +31,7 @@
               icon
               class="d-flex justify-end align-center"
               :disabled="dataStore.readOnly"
-              @click.stop="styleLv < 10 ? styleLv++ : styleLv = 0"
+              @click.stop="styleLv < 10 ? styleLv++ : (styleLv = 0)"
             >
               <div class="text-HBR text-LB text-HBR--stroke">
                 {{ `${styleLv}` }}
@@ -52,7 +60,11 @@
           </v-col>
         </v-row>
         <v-row no-gutters class="align-center ma-1 mx-2 mb-6 pa-0">
-          <v-col @click.stop cols="3" class="text-HBR text-label text-HBR--stroke">
+          <v-col
+            @click.stop
+            cols="3"
+            class="text-HBR text-label text-HBR--stroke"
+          >
             {{ `LB` }}
           </v-col>
           <v-col cols="auto">
@@ -111,8 +123,13 @@
           />
         </v-btn>
       </v-sheet> -->
-
-      <v-row v-if="false" no-gutters class="style-name">
+    </v-sheet>
+    <v-sheet
+      class="style-info pr-12 d-flex flex-column align-start justify-end"
+      color="transparent"
+      v-if="false && dataStore.readOnly"
+    >
+      <v-row no-gutters class="style-name">
         <v-col cols="auto" class="px-3 text-HBR text-normal text-HBR--stroke">
           {{ style.name }}
         </v-col>
@@ -137,13 +154,14 @@ const dataStore = useStyleStore();
 </script>
 
 <style lang="scss" scoped>
-.style-status {
+.style-status,
+.style-info {
   position: absolute;
   bottom: 0rem;
   right: 0rem;
   top: 0rem;
   left: 0rem;
-  background: linear-gradient(90deg, #212121aa 25%, #21212100 50%) !important;
+  background: linear-gradient(90deg, #212121aa 25%, #21212100 50%);
 
   .style-name {
     cursor: default;
@@ -186,5 +204,14 @@ const dataStore = useStyleStore();
     font-size: 1.5rem;
     line-height: 1.5rem;
   }
+}
+
+.style-info {
+  background: unset;
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0rem;
+  top: unset;
+  left: 0rem;
 }
 </style>
