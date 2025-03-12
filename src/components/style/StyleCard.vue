@@ -8,7 +8,7 @@
       width="356"
       height="144"
       class="d-block style-strip"
-      :src="`https://hbr.quest/hbr/${style.strip.replace(`Party`, `Select`)}`"
+      :src="`https://assets.hbr.quest/v1/hbr/${style.strip.replace(`Party`, `Select`)}`"
     />
     <style-header :style="style" />
     <style-status :style="style" />

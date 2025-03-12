@@ -4,14 +4,14 @@
     :src="
       route.name?.toString().startsWith(`GachaSim`) &&
       lotteryStore.getLotteryData
-        ? `https://hbr.quest/${
+        ? `https://assets.hbr.quest/v1/${
             route.name?.toString().endsWith(`En`) ? `en/` : ``
           }hbr/${lotteryStore.getLotteryData.banner.replace(
             `Banner`,
             `Bg`
           )}?v=${lotteryStore.getLotteryData.version}&h=ABC`
         : route.name === `DimensionBattle`
-        ? `https://hbr.quest/hbr/DimensionNightSky.webp`
+        ? `https://assets.hbr.quest/v1/hbr/DimensionNightSky.webp`
         : undefined
     "
   >

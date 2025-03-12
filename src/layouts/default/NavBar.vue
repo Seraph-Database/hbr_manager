@@ -12,7 +12,7 @@
                         <v-img class="my-2" transition="scale-transition"
                             :src="`/ui/${card.split(`_`)[1].replace(`a`, ``)}.webp`" width="4rem" height="4rem">
                             <v-img v-if="lotteryStore.getDisplayCardFlag && (lotteryStore.getDisplayTrashFlag || card.split(`_`)[1].replace(`a`, ``) === `R3`)"
-                                transition="scale-transition" :src="`https://hbr.quest/hbr/${card}`" width="4rem"
+                                transition="scale-transition" :src="`https://assets.hbr.quest/v1/hbr/${card}`" width="4rem"
                                 height="4rem">
                                 <v-hover>
                                     <template v-slot:default="{ isHovering, props }">

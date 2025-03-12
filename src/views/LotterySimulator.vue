@@ -21,7 +21,7 @@
             >
               <v-col cols="auto">
                 <v-img
-                  :src="`https://hbr.quest/hbr/${dataStore.getLotteryData.ticket.image}`"
+                  :src="`https://assets.hbr.quest/v1/hbr/${dataStore.getLotteryData.ticket.image}`"
                   width="1.5rem"
                 />
               </v-col>
@@ -36,7 +36,7 @@
             <v-row v-else no-gutters align="center" justify="space-between">
               <v-col cols="auto">
                 <v-img
-                  :src="`https://hbr.quest/hbr/IconHcSmall.webp`"
+                  :src="`https://assets.hbr.quest/v1/hbr/IconHcSmall.webp`"
                   width="1.5rem"
                 />
               </v-col>
@@ -181,7 +181,7 @@
                   <v-row no-gutters align="center" justify="space-between">
                     <v-col cols="auto">
                       <v-img
-                        :src="`https://hbr.quest/hbr/${`IconHcSmall.webp`}`"
+                        :src="`https://assets.hbr.quest/v1/hbr/${`IconHcSmall.webp`}`"
                         width="1.625rem"
                         height="1.625rem"
                         class="quartz-icon"
@@ -300,7 +300,7 @@
                   <v-row no-gutters align="center" justify="space-between">
                     <v-col cols="auto">
                       <v-img
-                        :src="`https://hbr.quest/hbr/${
+                        :src="`https://assets.hbr.quest/v1/hbr/${
                           (dataStore.getLotteryData.ticket &&
                             dataStore.getLotteryData.ticket.image) ||
                           `IconHcSmall.webp`
@@ -393,7 +393,7 @@
                   <v-row no-gutters align="center" justify="space-between">
                     <v-col cols="auto">
                       <v-img
-                        :src="`https://hbr.quest/hbr/${
+                        :src="`https://assets.hbr.quest/v1/hbr/${
                           (dataStore.getLotteryData.ticket &&
                             dataStore.getLotteryData.ticket.image) ||
                           `IconHcSmall.webp`
@@ -460,7 +460,7 @@
                 ? `lottery--selected`
                 : `lottery`
             "
-            :src="`https://hbr.quest/${
+            :src="`https://assets.hbr.quest/v1/${
               route.name?.toString().endsWith(`En`) ? `en/` : ``
             }hbr/${lottery.banner}?h=ABC`"
             width="10rem"
@@ -525,7 +525,7 @@
                       card.split(`_`)[1].replace(`a`, ``) === `R3`)
                   "
                   transition="scale-transition"
-                  :src="`https://hbr.quest/hbr/${card}`"
+                  :src="`https://assets.hbr.quest/v1/hbr/${card}`"
                   width="5rem"
                   height="5rem"
                 >
@@ -580,7 +580,7 @@
                       card.split(`_`)[1].replace(`a`, ``) === `R3`)
                   "
                   transition="scale-transition"
-                  :src="`https://hbr.quest/hbr/${card}`"
+                  :src="`https://assets.hbr.quest/v1/hbr/${card}`"
                   width="3.5rem"
                   height="3.5rem"
                 >

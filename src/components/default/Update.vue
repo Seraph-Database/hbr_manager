@@ -114,14 +114,14 @@
                 width="32"
                 height="32"
                 class="mr-1"
-                :src="`https://hbr.quest/ui/IconRarity${style.tier}.webp`"
+                :src="`https://assets.hbr.quest/v1/ui/IconRarity${style.tier}.webp`"
               />
             </template>
             <template v-slot:append>
               <img
                 width="32"
                 height="32"
-                :src="`https://hbr.quest/hbr/${style.image}`"
+                :src="`https://assets.hbr.quest/v1/hbr/${style.image}`"
               />
             </template>
           </v-list-item>

@@ -9,7 +9,7 @@
 
     <template v-slot:prepend>
       <v-img
-        :src="`https://hbr.quest/ui/${
+        :src="`https://assets.hbr.quest/v1/ui/${
           route.name === `DimensionBattle`
             ? `IconHomeDimensionBattleDefault`
             : `LoginBonus_Stamp`
@@ -74,7 +74,9 @@
       </v-btn>
     </template>
     <template v-else-if="String(route.name).startsWith(`RosterMan`)">
-      <search />
+      <!-- <search /> -->
+      <filters />
+      <sort />
       <share v-if="false" />
       <edit-mode v-if="false" />
       <!-- <update /> -->
@@ -88,7 +90,9 @@
 // import Update from "@/components/default/Update.vue";
 import Share from "@/components/default/Share.vue";
 import EditMode from "@/components/default/EditMode.vue";
-import Search from "@/components/default/Search.vue";
+// import Search from "@/components/default/Search.vue";
+import Filters from "@/components/default/Filter.vue";
+import Sort from "@/components/default/Sort.vue";
 // import Settings from '@/components/default/Settings.vue';
 import { useRoute } from "vue-router";
 import { useLotteryStore } from "@/store/app";

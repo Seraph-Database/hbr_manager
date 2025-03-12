@@ -110,14 +110,14 @@
       <!-- <v-sheet color="transparent" class="style-chips d-flex flex-column align-center justify-space-between">
         <v-btn color="transparent" flat icon width="36" height="36">
           <img
-            :src="`https://hbr.quest/hbr/ThumbnailMaterial_Lv7_Light.webp`"
+            :src="`https://assets.hbr.quest/v1/hbr/ThumbnailMaterial_Lv7_Light.webp`"
             width="36"
             height="36"
           />
         </v-btn>
         <v-btn color="transparent" flat icon width="36" height="36">
           <img
-            :src="`https://hbr.quest/hbr/ThumbnailMaterial_SkillEvolution.webp`"
+            :src="`https://assets.hbr.quest/v1/hbr/ThumbnailMaterial_SkillEvolution.webp`"
             width="36"
             height="36"
           />

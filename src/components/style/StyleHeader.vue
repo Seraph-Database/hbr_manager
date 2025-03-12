@@ -1,7 +1,7 @@
 <template>
   <img
     class="style-rarity__icon"
-    :src="`https://hbr.quest/ui/IconRarity${style.tier}.webp`"
+    :src="`https://assets.hbr.quest/v1/ui/IconRarity${style.tier}.webp`"
     width="54"
     height="54"
   />
@@ -19,7 +19,7 @@
     class="style-type__icon"
     width="44"
     height="44"
-    :src="`https://hbr.quest/ui/${String(route.name).endsWith(`En`) ? `en/` : ``}${style.type}.webp`"
+    :src="`https://assets.hbr.quest/v1/ui/${String(route.name).endsWith(`En`) ? `en/` : ``}${style.type}.webp`"
   />
   <img
     v-for="(ele, eleIndex) in style.elements"
@@ -28,7 +28,7 @@
     width="44"
     height="44"
     :style="{ right: `${4 + 44 * (eleIndex + 1)}px` }"
-    :src="`https://hbr.quest/ui/${String(route.name).endsWith(`En`) ? `en/` : ``}${ele}.webp`"
+    :src="`https://assets.hbr.quest/v1/ui/${String(route.name).endsWith(`En`) ? `en/` : ``}${ele}.webp`"
   />
 </template>
 

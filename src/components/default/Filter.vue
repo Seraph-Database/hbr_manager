@@ -3,7 +3,7 @@
     <template v-slot:default="{ isHovering, props }">
       <v-scale-transition appear>
         <v-btn
-          :aria-label="`Show Search`"
+          :aria-label="`Show Filters`"
           v-bind="props"
           :stacked="true"
           class="text-white"
@@ -24,11 +24,11 @@
             height="3.0625rem"
             class="d-flex align-center justify-center"
           >
-            <v-icon color="white" :icon="`mdi-text-search-variant`"></v-icon>
+            <v-icon color="white" :icon="`mdi-filter-variant`"></v-icon>
           </v-img>
-          <!-- <div class="text-HBR text-white mb-1">
-            {{ `SEARCH` }}
-          </div> -->
+          <div class="text-HBR text-white mb-1">
+            {{ `Filter` }}
+          </div>
         </v-btn>
       </v-scale-transition>
     </template>
@@ -428,7 +428,7 @@ const router = useRouter();
 
 const dataStore = useStyleStore();
 const searchStore = useSearchStore();
-const search = ref(route.query.v === `search`);
+const search = ref(route.query.v === `filters`);
 const activeFilters = ref([] as number[]);
 // const filterTab = ref(0);
 
@@ -451,13 +451,13 @@ onBeforeUnmount(() => document.removeEventListener("keydown", catchEsc));
 watch(route, () => {
   // displayed.value = 40
   // activeFilters.value = []
-  search.value = route.query.v === `search`;
-  searchStore.searchFlag = route.query.v === `search`;
+  search.value = route.query.v === `filters`;
+  searchStore.searchFlag = route.query.v === `filters`;
   // initialize()
 });
 
 watch(search, () => {
-  searchStore.searchFlag = route.query.v === `search`;
+  searchStore.searchFlag = route.query.v === `filters`;
 });
 
 watch(
@@ -641,7 +641,7 @@ const showSearch = () => {
       router.push({
         name: String(route.name),
         params: { ...route.params },
-        query: { ...route.query, v: `search` },
+        query: { ...route.query, v: `filters` },
       }),
     150
   );

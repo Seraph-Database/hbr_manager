@@ -3,7 +3,7 @@
     <template v-slot:default="{ isHovering, props }">
       <v-scale-transition appear>
         <v-btn
-          :aria-label="`Show Search`"
+          :aria-label="`Show Sorting Options`"
           v-bind="props"
           :stacked="true"
           class="text-white"
@@ -24,11 +24,11 @@
             height="3.0625rem"
             class="d-flex align-center justify-center"
           >
-            <v-icon color="white" :icon="`mdi-text-search-variant`"></v-icon>
+            <v-icon color="white" :icon="`mdi-sort-variant`"></v-icon>
           </v-img>
-          <!-- <div class="text-HBR text-white mb-1">
-            {{ `SEARCH` }}
-          </div> -->
+          <div class="text-HBR text-white mb-1">
+            {{ `Sort` }}
+          </div>
         </v-btn>
       </v-scale-transition>
     </template>
@@ -38,7 +38,7 @@
     scrollable
     v-model:model-value="search"
     transition="scale-transition"
-    :max-width="$vuetify.display.smAndDown ? undefined : `48rem`"
+    :max-width="$vuetify.display.smAndDown ? undefined : `24rem`"
     :max-height="
       $vuetify.display.smAndDown ? undefined : $vuetify.display.height - 192
     "
@@ -55,7 +55,7 @@
     >
       <v-toolbar color="#ffffff00" height="64" class="top-toolbar pa-1">
         <v-toolbar-title class="text-HBR ml-3">
-          {{ `Style Filters`.toUpperCase() }}
+          {{ `Sort Options`.toUpperCase() }}
         </v-toolbar-title>
 
         <!-- <template v-slot:image>
@@ -63,7 +63,7 @@
                 </template> -->
 
         <template v-slot:prepend>
-          <v-icon icon="mdi-filter-variant" size="2rem"></v-icon>
+          <v-icon icon="mdi-sort-variant" size="2rem"></v-icon>
         </template>
 
         <v-toolbar-items class="btn-toolbar__items align-center justify-center">
@@ -156,210 +156,6 @@
               </v-chip-group>
             </v-expansion-panel-text>
           </v-expansion-panel>
-
-          <v-expansion-panel class="filter-category mb-2">
-            <v-expansion-panel-title hide-actions>
-              {{ `Role` }}
-            </v-expansion-panel-title>
-            <v-expansion-panel-text>
-              <v-chip-group
-                class="filter-category__list"
-                v-model="searchStore.roles"
-                column
-                multiple
-              >
-                <template v-for="(role, index) in CharacterRole">
-                  <v-chip
-                    filter
-                    variant="text"
-                    v-if="!isNaN(Number(index))"
-                    :key="index"
-                  >
-                    <div class="d-flex flex-row align-center">
-                      <v-sheet
-                        rounded="circle"
-                        width="1.5rem"
-                        height="1.5rem"
-                        :color="CharacterRoleGradient[String(role) as keyof typeof CharacterRoleGradient]"
-                      ></v-sheet>
-                      <span class="px-2">
-                        {{ role }}
-                      </span>
-                    </div>
-                  </v-chip>
-                </template>
-              </v-chip-group>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-
-          <v-expansion-panel class="filter-category mb-2">
-            <v-expansion-panel-title hide-actions>
-              {{ `Element` }}
-            </v-expansion-panel-title>
-            <v-expansion-panel-text>
-              <v-chip-group
-                class="filter-category__list"
-                v-model="searchStore.elements"
-                column
-                multiple
-              >
-                <template v-for="(element, index) in ElementType">
-                  <v-chip
-                    filter
-                    variant="text"
-                    v-if="
-                      !isNaN(Number(index)) &&
-                      Number(index) > 0 &&
-                      Number(index) < 10
-                    "
-                    :key="index"
-                  >
-                    <div class="d-flex flex-row align-center">
-                      <img
-                        :src="`https://assets.hbr.quest/v1/ui/${String(route.name).endsWith(`En`) ? `en/` : ``}${String(element)}.webp`"
-                        width="32"
-                        height="32"
-                      />
-                      <span class="px-2">
-                        {{ ElementTypeName[Number(index)] }}
-                      </span>
-                    </div>
-                  </v-chip>
-                </template>
-              </v-chip-group>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-
-          <v-expansion-panel class="filter-category mb-2">
-            <v-expansion-panel-title hide-actions>
-              {{ `Type` }}
-            </v-expansion-panel-title>
-            <v-expansion-panel-text>
-              <v-chip-group
-                class="filter-category__list"
-                v-model="searchStore.attackTypes"
-                column
-                multiple
-              >
-                <template v-for="(attackType, index) in ElementType">
-                  <v-chip
-                    filter
-                    variant="text"
-                    v-if="!isNaN(Number(index)) && Number(index) > 9"
-                    :key="index"
-                  >
-                    <div class="d-flex flex-row align-center">
-                      <img
-                        :src="`https://assets.hbr.quest/v1/ui/${String(route.name).endsWith(`En`) ? `en/` : ``}${String(attackType)}.webp`"
-                        width="32"
-                        height="32"
-                      />
-                      <span class="px-2">{{ ElementTypeName[Number(index)] }}</span>
-                    </div>
-                  </v-chip>
-                </template>
-              </v-chip-group>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-
-          <v-expansion-panel class="filter-category mb-2">
-            <v-expansion-panel-title hide-actions>
-              {{ `Team` }}
-            </v-expansion-panel-title>
-            <v-expansion-panel-text>
-              <v-chip-group
-                class="filter-category__list"
-                v-model="searchStore.teams"
-                column
-                multiple
-              >
-                <template v-for="(squad, index) in CharacterTeam">
-                  <v-chip
-                    filter
-                    variant="text"
-                    v-if="!isNaN(Number(index))"
-                    :key="index"
-                  >
-                    <div class="d-flex flex-row align-center">
-                      <img
-                        :src="`https://assets.hbr.quest/v1/ui/${String(squad)
-                          .replace(/\s/g, ``)
-                          .toLowerCase()}.webp`"
-                        width="32"
-                        height="26.4"
-                      />
-                      <span class="pr-2">
-                        {{ CharacterTeamName[Number(index)] }}
-                      </span>
-                    </div>
-                  </v-chip>
-                </template>
-              </v-chip-group>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-
-          <v-expansion-panel class="filter-category mb-2">
-            <v-expansion-panel-title hide-actions>
-              {{ `Weapon` }}
-            </v-expansion-panel-title>
-            <v-expansion-panel-text>
-              <v-chip-group
-                class="filter-category__list"
-                v-model="searchStore.weaponTypes"
-                column
-                multiple
-              >
-                <template v-for="(weapon, index) in WeaponType">
-                  <v-chip
-                    filter
-                    variant="text"
-                    v-if="!isNaN(Number(index)) && Number(index) > 0"
-                    :key="index"
-                  >
-                    <div class="d-flex flex-row align-center">
-                      <img
-                        :src="`https://assets.hbr.quest/v1/ui/${String(weapon)}.webp`"
-                        width="32"
-                        height="32"
-                      />
-                      <span class="px-0">
-                        {{ WeaponTypeName[Number(index)] }}
-                      </span>
-                    </div>
-                  </v-chip>
-                </template>
-              </v-chip-group>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-
-          <v-expansion-panel v-if="false" class="filter-category">
-            <v-expansion-panel-title hide-actions>
-              {{ `Status` }}
-            </v-expansion-panel-title>
-            <v-expansion-panel-text>
-              <v-chip-group
-                class="filter-category__list"
-                v-model="searchStore.status"
-                column
-                multiple
-              >
-                <template v-for="(status, index) in CardStatus">
-                  <v-chip
-                    filter
-                    variant="text"
-                    v-if="!isNaN(Number(index))"
-                    :key="index"
-                  >
-                    <div class="d-flex flex-row align-center">
-                      <span class="px-1">
-                        {{ status }}
-                      </span>
-                    </div>
-                  </v-chip>
-                </template>
-              </v-chip-group>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
         </v-expansion-panels>
       </v-card-text>
 
@@ -428,7 +224,7 @@ const router = useRouter();
 
 const dataStore = useStyleStore();
 const searchStore = useSearchStore();
-const search = ref(route.query.v === `search`);
+const search = ref(route.query.v === `sort`);
 const activeFilters = ref([] as number[]);
 // const filterTab = ref(0);
 
@@ -451,13 +247,13 @@ onBeforeUnmount(() => document.removeEventListener("keydown", catchEsc));
 watch(route, () => {
   // displayed.value = 40
   // activeFilters.value = []
-  search.value = route.query.v === `search`;
-  searchStore.searchFlag = route.query.v === `search`;
+  search.value = route.query.v === `sort`;
+  searchStore.searchFlag = route.query.v === `sort`;
   // initialize()
 });
 
 watch(search, () => {
-  searchStore.searchFlag = route.query.v === `search`;
+  searchStore.searchFlag = route.query.v === `sort`;
 });
 
 watch(
@@ -641,7 +437,7 @@ const showSearch = () => {
       router.push({
         name: String(route.name),
         params: { ...route.params },
-        query: { ...route.query, v: `search` },
+        query: { ...route.query, v: `sort` },
       }),
     150
   );
