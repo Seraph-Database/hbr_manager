@@ -32,8 +32,7 @@ const request = async (tableName: string): Promise<any[]> => {
   ).then((response) => response.json());
 };
 
-const PROD =
-  "https://master.hbr.quest/TABLE";
+const PROD = "https://master.hbr.quest/TABLE";
 const DEV = "/db/TABLE";
 
 const getUserData = (): number[][] => {
@@ -87,15 +86,17 @@ export const useStyleStore = defineStore("styles", {
   },
   actions: {
     async loadStyles(region: string): Promise<boolean> {
-      return await request(`${region === `en` ? `en/` : ``}styles_s`).then((data) => {
-        this.data = this.data
-          ? { ...this.data, styles: data as Style[] }
-          : { styles: data as Style[] };
-        return true;
-      });
+      return await request(`${region === `en` ? `en/` : ``}styles_s`).then(
+        (data) => {
+          this.data = this.data
+            ? { ...this.data, styles: data as Style[] }
+            : { styles: data as Style[] };
+          return true;
+        }
+      );
     },
     toggleEditMode(): void {
-      this.readOnly = !this.readOnly
+      this.readOnly = !this.readOnly;
     },
     toggleStyle(styleId: number): void {
       if (!this.readOnly) {
@@ -112,12 +113,20 @@ export const useStyleStore = defineStore("styles", {
       // );
       // this.persistBoxData(this.box.find((s) => s.id === styleId));
     },
-    forceToggleStyle(styleId: number): void {
+    forceToggleStyle(styleId: number, maxStyleLb: number): void {
       this.selection = styleId;
-      this.owned =
-        this.owned.findIndex((s) => s[0] === styleId) > -1
-          ? this.owned.filter((s) => s[0] !== styleId)
-          : [...this.owned, [styleId, 0]];
+      if (this.owned.findIndex((s) => s[0] === styleId) > -1) {
+        if (
+          this.owned.findIndex((s) => s[0] === styleId && s[1] < maxStyleLb) >
+          -1
+        ) {
+          this.setStyleLv(styleId, maxStyleLb);
+        } else {
+          this.owned = this.owned.filter((s) => s[0] !== styleId);
+        }
+      } else {
+        this.owned = [...this.owned, [styleId, 0]];
+      }
       this.setUserData();
       // new
       // this.box = this.box.map((s) =>
@@ -153,24 +162,24 @@ export const useStyleStore = defineStore("styles", {
       maxLv: number,
       setToMax: boolean = false
     ): void {
-      if (!this.readOnly) {
-        this.owned =
-          this.owned.findIndex((s) => s[0] === styleId) > -1
-            ? this.owned.map((s) =>
-                s[0] === styleId
-                  ? [
-                      s[0],
-                      setToMax
-                        ? maxLv
-                        : s[1] < maxLv
-                        ? Math.min(s[1] + 1, maxLv)
-                        : 0,
-                    ]
-                  : s
-              )
-            : this.owned;
-        this.setUserData();
-      }
+      // if (!this.readOnly) {
+      this.owned =
+        this.owned.findIndex((s) => s[0] === styleId) > -1
+          ? this.owned.map((s) =>
+              s[0] === styleId
+                ? [
+                    s[0],
+                    setToMax
+                      ? maxLv
+                      : s[1] < maxLv
+                      ? Math.min(s[1] + 1, maxLv)
+                      : 0,
+                  ]
+                : s
+            )
+          : this.owned;
+      this.setUserData();
+      // }
       // new
       // this.box = this.box.map((s) =>
       //   s.id === styleId
@@ -315,12 +324,14 @@ export const useLotteryStore = defineStore("gachalist", {
   },
   actions: {
     async loadGachaList(region: string): Promise<boolean> {
-      return await request(`${region === `en` ? `en/` : ``}gachasim`).then((data) => {
-        this.data = this.data
-          ? { ...this.data, gachaList: data as Lottery[] }
-          : { gachaList: data as Lottery[] };
-        return true;
-      });
+      return await request(`${region === `en` ? `en/` : ``}gachasim`).then(
+        (data) => {
+          this.data = this.data
+            ? { ...this.data, gachaList: data as Lottery[] }
+            : { gachaList: data as Lottery[] };
+          return true;
+        }
+      );
     },
     updateIndex(newIndex: number) {
       this.index = newIndex;

@@ -209,7 +209,7 @@
                 <div
                   v-for="style in g"
                   :key="style.id"
-                  @click.stop="dataStore.forceToggleStyle(style.id)"
+                  @click.stop="dataStore.forceToggleStyle(style.id, style.max_lb)"
                   :style="{
                     position: `relative`,
                     backgroundImage: `url(${`https://assets.hbr.quest/v1/hbr/${style.strip.replace(
@@ -341,7 +341,7 @@
                 <div
                   v-for="style in g"
                   :key="style.id"
-                  @click.stop="dataStore.forceToggleStyle(style.id)"
+                  @click.stop="dataStore.forceToggleStyle(style.id, style.max_lb)"
                   :style="{
                     position: `relative`,
                     backgroundImage: `url(${`https://assets.hbr.quest/v1/hbr/${style.strip.replace(
