@@ -2,7 +2,7 @@
   <v-app>
     <default-bar />
     <!-- <default-nav /> -->
-    <side-bar v-if="route.name === `RosterMan`" />
+    <side-bar v-if="false && route.name === `RosterMan`" />
     <default-view />
   </v-app>
 </template>

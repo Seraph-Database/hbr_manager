@@ -12,7 +12,7 @@
           :flat="true"
           :width="`100%`"
           :max-width="$vuetify.display.smAndUp ? `9rem` : `5rem`"
-          @click.stop="showShare"
+          @click.stop="showBox"
         >
           <v-img
             :src="
@@ -24,7 +24,11 @@
             height="3.0625rem"
             class="d-flex align-center justify-center"
           >
-            <v-icon :style="{ marginLeft: `-2px` }" color="white" icon="mdi-dots-hexagon"></v-icon>
+            <v-icon
+              :style="{ marginLeft: `-2px` }"
+              color="white"
+              icon="mdi-dots-hexagon"
+            ></v-icon>
           </v-img>
           <div class="text-HBR text-white mb-1">
             {{ `${$vuetify.display.smAndUp ? `View ` : ``}Box` }}
@@ -259,7 +263,7 @@
           <div
             :style="{
               width: `${
-                (imagePerLine * 160) + (0.125 * 16 * (imagePerLine - 1))
+                imagePerLine * 160 + 0.125 * 16 * (imagePerLine - 1)
               }px`,
             }"
           >
@@ -521,7 +525,12 @@
           </v-hover>
         </v-toolbar-items>
         <template v-slot:extension>
-          <v-sheet flat color="transparent" widith="100%" class="d-flex flex-row align-center justify-center">
+          <v-sheet
+            flat
+            color="transparent"
+            widith="100%"
+            class="d-flex flex-row align-center justify-center"
+          >
             <v-radio-group
               v-model="templateSelection"
               type="number"
@@ -542,8 +551,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useStyleStore } from "@/store/app";
-import { ref, onMounted, onBeforeUnmount, computed } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useStyleStore, useSearchStore } from "@/store/app";
+import { ref, onMounted, onBeforeUnmount, computed, watch } from "vue";
 import {
   ElementList,
   ElementListGroup,
@@ -555,9 +565,12 @@ import {
 // @ts-ignore
 import domtoimage from "dom-to-image-more";
 import { CardRarity, CharacterRole, ElementType } from "@/enums";
+const route = useRoute();
+const router = useRouter();
 
+const searchStore = useSearchStore();
 const dataStore = useStyleStore();
-const share = ref(false);
+const share = ref(route.query.v === `box`);
 const styleList = ref(null as HTMLElement | null);
 // const fileData = ref(undefined)
 
@@ -573,12 +586,44 @@ const catchEsc = (e: KeyboardEvent) => {
 onMounted(() => document.addEventListener("keydown", catchEsc));
 onBeforeUnmount(() => document.removeEventListener("keydown", catchEsc));
 
-const showShare = () => {
-  share.value = true;
+watch(route, () => {
+  // displayed.value = 40
+  // activeFilters.value = []
+  share.value = route.query.v === `box`;
+  searchStore.menuFlag = route.query.v === `box`;
+  // initialize()
+});
+
+watch(share, () => {
+  searchStore.menuFlag = route.query.v === `box`;
+});
+
+const showBox = () => {
+  setTimeout(
+    () =>
+      router.push({
+        name: String(route.name),
+        params: { ...route.params },
+        query: { ...route.query, v: `box` },
+      }),
+    150
+  );
 };
 
+// const showShare = () => {
+//   share.value = true;
+// };
+
 const closeShare = () => {
-  share.value = false;
+  setTimeout(
+    () =>
+      router.push({
+        name: String(route.name),
+        params: { ...route.params },
+        query: { ...route.query, v: undefined },
+      }),
+    150
+  );
 };
 
 const styleGroups = computed(() => {
