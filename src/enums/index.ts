@@ -1,13 +1,13 @@
 // HBR Enums
 
 export enum CardStatus {
-	None = 0,
-	Owned
+	Default = 0,
+	Selected
 }
 
 export enum CardStatusURL {
-	NONE = 0,
-	OWNED
+	DEFAULT = 0,
+	SELECTED
 }
 
 export enum CardRarity {
@@ -763,7 +763,8 @@ export enum CharacterRole {
 	Buffer,
 	Debuffer,
 	Defender,
-	Admiral
+	Admiral,
+	Rider
 }
 
 export enum CharacterRoleURL {
@@ -774,7 +775,8 @@ export enum CharacterRoleURL {
 	BUFFER,
 	DEBUFFER,
 	DEFENDER,
-	ADMIRAL
+	ADMIRAL,
+	RIDER
 }
 
 export enum CharacterRoleGradient {
@@ -785,7 +787,8 @@ export enum CharacterRoleGradient {
 	Buffer = `hsla(126, 64%, 35%, 0.84)`,
 	Debuffer = `hsla(278, 64%, 35%, 0.84)`,
 	Defender = `hsla(214, 64%, 35%, 0.84)`,
-	Admiral = `hsla(240, 64%, 35%, 0.84)`
+	Admiral = `hsla(240, 64%, 35%, 0.84)`,
+	Rider = `hsla(27, 64%, 35%, 0.84)`
 }
 
 export enum WeaponType {
@@ -797,7 +800,8 @@ export enum WeaponType {
 	Shield,
 	Cannon,
 	Gun,
-	Claw
+	Claw,
+	Bike
 }
 
 export enum WeaponTypeName {
@@ -809,7 +813,8 @@ export enum WeaponTypeName {
 	Shield,
 	Cannon,
 	Gun,
-	Claw
+	Claw,
+	Bike
 }
 
 export enum WeaponTypeURL {
@@ -821,7 +826,8 @@ export enum WeaponTypeURL {
 	SHIELD,
 	CANNON,
 	GUN,
-	CLAW
+	CLAW,
+	BIKE
 }
 
 export enum WeaponAttribute {

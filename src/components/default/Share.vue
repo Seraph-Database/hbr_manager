@@ -154,7 +154,7 @@
                   class="d-block"
                   width="160"
                   height="64"
-                  :src="`/hbr/${style.strip.replace(`Party`, `Select`)}?2024`"
+                  :src="`https://assets.hbr.quest/v1/hbr/${style.strip.replace(`Party`, `Select`)}`"
                   :style="{
                     opacity: dataStore.getStyle(style.id)[1] > -1 ? 1 : 0.5,
                   }"
@@ -163,7 +163,11 @@
             </div>
           </div>
         </template>
-        <div v-if="true && styleGroups" class="mx-auto" :style="{ width: `50rem` }">
+        <div
+          v-else-if="false && styleGroups"
+          class="mx-auto"
+          :style="{ width: `50rem` }"
+        >
           <div ref="styleList" class="py-3 pb-6 pl-10">
             <div
               v-for="(elg, eli) in styleGroups"
@@ -178,7 +182,9 @@
               "
             >
               <div
-                v-for="(g, gi) in (elg.groups.length > 1 ? elg.groups : [...elg.groups, []])"
+                v-for="(g, gi) in elg.groups.length > 1
+                  ? elg.groups
+                  : [...elg.groups, []]"
                 :key="gi"
                 class="d-flex flex-wrap align-center justify-center"
                 :style="{ gap: `0.125rem` }"
@@ -188,7 +194,7 @@
                     :key="`element-${elg.element}`"
                     :style="{
                       position: `relative`,
-                      background: `url('/svg/${elg.element}.svg?2025')`,
+                      background: `url('/svg/${elg.element}.svg')`,
                       width: `5rem`,
                       height: `5rem`,
                       backgroundSize: `105%`,
@@ -203,12 +209,13 @@
                 <div
                   v-for="style in g"
                   :key="style.id"
+                  @click.stop="dataStore.forceToggleStyle(style.id)"
                   :style="{
                     position: `relative`,
-                    backgroundImage: `url(${`/hbr/${style.strip.replace(
+                    backgroundImage: `url(${`https://assets.hbr.quest/v1/hbr/${style.strip.replace(
                       `Party`,
                       `StylePiece`
-                    )}`}?2024)`,
+                    )}`})`,
                     // backgroundColor: `#000`,
                     width: `5rem`,
                     height: `5rem`,
@@ -286,7 +293,12 @@
                     }"
                   ></div>
                 </div>
-                <template v-if="(elg.groups.length > 1 && gi === elg.groups.length - 1) || (elg.groups.length === 1)">
+                <template
+                  v-if="
+                    (elg.groups.length > 1 && gi === elg.groups.length - 1) ||
+                    elg.groups.length === 1
+                  "
+                >
                   <div
                     v-for="n in (gi % 2 === 0 ? 10 : 9) - g.length"
                     :key="`empty-${n}`"
@@ -329,12 +341,13 @@
                 <div
                   v-for="style in g"
                   :key="style.id"
+                  @click.stop="dataStore.forceToggleStyle(style.id)"
                   :style="{
                     position: `relative`,
-                    backgroundImage: `url(${`/hbr/${style.strip.replace(
+                    backgroundImage: `url(${`https://assets.hbr.quest/v1/hbr/${style.strip.replace(
                       `Party`,
                       `StylePiece`
-                    )}`}?2024)`,
+                    )}`})`,
                     // backgroundColor: `#000`,
                     width: `5rem`,
                     height: `5rem`,
@@ -412,7 +425,7 @@
                     }"
                   ></div>
                 </div>
-                <template v-if="gi === g.length - 1">
+                <template v-if="gi === hexagonGroups.length - 1">
                   <div
                     v-for="n in (gi % 2 === 0 ? 10 : 9) - g.length"
                     :key="`empty-${n}`"
@@ -497,7 +510,13 @@
 <script lang="ts" setup>
 import { useStyleStore } from "@/store/app";
 import { ref, onMounted, onBeforeUnmount, computed } from "vue";
-import { ElementList, ElementListGroup, RoleList, RoleListGroup, Style } from "@/types";
+import {
+  ElementList,
+  ElementListGroup,
+  RoleList,
+  RoleListGroup,
+  Style,
+} from "@/types";
 
 // @ts-ignore
 import domtoimage from "dom-to-image-more";

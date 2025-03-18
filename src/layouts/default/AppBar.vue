@@ -76,8 +76,8 @@
     <template v-else-if="String(route.name).startsWith(`RosterMan`)">
       <!-- <search /> -->
       <filters />
-      <sort />
-      <share v-if="false" />
+      <sort v-if="false" />
+      <share v-if="false || $vuetify.display.mdAndUp" />
       <edit-mode v-if="false" />
       <!-- <update /> -->
       <div class="pl-1"></div>

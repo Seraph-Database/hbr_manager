@@ -10,7 +10,7 @@
           color="white"
           :flat="true"
           :width="`100%`"
-          max-width="5rem"
+          max-width="8rem"
           @click="showSearch"
           v-if="!dataStore.loading"
         >
@@ -24,10 +24,10 @@
             height="3.0625rem"
             class="d-flex align-center justify-center"
           >
-            <v-icon color="white" :icon="`mdi-filter-variant`"></v-icon>
+            <v-icon :style="{ marginLeft: `-2px` }" color="white" :icon="`mdi-filter-variant`"></v-icon>
           </v-img>
           <div class="text-HBR text-white mb-1">
-            {{ `Filter` }}
+            {{ `Filters` }}
           </div>
         </v-btn>
       </v-scale-transition>
@@ -55,7 +55,7 @@
     >
       <v-toolbar color="#ffffff00" height="64" class="top-toolbar pa-1">
         <v-toolbar-title class="text-HBR ml-3">
-          {{ `Style Filters`.toUpperCase() }}
+          {{ `${String(route.name).endsWith(`En`) ? `Memoria` : `Style`} Filters`.toUpperCase() }}
         </v-toolbar-title>
 
         <!-- <template v-slot:image>

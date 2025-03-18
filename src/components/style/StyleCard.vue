@@ -11,7 +11,7 @@
       :src="`https://assets.hbr.quest/v1/hbr/${style.strip.replace(`Party`, `Select`)}`"
     />
     <style-header :style="style" />
-    <style-status :style="style" />
+    <style-status v-if="!dataStore.readOnly" :style="style" />
   </div>
 </template>
 

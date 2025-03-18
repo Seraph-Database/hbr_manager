@@ -112,6 +112,19 @@ export const useStyleStore = defineStore("styles", {
       // );
       // this.persistBoxData(this.box.find((s) => s.id === styleId));
     },
+    forceToggleStyle(styleId: number): void {
+      this.selection = styleId;
+      this.owned =
+        this.owned.findIndex((s) => s[0] === styleId) > -1
+          ? this.owned.filter((s) => s[0] !== styleId)
+          : [...this.owned, [styleId, 0]];
+      this.setUserData();
+      // new
+      // this.box = this.box.map((s) =>
+      //   s.id === styleId ? { ...s, lbLv: s.lbLv > -1 ? -1 : 0 } : s
+      // );
+      // this.persistBoxData(this.box.find((s) => s.id === styleId));
+    },
     isOwned(style: Style): boolean {
       return this.owned.findIndex((x) => x[0] === style.id) > -1;
     },
