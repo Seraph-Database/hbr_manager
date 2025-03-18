@@ -11,7 +11,7 @@
           color="white"
           :flat="true"
           :width="`100%`"
-          :max-width="$vuetify.display.mdAndUp ? `9rem` : `5rem`"
+          :max-width="$vuetify.display.smAndUp ? `9rem` : `5rem`"
           @click.stop="showShare"
         >
           <v-img
@@ -24,9 +24,11 @@
             height="3.0625rem"
             class="d-flex align-center justify-center"
           >
-            <v-icon class="mb-1" color="white" icon="mdi-share"></v-icon>
+            <v-icon :style="{ marginLeft: `-2px` }" color="white" icon="mdi-dots-hexagon"></v-icon>
           </v-img>
-          <div class="text-HBR text-white mb-1">{{ `Share` }}</div>
+          <div class="text-HBR text-white mb-1">
+            {{ `${$vuetify.display.smAndUp ? `View ` : ``}Box` }}
+          </div>
         </v-btn>
       </v-scale-transition>
     </template>
@@ -53,7 +55,7 @@
     >
       <v-toolbar color="#ffffff00" height="64" class="top-toolbar pa-1">
         <v-toolbar-title class="text-HBR ml-3">
-          {{ `Share`.toUpperCase() }}
+          {{ `Box Share`.toUpperCase() }}
         </v-toolbar-title>
 
         <template v-slot:prepend>
@@ -93,78 +95,8 @@
             : `ma-0 pa-0 mx-4 ml-3 pr-3`
         } filter-list text-HBR`"
       >
-        <template v-if="false">
-          <div :style="{ width: `1132px` }">
-            <div
-              ref="styleList"
-              class="d-flex flex-wrap align-center justify-start"
-              :style="{ gap: `0.125rem` }"
-            >
-              <div
-                v-for="style in dataStore.getStyles?.filter(
-                  (s) => Number(CardRarity[s.tier]) === 3
-                )"
-                :key="style.id"
-                :style="{
-                  position: `relative`,
-                }"
-              >
-                <div
-                  v-if="dataStore.getStyle(style.id)[1] > -1"
-                  :style="{
-                    position: `absolute`,
-                    top: `0rem`,
-                    left: `0rem`,
-                    color: `black`,
-                    fontSize: `0.625rem`,
-                    lineHeight: `0.75rem`,
-                    padding: `0.125rem`,
-                    textIndent: `0.125rem`,
-                    borderTopLeftRadius: `0.375rem`,
-                    borderTopRightRadius: `0.375rem`,
-                    textShadow: `1px 1px 0px #21212133`,
-                    textOverflow: `ellipsis`,
-                    whiteSpace: `nowrap`,
-                    overflowX: `hidden`,
-                    width: `160px`,
-                    background: `linear-gradient(90deg, #ffffffaa 100%, #ffffff00 100%)`,
-                  }"
-                >
-                  {{ style.name }}
-                </div>
-                <div
-                  v-if="dataStore.getStyle(style.id)[1] > -1"
-                  :style="{
-                    position: `absolute`,
-                    top: `1.25rem`,
-                    left: `0.25rem`,
-                    color: `black`,
-                    fontSize: `0.75rem`,
-                    lineHeight: `0.75rem`,
-                    padding: `0.125rem`,
-                    borderRadius: `0.25rem`,
-                    width: `4rem`,
-                    textShadow: `1px 1px 0px #21212133`,
-                    background: `linear-gradient(90deg, #ffffffaa 75%, #ffffff00 100%)`,
-                  }"
-                >
-                  {{ `LB ${dataStore.getStyle(style.id)[1]}/4` }}
-                </div>
-                <img
-                  class="d-block"
-                  width="160"
-                  height="64"
-                  :src="`https://assets.hbr.quest/v1/hbr/${style.strip.replace(`Party`, `Select`)}`"
-                  :style="{
-                    opacity: dataStore.getStyle(style.id)[1] > -1 ? 1 : 0.5,
-                  }"
-                />
-              </div>
-            </div>
-          </div>
-        </template>
         <div
-          v-else-if="false && styleGroups"
+          v-if="templateSelection === 2 && styleGroups"
           class="mx-auto"
           :style="{ width: `50rem` }"
         >
@@ -209,7 +141,9 @@
                 <div
                   v-for="style in g"
                   :key="style.id"
-                  @click.stop="dataStore.forceToggleStyle(style.id, style.max_lb)"
+                  @click.stop="
+                    dataStore.forceToggleStyle(style.id, style.max_lb)
+                  "
                   :style="{
                     position: `relative`,
                     backgroundImage: `url(${`https://assets.hbr.quest/v1/hbr/${style.strip.replace(
@@ -320,6 +254,86 @@
             </div>
           </div>
         </div>
+        <template v-else-if="templateSelection === 3">
+          <div
+            :style="{
+              width: `${
+                imagePerLine * 160 + 0.125 * 16 * (imagePerLine - 1)
+              }px`,
+            }"
+          >
+            <div
+              ref="styleList"
+              class="d-flex flex-wrap align-center justify-start"
+              :style="{ gap: `0.125rem` }"
+            >
+              <div
+                v-for="style in dataStore.getStyles?.filter(
+                  (s) => Number(CardRarity[s.tier]) === 3
+                )"
+                :key="style.id"
+                :style="{
+                  position: `relative`,
+                }"
+                @click.stop="dataStore.forceToggleStyle(style.id, style.max_lb)"
+              >
+                <div
+                  v-if="dataStore.getStyle(style.id)[1] > -1"
+                  :style="{
+                    position: `absolute`,
+                    top: `0rem`,
+                    left: `0rem`,
+                    color: `black`,
+                    fontSize: `0.625rem`,
+                    lineHeight: `0.75rem`,
+                    padding: `0.125rem`,
+                    textIndent: `0.125rem`,
+                    borderTopLeftRadius: `0.375rem`,
+                    borderTopRightRadius: `0.375rem`,
+                    textShadow: `1px 1px 0px #21212133`,
+                    textOverflow: `ellipsis`,
+                    whiteSpace: `nowrap`,
+                    overflowX: `hidden`,
+                    width: `160px`,
+                    background: `linear-gradient(90deg, #ffffffaa 100%, #ffffff00 100%)`,
+                  }"
+                >
+                  {{ style.name }}
+                </div>
+                <div
+                  v-if="dataStore.getStyle(style.id)[1] > -1"
+                  :style="{
+                    position: `absolute`,
+                    top: `1.25rem`,
+                    left: `0.25rem`,
+                    color: `black`,
+                    fontSize: `0.75rem`,
+                    lineHeight: `0.75rem`,
+                    padding: `0.125rem`,
+                    borderRadius: `0.25rem`,
+                    width: `4rem`,
+                    textShadow: `1px 1px 0px #21212133`,
+                    background: `linear-gradient(90deg, #ffffffaa 75%, #ffffff00 100%)`,
+                  }"
+                >
+                  {{ `LB ${dataStore.getStyle(style.id)[1]}/4` }}
+                </div>
+                <img
+                  class="d-block"
+                  width="160"
+                  height="64"
+                  :src="`https://assets.hbr.quest/v1/hbr/${style.strip.replace(
+                    `Party`,
+                    `Select`
+                  )}`"
+                  :style="{
+                    opacity: dataStore.getStyle(style.id)[1] > -1 ? 1 : 0.5,
+                  }"
+                />
+              </div>
+            </div>
+          </div>
+        </template>
         <div v-else class="mx-auto" :style="{ width: `48rem` }">
           <div ref="styleList" class="py-3">
             <div
@@ -341,7 +355,9 @@
                 <div
                   v-for="style in g"
                   :key="style.id"
-                  @click.stop="dataStore.forceToggleStyle(style.id, style.max_lb)"
+                  @click.stop="
+                    dataStore.forceToggleStyle(style.id, style.max_lb)
+                  "
                   :style="{
                     position: `relative`,
                     backgroundImage: `url(${`https://assets.hbr.quest/v1/hbr/${style.strip.replace(
@@ -449,7 +465,7 @@
         </div>
       </v-card-text>
 
-      <v-toolbar color="#ffffff00" class="btn-toolbar pa-0 py-3">
+      <v-toolbar color="#ffffff00" class="btn-toolbar pa-0 py-3 pb-1">
         <v-toolbar-items class="btn-toolbar__items align-center justify-center">
           <v-hover v-if="false">
             <template v-slot:default="{ isHovering, props }">
@@ -495,13 +511,29 @@
                   class="d-flex align-center justify-center"
                 >
                   <div class="text-white btn-text text-center">
-                    {{ `Save image` }}
+                    {{ `Download` }}
                   </div>
                 </v-img>
               </v-btn>
             </template>
           </v-hover>
         </v-toolbar-items>
+        <template v-slot:extension>
+          <v-sheet flat color="transparent" widith="100%" class="d-flex flex-row align-center justify-center">
+            <v-radio-group
+              v-model="templateSelection"
+              type="number"
+              class="text-white"
+              inline
+              hide-details
+              name="Template Selector"
+            >
+              <v-radio :value="1"></v-radio>
+              <v-radio :value="2"></v-radio>
+              <v-radio :value="3"></v-radio>
+            </v-radio-group>
+          </v-sheet>
+        </template>
       </v-toolbar>
     </v-card>
   </v-dialog>
@@ -526,6 +558,9 @@ const dataStore = useStyleStore();
 const share = ref(false);
 const styleList = ref(null as HTMLElement | null);
 // const fileData = ref(undefined)
+
+const imagePerLine = ref(5);
+const templateSelection = ref(1);
 
 const catchEsc = (e: KeyboardEvent) => {
   // ignore normal browsing behavior
@@ -622,6 +657,7 @@ const generateImage = async () => {
       const scale = 1;
       await domtoimage
         .toPng(styleList.value, {
+          cacheBust: true,
           width: styleList.value.clientWidth * scale,
           height: styleList.value.clientHeight * scale,
           style: {
@@ -672,3 +708,10 @@ const getEncodedData = (): string => {
     : `No data to copy`;
 };
 </script>
+
+<style lang="scss">
+.v-toolbar__extension {
+  display: flex;
+  flex-flow: column;
+}
+</style>

@@ -1,5 +1,6 @@
 // Utilities
 import { defineStore } from "pinia";
+import { RouteLocationNormalizedLoaded, useRoute } from "vue-router";
 
 import { DataStore, Lottery, Style, StyleData, UserData } from "@/types";
 import { charaList } from "@/helpers/chara";
@@ -11,6 +12,7 @@ const myHeaders: HeadersInit = new Headers({
 });
 
 const myHeadersDefault: HeadersInit = new Headers();
+const route = useRoute();
 
 const fetchConfig: RequestInit = {
   method: "GET",
@@ -36,8 +38,11 @@ const PROD = "https://master.hbr.quest/TABLE";
 const DEV = "/db/TABLE";
 
 const getUserData = (): number[][] => {
-  return localStorage.getItem("userData")
-    ? JSON.parse(localStorage.getItem("userData") as string)
+  const key = window.location.pathname.startsWith(`/en`)
+    ? `userDataEn`
+    : `userData`;
+  return localStorage.getItem(key)
+    ? JSON.parse(localStorage.getItem(key) as string)
     : [];
 };
 
@@ -236,7 +241,10 @@ export const useStyleStore = defineStore("styles", {
       // })
     },
     setUserData(): void {
-      localStorage.setItem("userData", JSON.stringify(this.owned));
+      localStorage.setItem(
+        window.location.pathname.startsWith(`/en`) ? `userDataEn` : "userData",
+        JSON.stringify(this.owned)
+      );
     },
     initBoxData(): void {
       this.box = getBoxData(this.getStyles);
