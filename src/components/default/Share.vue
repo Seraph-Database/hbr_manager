@@ -38,7 +38,7 @@
     scrollable
     v-model:model-value="share"
     transition="scale-transition"
-    :max-width="`54rem`"
+    :max-width="`54.06125rem`"
     :max-height="
       $vuetify.display.smAndDown ? undefined : $vuetify.display.height - 144
     "
@@ -259,7 +259,7 @@
           <div
             :style="{
               width: `${
-                imagePerLine * 160 + 0.125 * 16 * (imagePerLine - 1)
+                (imagePerLine * 160) + (0.125 * 16 * (imagePerLine - 1))
               }px`,
             }"
           >
