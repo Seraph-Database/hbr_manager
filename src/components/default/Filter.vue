@@ -10,7 +10,7 @@
           color="white"
           :flat="true"
           :width="`100%`"
-          max-width="8rem"
+          :max-width="$vuetify.display.mdAndUp ? `9rem` : `5rem`"
           @click="showSearch"
           v-if="!dataStore.loading"
         >

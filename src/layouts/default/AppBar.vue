@@ -77,7 +77,7 @@
       <!-- <search /> -->
       <filters />
       <sort v-if="false" />
-      <share v-if="false || $vuetify.display.mdAndUp" />
+      <share />
       <edit-mode v-if="false" />
       <!-- <update /> -->
       <div class="pl-1"></div>

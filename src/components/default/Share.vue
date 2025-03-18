@@ -11,7 +11,7 @@
           color="white"
           :flat="true"
           :width="`100%`"
-          max-width="9rem"
+          :max-width="$vuetify.display.mdAndUp ? `9rem` : `5rem`"
           @click.stop="showShare"
         >
           <v-img
