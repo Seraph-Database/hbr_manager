@@ -100,7 +100,7 @@
         } filter-list text-HBR`"
       >
         <div
-          v-if="templateSelection === 2 && styleGroups"
+          v-if="templateSelection > 1 && templateSelection < 4 && styleGroups"
           class="mx-auto"
           :style="{ width: `50rem` }"
         >
@@ -259,7 +259,7 @@
             </div>
           </div>
         </div>
-        <template v-else-if="templateSelection === 3">
+        <template v-else-if="templateSelection === 4">
           <div
             :style="{
               width: `${
@@ -542,6 +542,7 @@
               <v-radio :value="1"></v-radio>
               <v-radio :value="2"></v-radio>
               <v-radio :value="3"></v-radio>
+              <v-radio :value="4"></v-radio>
             </v-radio-group>
           </v-sheet>
         </template>
@@ -576,6 +577,12 @@ const styleList = ref(null as HTMLElement | null);
 
 const imagePerLine = ref(5);
 const templateSelection = ref(1);
+
+const fileName = ref(
+  `t${templateSelection.value}-${
+    route.name === `RosterManEn` ? `memoria` : `style`
+  }-box.png`
+);
 
 const catchEsc = (e: KeyboardEvent) => {
   // ignore normal browsing behavior
@@ -627,7 +634,11 @@ const closeShare = () => {
 };
 
 const styleGroups = computed(() => {
-  return dataStore.getStyles ? groupByRole(dataStore.getStyles) : [];
+  return dataStore.getStyles
+    ? templateSelection.value > 2
+      ? groupByNatureElement(dataStore.getStyles)
+      : groupByRole(dataStore.getStyles)
+    : [];
 });
 
 const hexagonGroups = computed(() => {
@@ -698,6 +709,12 @@ const copyToClipboard = async () => {
   }
 };
 
+watch(templateSelection, () => {
+  fileName.value = `t${templateSelection.value}-${
+    route.name === `RosterManEn` ? `memoria` : `style`
+  }-box.png`;
+});
+
 const generateImage = async () => {
   try {
     if (styleList.value) {
@@ -717,7 +734,7 @@ const generateImage = async () => {
           // img.src = dataUrl;
           // document.body.appendChild(img);
           var link = document.createElement("a");
-          link.download = "my-style-list.png";
+          link.download = fileName.value;
           link.href = dataUrl;
           link.click();
         })

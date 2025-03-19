@@ -1,6 +1,5 @@
 // Utilities
 import { defineStore } from "pinia";
-import { RouteLocationNormalizedLoaded, useRoute } from "vue-router";
 
 import { DataStore, Lottery, Style, StyleData, UserData } from "@/types";
 import { charaList } from "@/helpers/chara";
@@ -12,7 +11,6 @@ const myHeaders: HeadersInit = new Headers({
 });
 
 const myHeadersDefault: HeadersInit = new Headers();
-const route = useRoute();
 
 const fetchConfig: RequestInit = {
   method: "GET",
