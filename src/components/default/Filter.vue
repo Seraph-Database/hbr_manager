@@ -24,7 +24,11 @@
             height="3.0625rem"
             class="d-flex align-center justify-center"
           >
-            <v-icon :style="{ marginLeft: `-2px` }" color="white" :icon="`mdi-filter-variant`"></v-icon>
+            <v-icon
+              :style="{ marginLeft: `-2px` }"
+              color="white"
+              :icon="`mdi-filter-variant`"
+            ></v-icon>
           </v-img>
           <div class="text-HBR text-white mb-1">
             {{ `Filters` }}
@@ -55,7 +59,11 @@
     >
       <v-toolbar color="#ffffff00" height="64" class="top-toolbar pa-1">
         <v-toolbar-title class="text-HBR ml-3">
-          {{ `${String(route.name).endsWith(`En`) ? `Memoria` : `Style`} Filters`.toUpperCase() }}
+          {{
+            `${
+              String(route.name).endsWith(`En`) ? `Memoria` : `Style`
+            } Filters`.toUpperCase()
+          }}
         </v-toolbar-title>
 
         <!-- <template v-slot:image>
@@ -216,7 +224,9 @@
                   >
                     <div class="d-flex flex-row align-center">
                       <img
-                        :src="`https://assets.hbr.quest/v1/ui/${String(route.name).endsWith(`En`) ? `en/` : ``}${String(element)}.webp`"
+                        :src="`https://assets.hbr.quest/v1/ui/${
+                          String(route.name).endsWith(`En`) ? `en/` : ``
+                        }${String(element)}.webp`"
                         width="32"
                         height="32"
                       />
@@ -250,11 +260,15 @@
                   >
                     <div class="d-flex flex-row align-center">
                       <img
-                        :src="`https://assets.hbr.quest/v1/ui/${String(route.name).endsWith(`En`) ? `en/` : ``}${String(attackType)}.webp`"
+                        :src="`https://assets.hbr.quest/v1/ui/${
+                          String(route.name).endsWith(`En`) ? `en/` : ``
+                        }${String(attackType)}.webp`"
                         width="32"
                         height="32"
                       />
-                      <span class="px-2">{{ ElementTypeName[Number(index)] }}</span>
+                      <span class="px-2">{{
+                        ElementTypeName[Number(index)]
+                      }}</span>
                     </div>
                   </v-chip>
                 </template>
@@ -318,7 +332,9 @@
                   >
                     <div class="d-flex flex-row align-center">
                       <img
-                        :src="`https://assets.hbr.quest/v1/ui/${String(weapon)}.webp`"
+                        :src="`https://assets.hbr.quest/v1/ui/${String(
+                          weapon
+                        )}.webp`"
                         width="32"
                         height="32"
                       />
@@ -329,6 +345,20 @@
                   </v-chip>
                 </template>
               </v-chip-group>
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+
+          <v-expansion-panel class="filter-category">
+            <v-expansion-panel-title hide-actions>
+              {{ `Release Date` }}
+            </v-expansion-panel-title>
+            <v-expansion-panel-text>
+              <v-date-input
+                v-model="dateRange"
+                label="Select range"
+                max-width="368"
+                multiple="range"
+              ></v-date-input>
             </v-expansion-panel-text>
           </v-expansion-panel>
 
@@ -431,6 +461,7 @@ const searchStore = useSearchStore();
 const search = ref(route.query.v === `filters`);
 const activeFilters = ref([] as number[]);
 // const filterTab = ref(0);
+const dateRange = ref(null)
 
 const initialize = async () => {
   await new Promise((r) => setTimeout(r, 100));
