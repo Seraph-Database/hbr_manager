@@ -25,7 +25,8 @@
             cols="auto"
             v-show="dataStore.getStyles && searchFilter(item)"
             :class="`style-wrapper ${
-              false && !dataStore.loading &&
+              false &&
+              !dataStore.loading &&
               dataStore.getOwned.findIndex((s) => s[0] === item.id) < 0
                 ? `style--greyed `
                 : ``
@@ -158,6 +159,12 @@ const searchFilter = (s: Style): boolean => {
       result &&
       searchStore.weaponTypes.includes(Number(WeaponType[s.weapon]) - 1);
   }
+  if (
+    searchStore.selectedDates !== null &&
+    searchStore.selectedDates.length > 0
+  ) {
+    result = result && isValidReleaseDate(s.in_date, searchStore.selectedDates);
+  }
   // if (searchStore.skillTypes.length > 0) {
   //   result = result && s.skills.length > 0
   //     && s.skills
@@ -177,6 +184,20 @@ const searchFilter = (s: Style): boolean => {
   // }
 
   return result;
+};
+
+const isValidReleaseDate = (
+  inDate: string,
+  selectedDates: string[]
+): boolean => {
+  const d = new Date(inDate);
+  const start = new Date(selectedDates[0]);
+  const end = new Date(selectedDates[selectedDates.length - 1]);
+
+  start.setUTCHours(0, 0, 0, 0);
+  end.setUTCHours(23, 59, 59, 0);
+
+  return d >= start && d <= end;
 };
 
 // const sorter = (a: Style, b: Style): number => {

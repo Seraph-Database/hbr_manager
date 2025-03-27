@@ -1,6 +1,6 @@
 <template>
   <v-app-bar
-    color="#212121c0"
+    color="#212121c0" tile
     :height="String(route.name).startsWith(`RosterMan`) ? 80 : undefined"
   >
     <!-- <template v-slot:image>
@@ -109,5 +109,5 @@ const route = useRoute();
 </style>
 
 <style lang="scss">
-@import "@/styles/modal.scss";
+@use "@/styles/modal.scss" as *;
 </style>

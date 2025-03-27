@@ -55,7 +55,10 @@
       color="#312942aa"
       class="v-card--shadowless bg-blur search elevation-0 rounded-0"
       :class="{ mobile: $vuetify.display.smAndDown }"
-      v-click-outside="hideSearch"
+      v-click-outside="{
+        handler: hideSearch,
+        include,
+      }"
     >
       <v-toolbar color="#ffffff00" height="64" class="top-toolbar pa-1">
         <v-toolbar-title class="text-HBR ml-3">
@@ -353,12 +356,23 @@
               {{ `Release Date` }}
             </v-expansion-panel-title>
             <v-expansion-panel-text>
-              <v-date-input
-                v-model="dateRange"
-                label="Select range"
-                max-width="368"
-                multiple="range"
-              ></v-date-input>
+              <v-row no-gutters class="px-6 pb-2 pt-1">
+                <v-col cols="12">
+                  <v-date-input
+                    v-model="searchStore.selectedDates"
+                    label="Select range"
+                    theme="denchoTheme"
+                    max-width="368"
+                    multiple="range"
+                    hide-details
+                    class="date-picker"
+                    variant="plain"
+                    width="100%"
+                    :style="{ maxWidth: `unset` }"
+                    clearable
+                  ></v-date-input>
+                </v-col>
+              </v-row>
             </v-expansion-panel-text>
           </v-expansion-panel>
 
@@ -461,7 +475,7 @@ const searchStore = useSearchStore();
 const search = ref(route.query.v === `filters`);
 const activeFilters = ref([] as number[]);
 // const filterTab = ref(0);
-const dateRange = ref(null)
+const dateRange = ref(null);
 
 const initialize = async () => {
   await new Promise((r) => setTimeout(r, 100));
@@ -478,6 +492,18 @@ const catchEsc = (e: KeyboardEvent) => {
 };
 onMounted(() => document.addEventListener("keydown", catchEsc));
 onBeforeUnmount(() => document.removeEventListener("keydown", catchEsc));
+
+const getDatesBetween = (start: string, end: string) =>
+  Array.from(
+    {
+      length:
+        (new Date(end).getTime() - new Date(start).getTime()) / 86400000 + 1,
+    },
+    (_, i) =>
+      new Date(new Date(start).setDate(new Date(start).getDate() + i))
+        .toISOString()
+        .split("T")[0]
+  );
 
 watch(route, () => {
   // displayed.value = 40
@@ -578,6 +604,28 @@ watch(
             )
         : []
     );
+    searchStore.setSelectedDates(
+      route.query.d
+        ? getDatesBetween(
+            `${route.query.d}`.split(`,`)[0],
+            `${route.query.d}`.split(`,`)[
+              `${route.query.d}`.split(`,`).length - 1
+            ]
+          ).map((e) => {
+            const [year, month, day, hours = 0, minutes = 0, seconds = 0] =
+              e.split(/[-:\s]/); // Split into components
+
+            return new Date(
+              Number(year),
+              Number(month) - 1, // Months are 0-based in JS
+              Number(day),
+              Number(hours),
+              Number(minutes),
+              Number(seconds)
+            ).toISOString();
+          })
+        : []
+    );
   }
 );
 
@@ -662,9 +710,21 @@ searchStore.$subscribe(() => {
               .map((e) => String(SkillType[e + 1]).toLowerCase())
               .join(`,`)
           : undefined,
+      d:
+        searchStore.selectedDates !== null &&
+        searchStore.selectedDates.length > 0
+          ? searchStore.selectedDates
+              .filter((_, i, a) => i === 0 || i === a.length - 1)
+              .map((e) => new Date(e).toISOString().split("T")[0])
+              .join(`,`)
+          : undefined,
     },
   });
 });
+
+const include = () => {
+  return [document.querySelector(".v-date-picker")];
+};
 
 const showSearch = () => {
   setTimeout(

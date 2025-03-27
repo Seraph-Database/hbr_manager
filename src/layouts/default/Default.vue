@@ -90,6 +90,10 @@ const route = useRoute();
 //   color: #fff;
 // }
 
+.v-toolbar__prepend {
+  margin-inline: 10px auto;
+}
+
 .v-overlay[role="tooltip"] {
   .v-overlay__content {
     opacity: 1;

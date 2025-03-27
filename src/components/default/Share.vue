@@ -102,7 +102,7 @@
         <div
           v-if="templateSelection > 1 && templateSelection < 4 && styleGroups"
           class="mx-auto"
-          :style="{ width: `50rem` }"
+          :style="{ width: `${5 * imagePerHexagonLine}rem` }"
         >
           <div ref="styleList" class="py-3 pb-6 pl-10">
             <div
@@ -239,7 +239,9 @@
                   "
                 >
                   <div
-                    v-for="n in (gi % 2 === 0 ? 10 : 9) - g.length"
+                    v-for="n in (gi % 2 === 0
+                      ? imagePerHexagonLine
+                      : imagePerHexagonLine - 1) - g.length"
                     :key="`empty-${n}`"
                     :style="{
                       position: `relative`,
@@ -266,6 +268,7 @@
                 imagePerLine * 160 + 0.125 * 16 * (imagePerLine - 1)
               }px`,
             }"
+            class="mx-auto"
           >
             <div
               ref="styleList"
@@ -339,7 +342,11 @@
             </div>
           </div>
         </template>
-        <div v-else class="mx-auto" :style="{ width: `48rem` }">
+        <div
+          v-else
+          class="mx-auto"
+          :style="{ width: `${5 * imagePerHexagonLine - 2}rem` }"
+        >
           <div ref="styleList" class="py-3">
             <div
               class="pt-1 pb-5"
@@ -449,7 +456,9 @@
                 </div>
                 <template v-if="gi === hexagonGroups.length - 1">
                   <div
-                    v-for="n in (gi % 2 === 0 ? 10 : 9) - g.length"
+                    v-for="n in (gi % 2 === 0
+                      ? imagePerHexagonLine
+                      : imagePerHexagonLine - 1) - g.length"
                     :key="`empty-${n}`"
                     :style="{
                       position: `relative`,
@@ -555,6 +564,7 @@
 import { useRoute, useRouter } from "vue-router";
 import { useStyleStore, useSearchStore } from "@/store/app";
 import { ref, onMounted, onBeforeUnmount, computed, watch } from "vue";
+import { useDisplay } from "vuetify";
 import {
   ElementList,
   ElementListGroup,
@@ -571,11 +581,22 @@ const router = useRouter();
 
 const searchStore = useSearchStore();
 const dataStore = useStyleStore();
+const { width } = useDisplay();
 const share = ref(route.query.v === `box`);
 const styleList = ref(null as HTMLElement | null);
 // const fileData = ref(undefined)
 
-const imagePerLine = ref(5);
+// const imagePerLine = ref(5);
+// const imagePerHexagonLine = ref(10);
+const imagePerLine = computed(() => {
+  return 5
+  // return width.value > 960 ? Math.trunc((width.value - 128) / 160) : 5;
+});
+const imagePerHexagonLine = computed(() => {
+  return 10
+  // return width.value > 960 ? Math.trunc((width.value - 128) / 80) : 10;
+});
+
 const templateSelection = ref(1);
 
 const fileName = ref(
@@ -692,7 +713,10 @@ const groupForHexagonList = (styleList: Style[]): Style[][] => {
       if (acc.length < 1) {
         return [[s]];
       } else if (
-        acc[acc.length - 1].length < ((acc.length - 1) % 2 === 0 ? 10 : 9)
+        acc[acc.length - 1].length <
+        ((acc.length - 1) % 2 === 0
+          ? imagePerHexagonLine.value
+          : imagePerHexagonLine.value - 1)
       ) {
         return acc.map((sg, sgi) => (sgi === acc.length - 1 ? [...sg, s] : sg));
       }

@@ -13,5 +13,5 @@ defineProps<{
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/gauge.scss";
+@use "@/styles/gauge.scss" as *;
 </style>
