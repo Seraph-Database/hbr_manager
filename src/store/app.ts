@@ -399,7 +399,7 @@ export const useSearchStore = defineStore("searchFlag", {
     weaponTypes: [] as number[],
     skillTypes: [] as number[],
     statusTypes: [] as number[],
-    selectedDates: [] as string[] | null,
+    selectedDates: [] as Date[] | null,
   }),
   getters: {
     getFlag(state): boolean {
@@ -428,7 +428,7 @@ export const useSearchStore = defineStore("searchFlag", {
     setWpnType(ls: number[]): void {
       this.weaponTypes = [...ls];
     },
-    setSelectedDates(ls: string[]): void {
+    setSelectedDates(ls: Date[]): void {
       this.selectedDates = [...ls];
     },
     setSkillType(ls: number[]): void {

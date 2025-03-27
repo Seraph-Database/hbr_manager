@@ -611,9 +611,15 @@ watch(
             `${route.query.d}`.split(`,`)[
               `${route.query.d}`.split(`,`).length - 1
             ]
-          ).map((e) => {
-            const [year, month, day, hours = 0, minutes = 0, seconds = 0] =
-              e.split(/[-:\s]/); // Split into components
+          ).map((e, i) => {
+            const [
+              year,
+              month,
+              day,
+              hours = i > 0 ? 23 : 0,
+              minutes = i > 0 ? 59 : 0,
+              seconds = i > 0 ? 59 : 0,
+            ] = e.split(/[-:\s]/); // Split into components
 
             return new Date(
               Number(year),
@@ -622,7 +628,7 @@ watch(
               Number(hours),
               Number(minutes),
               Number(seconds)
-            ).toISOString();
+            );
           })
         : []
     );
@@ -715,7 +721,7 @@ searchStore.$subscribe(() => {
         searchStore.selectedDates.length > 0
           ? searchStore.selectedDates
               .filter((_, i, a) => i === 0 || i === a.length - 1)
-              .map((e) => new Date(e).toISOString().split("T")[0])
+              .map((e) => e.toISOString().split("T")[0])
               .join(`,`)
           : undefined,
     },
