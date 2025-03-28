@@ -191,8 +191,8 @@ const isValidReleaseDate = (
   selectedDates: Date[]
 ): boolean => {
   const d = new Date(inDate);
-  const start = selectedDates[0];
-  const end = selectedDates[selectedDates.length - 1];
+  const start = new Date(selectedDates[0]);
+  const end = new Date(selectedDates[selectedDates.length - 1]);
 
   start.setUTCHours(0, 0, 0, 0);
   end.setUTCHours(23, 59, 59, 0);
