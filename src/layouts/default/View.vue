@@ -10,8 +10,6 @@
             `Banner`,
             `Bg`
           )}?v=${lotteryStore.getLotteryData.version}&h=ABC`
-        : route.name === `DimensionBattle`
-        ? `https://assets.hbr.quest/v1/hbr/DimensionNightSky.webp`
         : undefined
     "
   >
