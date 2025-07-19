@@ -9,11 +9,7 @@
 
     <template v-slot:prepend>
       <v-img
-        :src="`https://assets.hbr.quest/v1/ui/${
-          route.name === `DimensionBattle`
-            ? `IconHomeDimensionBattleDefault`
-            : `LoginBonus_Stamp`
-        }.webp`"
+        :src="`https://assets.hbr.quest/v1/ui/${`LoginBonus_Stamp`}.webp`"
         width="4rem"
         height="4rem"
         :position="`0 0`"
