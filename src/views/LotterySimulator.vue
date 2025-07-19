@@ -514,7 +514,7 @@
               <v-img
                 class="ma-2"
                 transition="scale-transition"
-                :src="`/ui/${card.split(`_`)[1].replace(`a`, ``)}.webp`"
+                :src="`/ui/${card.split(`_`)[1].replace(/[a-z]/g, ``)}.webp`"
                 width="5rem"
                 height="5rem"
               >
@@ -522,7 +522,7 @@
                   v-if="
                     dataStore.getDisplayCardFlag &&
                     (dataStore.getDisplayTrashFlag ||
-                      card.split(`_`)[1].replace(`a`, ``) === `R3`)
+                      card.split(`_`)[1].replace(/[a-z]/g, ``) === `R3`)
                   "
                   transition="scale-transition"
                   :src="`https://assets.hbr.quest/v1/hbr/${card}`"

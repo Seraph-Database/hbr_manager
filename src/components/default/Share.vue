@@ -100,7 +100,7 @@
         } filter-list text-HBR`"
       >
         <div
-          v-if="templateSelection > 1 && templateSelection < 4 && styleGroups"
+          v-if="templateSelection > 1 && templateSelection < 5 && styleGroups"
           class="mx-auto"
           :style="{ width: `${5 * imagePerHexagonLine}rem` }"
         >
@@ -130,10 +130,11 @@
                     :key="`element-${elg.element}`"
                     :style="{
                       position: `relative`,
-                      background: `url('/svg/${elg.element}.svg')`,
+                      background: templateSelection < 4 ? `url('/svg/${elg.element}.svg')` : `url('https://assets.hbr.quest/v1/ui/IconRarity${elg.element}.webp')`,
                       width: `5rem`,
                       height: `5rem`,
-                      backgroundSize: `105%`,
+                      backgroundSize: templateSelection < 4 ? `105%` : `80%`,
+                      backgroundRepeat: `no-repeat`,
                       backgroundPosition: `center`,
                       marginRight: `-0.25rem`,
                       marginLeft: `-0.25rem`,
@@ -261,7 +262,7 @@
             </div>
           </div>
         </div>
-        <template v-else-if="templateSelection === 4">
+        <template v-else-if="templateSelection === 5">
           <div
             :style="{
               width: `${
@@ -277,7 +278,7 @@
             >
               <div
                 v-for="style in dataStore.getStyles?.filter(
-                  (s) => Number(CardRarity[s.tier]) === 3
+                  (s) => Number(CardRarity[s.tier]) >= 3
                 )"
                 :key="style.id"
                 :style="{
@@ -552,6 +553,7 @@
               <v-radio :value="2"></v-radio>
               <v-radio :value="3"></v-radio>
               <v-radio :value="4"></v-radio>
+              <v-radio :value="5"></v-radio>
             </v-radio-group>
           </v-sheet>
         </template>
@@ -568,6 +570,8 @@ import { useDisplay } from "vuetify";
 import {
   ElementList,
   ElementListGroup,
+  RarityList,
+  RarityListGroup,
   RoleList,
   RoleListGroup,
   Style,
@@ -589,11 +593,11 @@ const styleList = ref(null as HTMLElement | null);
 // const imagePerLine = ref(5);
 // const imagePerHexagonLine = ref(10);
 const imagePerLine = computed(() => {
-  return 5
+  return 5;
   // return width.value > 960 ? Math.trunc((width.value - 128) / 160) : 5;
 });
 const imagePerHexagonLine = computed(() => {
-  return 10
+  return 10;
   // return width.value > 960 ? Math.trunc((width.value - 128) / 80) : 10;
 });
 
@@ -657,7 +661,9 @@ const closeShare = () => {
 const styleGroups = computed(() => {
   return dataStore.getStyles
     ? templateSelection.value > 2
-      ? groupByNatureElement(dataStore.getStyles)
+      ? templateSelection.value > 3
+        ? groupByTier(dataStore.getStyles)
+        : groupByNatureElement(dataStore.getStyles)
       : groupByRole(dataStore.getStyles)
     : [];
 });
@@ -668,7 +674,7 @@ const hexagonGroups = computed(() => {
 
 const groupByNatureElement = (styleList: Style[]): ElementListGroup[] => {
   return styleList
-    .filter((s) => Number(CardRarity[s.tier]) === 3)
+    .filter((s) => Number(CardRarity[s.tier]) >= 3)
     .reduce((acc, s) => {
       let styleElement = s.elements.length > 0 ? s.elements[0] : ElementType[6];
       let elementIndex = acc.findIndex((sl) => styleElement === sl.element);
@@ -688,7 +694,7 @@ const groupByNatureElement = (styleList: Style[]): ElementListGroup[] => {
 
 const groupByRole = (styleList: Style[]): RoleListGroup[] => {
   return styleList
-    .filter((s) => Number(CardRarity[s.tier]) === 3)
+    .filter((s) => Number(CardRarity[s.tier]) >= 3)
     .reduce((acc, s) => {
       let styleRole = s.role;
       let elementIndex = acc.findIndex((sl) => styleRole === sl.element);
@@ -706,9 +712,29 @@ const groupByRole = (styleList: Style[]): RoleListGroup[] => {
     .sort((a, b) => CharacterRole[a.element] - CharacterRole[b.element]);
 };
 
+const groupByTier = (styleList: Style[]): RarityListGroup[] => {
+  return styleList
+    .filter((s) => Number(CardRarity[s.tier]) >= 3)
+    .reduce((acc, s) => {
+      let styleRarity = s.tier;
+      let elementIndex = acc.findIndex((sl) => styleRarity === sl.element);
+
+      if (elementIndex > -1) {
+        return acc.map((sl) =>
+          sl.element === styleRarity ? { ...sl, list: [...sl.list, s] } : sl
+        );
+      }
+      return [...acc, { element: styleRarity, list: [s] }];
+    }, [] as RarityList[])
+    .map((sl) => {
+      return { element: sl.element, groups: groupForHexagonList(sl.list) };
+    })
+    .sort((a, b) => CardRarity[b.element] - CardRarity[a.element]);
+};
+
 const groupForHexagonList = (styleList: Style[]): Style[][] => {
   return styleList
-    .filter((s) => Number(CardRarity[s.tier]) === 3)
+    .filter((s) => Number(CardRarity[s.tier]) >= 3)
     .reduce((acc, s) => {
       if (acc.length < 1) {
         return [[s]];

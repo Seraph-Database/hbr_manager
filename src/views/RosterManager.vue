@@ -8,6 +8,7 @@
     height="64"
   />
   <v-container class="pa-0 py-2" fluid v-else>
+    <!-- <Timeline /> -->
     <v-slide-y-transition appear>
       <div class="mx-auto" :style="{ width: `${itemsPerLine * 366}px` }">
         <RecycleScroller
@@ -60,6 +61,7 @@
 <script lang="ts" setup>
 import PageTitle from "@/components/default/PageTitle.vue";
 // import Gauge from '@/components/battle/Gauge.vue';
+// import Timeline from "@/components/lottery/Timeline.vue";
 import StyleCard from "@/components/style/StyleCard.vue";
 import { useStyleStore, useSearchStore } from "@/store/app";
 import { useRoute /*, useRouter */ } from "vue-router";

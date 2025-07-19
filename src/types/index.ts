@@ -96,6 +96,12 @@ export type RoleList = {
 }
 
 
+export type RarityList = {
+    element: string | CardRarity,
+    list: Style[]
+}
+
+
 export type ElementListGroup = {
     element: string | ElementType,
     groups: Style[][]
@@ -104,6 +110,12 @@ export type ElementListGroup = {
 
 export type RoleListGroup = {
     element: string | CharacterRole,
+    groups: Style[][]
+}
+
+
+export type RarityListGroup = {
+    element: string | CardRarity,
     groups: Style[][]
 }
 

@@ -182,6 +182,14 @@
               }
             }
           }
+          
+          .filter-category__list.filter__by-rarity.v-chip-group {
+
+            .v-slide-group__content {
+              display: grid;
+              grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+          }
         }
       }
 

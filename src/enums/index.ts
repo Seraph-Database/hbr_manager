@@ -13,7 +13,8 @@ export enum CardStatusURL {
 export enum CardRarity {
 	A = 1,
 	S,
-	SS
+	SS,
+	SSR
 }
 
 export enum CharacterTeam {

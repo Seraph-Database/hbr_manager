@@ -143,7 +143,7 @@
             </v-expansion-panel-title>
             <v-expansion-panel-text>
               <v-chip-group
-                class="filter-category__list"
+                class="filter-category__list filter__by-rarity"
                 v-model="searchStore.rarities"
                 column
                 multiple
