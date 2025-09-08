@@ -79,8 +79,16 @@ export type GachaCard = {
     id: number
     image: string
     label: string
+    rarity: number
     in_date: string
     name: string
+}
+
+
+export type GachaResult = {
+    image: string,
+    label: string,
+    rarity: number
 }
 
 

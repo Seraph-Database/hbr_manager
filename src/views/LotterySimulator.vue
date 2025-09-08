@@ -64,11 +64,44 @@
               <v-col cols="auto" class="px-1 text-HBR">
                 {{
                   `×${
-                    dataStore.getTotalResults.filter((r) => r.includes(`R3`))
+                    dataStore.getTotalResults.filter((r) => r.rarity === 3)
                       .length
                   }(${(
                     (dataStore.getTotalResults.reduce(
-                      (acc, r) => (r.includes(`R3`) ? acc + 1 : acc),
+                      (acc, r) => (r.rarity === 3 ? acc + 1 : acc),
+                      0
+                    ) /
+                      dataStore.getTotalResults.length) *
+                    100
+                  ).toFixed(2)}%)`
+                }}
+              </v-col>
+            </v-row>
+          </v-sheet>
+        </v-col>
+      </v-row>
+    </v-slide-y-transition>
+    <v-slide-y-transition appear>
+      <v-row v-if="dataStore.getTotalResults.length > 0" no-gutters>
+        <v-spacer />
+        <v-col cols="auto">
+          <v-sheet
+            rounded="pill"
+            class="quartz-num px-2 mt-2"
+            color="#ffffffc0"
+          >
+            <v-row no-gutters align="center" justify="space-between">
+              <v-col cols="auto">
+                <v-img :src="`${assetBucketUrl}/ui/R4.webp`" width="1.5rem" />
+              </v-col>
+              <v-col cols="auto" class="px-1 text-HBR">
+                {{
+                  `×${
+                    dataStore.getTotalResults.filter((r) => r.rarity > 3)
+                      .length
+                  }(${(
+                    (dataStore.getTotalResults.reduce(
+                      (acc, r) => (r.rarity > 3 ? acc + 1 : acc),
                       0
                     ) /
                       dataStore.getTotalResults.length) *
@@ -514,18 +547,17 @@
               <v-img
                 class="ma-2"
                 transition="scale-transition"
-                :src="`${assetBucketUrl}/ui/${card.split(`_`)[1].replace(/[a-z]/g, ``)}.webp`"
+                :src="`${assetBucketUrl}/ui/R${card.rarity}.webp`"
                 width="5rem"
                 height="5rem"
               >
                 <v-img
                   v-if="
                     dataStore.getDisplayCardFlag &&
-                    (dataStore.getDisplayTrashFlag ||
-                      card.split(`_`)[1].replace(/[a-z]/g, ``) === `R3`)
+                    (dataStore.getDisplayTrashFlag || card.rarity > 2)
                   "
                   transition="scale-transition"
-                  :src="`${assetBucketUrl}/hbr/${card}`"
+                  :src="`${assetBucketUrl}/hbr/${card.image}`"
                   width="5rem"
                   height="5rem"
                 >
@@ -544,9 +576,7 @@
                           v-if="isHovering"
                           class="card-rarity"
                           transition="scale-transition"
-                          :src="`${assetBucketUrl}/ui/${card
-                            .split(`_`)[1]
-                            .replace(/[a-z]/g, ``)}.webp`"
+                          :src="`${assetBucketUrl}/ui/R${card.rarity}.webp`"
                           width="3rem"
                         >
                         </v-img>
@@ -569,18 +599,17 @@
               <v-img
                 class="gacha-icon"
                 transition="scale-transition"
-                :src="`${assetBucketUrl}/ui/${card.split(`_`)[1].replace(/[a-z]/g, ``)}.webp`"
+                :src="`${assetBucketUrl}/ui/R${card.rarity}.webp`"
                 width="3.5rem"
                 height="3.5rem"
               >
                 <v-img
                   v-if="
                     dataStore.getDisplayCardFlag &&
-                    (dataStore.getDisplayTrashFlag ||
-                      card.split(`_`)[1].replace(/[a-z]/g, ``) === `R3`)
+                    (dataStore.getDisplayTrashFlag || card.rarity > 2)
                   "
                   transition="scale-transition"
-                  :src="`${assetBucketUrl}/hbr/${card}`"
+                  :src="`${assetBucketUrl}/hbr/${card.image}`"
                   width="3.5rem"
                   height="3.5rem"
                 >
@@ -599,9 +628,7 @@
                           v-if="isHovering"
                           class="card-rarity"
                           transition="scale-transition"
-                          :src="`${assetBucketUrl}/ui/${card
-                            .split(`_`)[1]
-                            .replace(/[a-z]/g, ``)}.webp`"
+                          :src="`${assetBucketUrl}/ui/R${card.rarity}.webp`"
                           width="2rem"
                         >
                         </v-img>
@@ -708,7 +735,12 @@
 import PageTitle from "@/components/default/PageTitle.vue";
 import { useLotteryStore } from "@/store/app";
 import { useRoute, useRouter } from "vue-router";
-import { GachaRate, type GachaCard, type Lottery } from "@/types";
+import {
+  type GachaRate,
+  type GachaResult,
+  type GachaCard,
+  type Lottery,
+} from "@/types";
 import { computed, ref } from "vue";
 
 // Import Swiper Vue.js components
@@ -723,7 +755,7 @@ const router = useRouter();
 const swiperInstance = ref();
 const gachaBtnFocus = ref(0 as number);
 const rollCost = ref([300, 3000]);
-const assetBucketUrl = ref(`https://assets.hbr.quest/v1/`)
+const assetBucketUrl = ref(`https://assets.hbr.quest/v1`);
 
 const loadData = async () => {
   if (dataStore.getGachaList === undefined) {
@@ -883,7 +915,11 @@ const pickRatesAndRoll = (
           gssRates[num].cards[
             Math.floor(Math.random() * gssRates[num].cards.length)
           ];
-        dataStore.updateGachaResults(result.image);
+        dataStore.updateGachaResults({
+          image: result.image,
+          label: result.label,
+          rarity: result.rarity,
+        } as GachaResult);
       } catch (error) {
         console.log(`Error`);
       }
@@ -901,7 +937,11 @@ const pickRatesAndRoll = (
       try {
         let result: GachaCard =
           rates[num].cards[Math.floor(Math.random() * rates[num].cards.length)];
-        dataStore.updateGachaResults(result.image);
+        dataStore.updateGachaResults({
+          image: result.image,
+          label: result.label,
+          rarity: result.rarity,
+        } as GachaResult);
       } catch (error) {
         console.log(`Error`);
       }

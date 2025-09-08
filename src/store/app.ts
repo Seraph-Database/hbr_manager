@@ -1,7 +1,7 @@
 // Utilities
 import { defineStore } from "pinia";
 
-import { DataStore, Lottery, Style, StyleData, UserData } from "@/types";
+import { DataStore, Lottery, Style, StyleData, UserData, GachaResult } from "@/types";
 import { charaList } from "@/helpers/chara";
 import { CardRarity } from "@/enums";
 
@@ -278,8 +278,8 @@ export const useLotteryStore = defineStore("gachalist", {
     rollCount: 0 as number,
     lastRollNum: 0 as number,
     rollDelay: 0 as number,
-    gachaResults: [] as string[],
-    totalResults: [] as string[],
+    gachaResults: [] as GachaResult[],
+    totalResults: [] as GachaResult[],
     activeResults: false as boolean,
     cardDisplayFlag: false as boolean,
     trashDisplayFlag: false as boolean,
@@ -306,10 +306,10 @@ export const useLotteryStore = defineStore("gachalist", {
     getLoading(state): boolean {
       return state.loading;
     },
-    getGachaResults(state): string[] {
+    getGachaResults(state): GachaResult[] {
       return state.gachaResults;
     },
-    getTotalResults(state): string[] {
+    getTotalResults(state): GachaResult[] {
       return state.totalResults;
     },
     getDisplayCardFlag(state): boolean {
@@ -369,7 +369,7 @@ export const useLotteryStore = defineStore("gachalist", {
     cancelLoading() {
       this.loading = false;
     },
-    updateGachaResults(newStyle: string) {
+    updateGachaResults(newStyle: GachaResult) {
       // this.gachaResults.unshift(newStyle)
       this.gachaResults.push(newStyle);
       this.totalResults.push(newStyle);
