@@ -9,7 +9,7 @@
           }hbr/${lotteryStore.getLotteryData.banner.replace(
             `Banner`,
             `Bg`
-          )}?v=${lotteryStore.getLotteryData.version}&h=ABC`
+          )}`
         : undefined
     "
   >

@@ -613,6 +613,7 @@ const catchEsc = (e: KeyboardEvent) => {
   // ignore normal browsing behavior
   if (e.key === `Escape` && share.value) {
     e.preventDefault();
+    closeShare();
   }
 };
 onMounted(() => document.addEventListener("keydown", catchEsc));

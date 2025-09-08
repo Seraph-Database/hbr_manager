@@ -21,7 +21,7 @@
             >
               <v-col cols="auto">
                 <v-img
-                  :src="`https://assets.hbr.quest/v1/hbr/${dataStore.getLotteryData.ticket.image}`"
+                  :src="`${assetBucketUrl}/hbr/${dataStore.getLotteryData.ticket.image}`"
                   width="1.5rem"
                 />
               </v-col>
@@ -36,7 +36,7 @@
             <v-row v-else no-gutters align="center" justify="space-between">
               <v-col cols="auto">
                 <v-img
-                  :src="`https://assets.hbr.quest/v1/hbr/IconHcSmall.webp`"
+                  :src="`${assetBucketUrl}/hbr/IconHcSmall.webp`"
                   width="1.5rem"
                 />
               </v-col>
@@ -59,7 +59,7 @@
           >
             <v-row no-gutters align="center" justify="space-between">
               <v-col cols="auto">
-                <v-img :src="`/ui/R3.webp`" width="1.5rem" />
+                <v-img :src="`${assetBucketUrl}/ui/R3.webp`" width="1.5rem" />
               </v-col>
               <v-col cols="auto" class="px-1 text-HBR">
                 {{
@@ -92,7 +92,7 @@
           >
             <v-row no-gutters align="center" justify="space-between">
               <v-col cols="auto">
-                <v-img :src="`/ui/R3.webp`" width="1.5rem" />
+                <v-img :src="`${assetBucketUrl}/ui/R3.webp`" width="1.5rem" />
               </v-col>
               <v-col cols="auto" class="px-1 text-HBR">
                 {{
@@ -141,8 +141,8 @@
                 class="gacha-btn"
                 :src="
                   atMaxDraws
-                    ? `/ui/ButtonLottery_Disabled.webp`
-                    : `/ui/ButtonLottery_${buttonColor}Nomal.webp`
+                    ? `${assetBucketUrl}/ui/ButtonLottery_Disabled.webp`
+                    : `${assetBucketUrl}/ui/ButtonLottery_${buttonColor}Nomal.webp`
                 "
                 width="14rem"
               >
@@ -150,8 +150,8 @@
                   class="gacha-btn--focused"
                   :src="
                     gachaBtnFocus === 10
-                      ? `/ui/ButtonLottery_${buttonColor}Active.webp`
-                      : `/ui/ButtonLottery_${buttonColor}Focused.webp`
+                      ? `${assetBucketUrl}/ui/ButtonLottery_${buttonColor}Active.webp`
+                      : `${assetBucketUrl}/ui/ButtonLottery_${buttonColor}Focused.webp`
                   "
                   width="14rem"
                 />
@@ -181,7 +181,7 @@
                   <v-row no-gutters align="center" justify="space-between">
                     <v-col cols="auto">
                       <v-img
-                        :src="`https://assets.hbr.quest/v1/hbr/${`IconHcSmall.webp`}`"
+                        :src="`${assetBucketUrl}/hbr/${`IconHcSmall.webp`}`"
                         width="1.625rem"
                         height="1.625rem"
                         class="quartz-icon"
@@ -260,8 +260,8 @@
                 class="gacha-btn"
                 :src="
                   atMaxDraws
-                    ? `/ui/ButtonLottery_Disabled.webp`
-                    : `/ui/ButtonLottery_${buttonColor}Nomal.webp`
+                    ? `${assetBucketUrl}/ui/ButtonLottery_Disabled.webp`
+                    : `${assetBucketUrl}/ui/ButtonLottery_${buttonColor}Nomal.webp`
                 "
                 width="14rem"
               >
@@ -269,8 +269,8 @@
                   class="gacha-btn--focused"
                   :src="
                     gachaBtnFocus === 1
-                      ? `/ui/ButtonLottery_${buttonColor}Active.webp`
-                      : `/ui/ButtonLottery_${buttonColor}Focused.webp`
+                      ? `${assetBucketUrl}/ui/ButtonLottery_${buttonColor}Active.webp`
+                      : `${assetBucketUrl}/ui/ButtonLottery_${buttonColor}Focused.webp`
                   "
                   width="14rem"
                 />
@@ -300,7 +300,7 @@
                   <v-row no-gutters align="center" justify="space-between">
                     <v-col cols="auto">
                       <v-img
-                        :src="`https://assets.hbr.quest/v1/hbr/${
+                        :src="`${assetBucketUrl}/hbr/${
                           (dataStore.getLotteryData.ticket &&
                             dataStore.getLotteryData.ticket.image) ||
                           `IconHcSmall.webp`
@@ -353,8 +353,8 @@
                 class="gacha-btn"
                 :src="
                   atMaxDraws
-                    ? `/ui/ButtonLottery_Disabled.webp`
-                    : `/ui/ButtonLottery_${buttonColor}Nomal.webp`
+                    ? `${assetBucketUrl}/ui/ButtonLottery_Disabled.webp`
+                    : `${assetBucketUrl}/ui/ButtonLottery_${buttonColor}Nomal.webp`
                 "
                 width="14rem"
               >
@@ -362,8 +362,8 @@
                   class="gacha-btn--focused"
                   :src="
                     gachaBtnFocus === 10
-                      ? `/ui/ButtonLottery_${buttonColor}Active.webp`
-                      : `/ui/ButtonLottery_${buttonColor}Focused.webp`
+                      ? `${assetBucketUrl}/ui/ButtonLottery_${buttonColor}Active.webp`
+                      : `${assetBucketUrl}/ui/ButtonLottery_${buttonColor}Focused.webp`
                   "
                   width="14rem"
                 />
@@ -393,7 +393,7 @@
                   <v-row no-gutters align="center" justify="space-between">
                     <v-col cols="auto">
                       <v-img
-                        :src="`https://assets.hbr.quest/v1/hbr/${
+                        :src="`${assetBucketUrl}/hbr/${
                           (dataStore.getLotteryData.ticket &&
                             dataStore.getLotteryData.ticket.image) ||
                           `IconHcSmall.webp`
@@ -460,7 +460,7 @@
                 ? `lottery--selected`
                 : `lottery`
             "
-            :src="`https://assets.hbr.quest/v1/${
+            :src="`${assetBucketUrl}/${
               route.name?.toString().endsWith(`En`) ? `en/` : ``
             }hbr/${lottery.banner}?h=ABC`"
             width="10rem"
@@ -514,7 +514,7 @@
               <v-img
                 class="ma-2"
                 transition="scale-transition"
-                :src="`/ui/${card.split(`_`)[1].replace(/[a-z]/g, ``)}.webp`"
+                :src="`${assetBucketUrl}/ui/${card.split(`_`)[1].replace(/[a-z]/g, ``)}.webp`"
                 width="5rem"
                 height="5rem"
               >
@@ -525,7 +525,7 @@
                       card.split(`_`)[1].replace(/[a-z]/g, ``) === `R3`)
                   "
                   transition="scale-transition"
-                  :src="`https://assets.hbr.quest/v1/hbr/${card}`"
+                  :src="`${assetBucketUrl}/hbr/${card}`"
                   width="5rem"
                   height="5rem"
                 >
@@ -544,9 +544,9 @@
                           v-if="isHovering"
                           class="card-rarity"
                           transition="scale-transition"
-                          :src="`/ui/${card
+                          :src="`${assetBucketUrl}/ui/${card
                             .split(`_`)[1]
-                            .replace(`a`, ``)}.webp`"
+                            .replace(/[a-z]/g, ``)}.webp`"
                           width="3rem"
                         >
                         </v-img>
@@ -569,7 +569,7 @@
               <v-img
                 class="gacha-icon"
                 transition="scale-transition"
-                :src="`/ui/${card.split(`_`)[1].replace(`a`, ``)}.webp`"
+                :src="`${assetBucketUrl}/ui/${card.split(`_`)[1].replace(/[a-z]/g, ``)}.webp`"
                 width="3.5rem"
                 height="3.5rem"
               >
@@ -577,10 +577,10 @@
                   v-if="
                     dataStore.getDisplayCardFlag &&
                     (dataStore.getDisplayTrashFlag ||
-                      card.split(`_`)[1].replace(`a`, ``) === `R3`)
+                      card.split(`_`)[1].replace(/[a-z]/g, ``) === `R3`)
                   "
                   transition="scale-transition"
-                  :src="`https://assets.hbr.quest/v1/hbr/${card}`"
+                  :src="`${assetBucketUrl}/hbr/${card}`"
                   width="3.5rem"
                   height="3.5rem"
                 >
@@ -599,9 +599,9 @@
                           v-if="isHovering"
                           class="card-rarity"
                           transition="scale-transition"
-                          :src="`/ui/${card
+                          :src="`${assetBucketUrl}/ui/${card
                             .split(`_`)[1]
-                            .replace(`a`, ``)}.webp`"
+                            .replace(/[a-z]/g, ``)}.webp`"
                           width="2rem"
                         >
                         </v-img>
@@ -623,15 +623,15 @@
             <v-col cols="auto">
               <v-img
                 class="gacha-btn"
-                :src="`/ui/ButtonLottery01Normal.webp`"
+                :src="`${assetBucketUrl}/ui/ButtonLottery01Normal.webp`"
                 width="10rem"
               >
                 <v-img
                   class="gacha-btn--focused"
                   :src="
                     gachaBtnFocus === 1
-                      ? `/ui/ButtonLottery01Active.webp`
-                      : `/ui/ButtonLottery01Focused.webp`
+                      ? `${assetBucketUrl}/ui/ButtonLottery01Active.webp`
+                      : `${assetBucketUrl}/ui/ButtonLottery01Focused.webp`
                   "
                   width="14rem"
                 />
@@ -723,6 +723,7 @@ const router = useRouter();
 const swiperInstance = ref();
 const gachaBtnFocus = ref(0 as number);
 const rollCost = ref([300, 3000]);
+const assetBucketUrl = ref(`https://assets.hbr.quest/v1/`)
 
 const loadData = async () => {
   if (dataStore.getGachaList === undefined) {
